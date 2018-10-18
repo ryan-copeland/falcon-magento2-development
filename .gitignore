@@ -69,7 +69,6 @@ atlassian*
 .DS_Store
 
 #Deity specific
-/.github
 LICENSE.txt
 LICENSE_AFL.txt
 CHANGELOG.md
