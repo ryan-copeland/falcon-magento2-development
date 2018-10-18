@@ -67,3 +67,9 @@ atlassian*
 /generated/*
 !/generated/.htaccess
 .DS_Store
+
+#Deity specific
+/.github
+LICENSE.txt
+LICENSE_AFL.txt
+CHANGELOG.md
