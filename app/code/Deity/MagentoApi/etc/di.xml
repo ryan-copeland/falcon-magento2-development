@@ -17,6 +17,7 @@
     <preference for="Deity\MagentoApi\Api\Data\MenuInterface" type="Deity\MagentoApi\Model\Api\Data\Menu" />
     <preference for="Deity\MagentoApi\Api\Data\OrderInfoInterface" type="Deity\MagentoApi\Model\OrderInfo" />
     <preference for="Deity\MagentoApi\Api\Data\OrderResponseInterface" type="Deity\MagentoApi\Model\Api\Data\OrderResponse" />
+    <preference for="Deity\MagentoApi\Api\Data\UrlDataInterface" type="Deity\MagentoApi\Model\UrlData" />
     <preference for="Deity\MagentoApi\Api\Sales\GuestOrderManagementInterface" type="Deity\MagentoApi\Model\Sales\GuestOrderManagement" />
     <preference for="Deity\MagentoApi\Api\Sales\OrderManagementInterface" type="Deity\MagentoApi\Model\Sales\OrderManagement" />
     <preference for="Deity\MagentoApi\Api\HomeCategoriesInterface" type="Deity\MagentoApi\Model\CategoryRepository" />
@@ -31,6 +32,7 @@
     <preference for="Deity\MagentoApi\Api\Payment\PaypalInterface" type="Deity\MagentoApi\Model\Payment\Paypal" />
     <preference for="Deity\MagentoApi\Api\ProductRepositoryInterface" type="Deity\MagentoApi\Model\ProductRepository" />
     <preference for="Deity\MagentoApi\Api\QuoteMaskInterface" type="Deity\MagentoApi\Model\QuoteMask" />
+    <preference for="Deity\MagentoApi\Api\UrlInterface" type="Deity\MagentoApi\Model\Url" />
 
     <!-- OVERRIDES -->
     <preference for="Magento\Catalog\Helper\Image" type="Deity\MagentoApi\Helper\Catalog\Image" />
