@@ -6,12 +6,6 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
-    <route url="/V1/url" method="GET">
-        <service class="Deity\MagentoApi\Api\UrlInterface" method="getUrl"/>
-        <resources>
-            <resource ref="anonymous"/>
-        </resources>
-    </route>
     <route url="/V1/menu" method="GET">
         <service class="Deity\MagentoApi\Api\MenuRepositoryInterface" method="getTree"/>
         <resources>
