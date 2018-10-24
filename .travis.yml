@@ -13,7 +13,6 @@ addons:
       - magento2.travis
 language: php
 php:
-  - 7.0
   - 7.1
 git:
   depth: 5
@@ -26,12 +25,9 @@ env:
   matrix:
     - TEST_SUITE=unit
     - TEST_SUITE=static
-    - TEST_SUITE=js GRUNT_COMMAND=spec
-    - TEST_SUITE=js GRUNT_COMMAND=static
     - TEST_SUITE=integration INTEGRATION_INDEX=1
     - TEST_SUITE=integration INTEGRATION_INDEX=2
     - TEST_SUITE=integration INTEGRATION_INDEX=3
-    - TEST_SUITE=functional
 matrix:
   exclude:
     - php: 7.0
@@ -49,7 +45,9 @@ cache:
     - $HOME/.nvm
     - $HOME/node_modules
     - $HOME/yarn.lock
-before_install: ./dev/travis/before_install.sh
+before_install:
+  - ./dev/travis/before_install.sh
+  - composer config --global http-basic.repo.magento.com "$MAGENTO_USERNAME" "$MAGENTO_PASSWORD"
 install: composer install --no-interaction --prefer-dist
 before_script: ./dev/travis/before_script.sh
 script:
