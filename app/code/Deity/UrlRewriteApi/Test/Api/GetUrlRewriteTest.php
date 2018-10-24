@@ -18,7 +18,7 @@ class GetUrlRewriteTest extends WebapiAbstract
      */
     protected $fileSystem;
 
-    /**#@+
+    /**
      * Service constants
      */
     const RESOURCE_PATH = '/V1/url';
