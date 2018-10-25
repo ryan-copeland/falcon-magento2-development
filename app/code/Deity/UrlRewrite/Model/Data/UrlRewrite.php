@@ -9,7 +9,7 @@ use Magento\Framework\Api\AbstractExtensibleObject;
 /**
  * @package Deity\UrlRewrite
  */
-class UrlRewrite  extends AbstractExtensibleObject implements UrlRewriteInterface
+class UrlRewrite extends AbstractExtensibleObject implements UrlRewriteInterface
 {
     /**
      * @inheritdoc

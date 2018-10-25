@@ -15,5 +15,4 @@ interface GetUrlRewriteInterface
      * @return \Deity\UrlRewriteApi\Api\Data\UrlRewriteInterface
      */
     public function execute(string $url): UrlRewriteInterface;
-
 }

@@ -3,10 +3,14 @@
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 
-/** @var SearchCriteriaBuilder $searchCriteriaBuilder */
+/**
+ * @var SearchCriteriaBuilder $searchCriteriaBuilder
+*/
 $searchCriteriaBuilder = Bootstrap::getObjectManager()->get(SearchCriteriaBuilder::class);
 
-/** @var \Magento\Cms\Api\PageRepositoryInterface $pageRepository */
+/**
+ * @var \Magento\Cms\Api\PageRepositoryInterface $pageRepository
+*/
 $pageRepository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
     ->create(\Magento\Cms\Api\PageRepositoryInterface::class);
 
@@ -23,7 +27,9 @@ if (!empty($pages)) {
     }
 }
 
-/** @var \Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection $urlRewriteCollection */
+/**
+ * @var \Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection $urlRewriteCollection
+*/
 $urlRewriteCollection = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
     ->create(\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection::class);
 $collection = $urlRewriteCollection

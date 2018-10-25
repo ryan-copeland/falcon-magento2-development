@@ -35,9 +35,10 @@ class GetUrlRewrite implements GetUrlRewriteInterface
 
     /**
      * Url constructor.
-     * @param UrlFinderInterface $urlFinder
+     *
+     * @param UrlFinderInterface         $urlFinder
      * @param UrlRewriteInterfaceFactory $urlRewriteFactory
-     * @param StoreManagerInterface $storeManager
+     * @param StoreManagerInterface      $storeManager
      */
     public function __construct(
         UrlFinderInterface $urlFinder,
@@ -59,11 +60,15 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     {
         $urlModel = $this->getUrlModel($url);
 
-        /** @var UrlRewriteInterface $urlData */
+        /**
+         * @var UrlRewriteInterface $urlData
+         */
         $urlData = $this->urlRewriteFactory->create();
         $urlData->setEntityType($this->sanitizeType($urlModel->getEntityType()));
         $urlData->setEntityId($urlModel->getEntityId());
-        /** @TODO provide relevant canonical URL that can be already used on the page */
+        /**
+         * @TODO provide relevant canonical URL that can be already used on the page
+         */
         $urlData->setCanonicalUrl($urlModel->getTargetPath());
 
         return $urlData;
@@ -93,12 +98,11 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     /**
      * Sanitize the type to fit schema specifications
      *
-     * @param string $type
+     * @param  string $type
      * @return string
      */
     private function sanitizeType(string $type) : string
     {
         return strtoupper(str_replace('-', '_', $type));
     }
-
 }

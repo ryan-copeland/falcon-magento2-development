@@ -39,13 +39,14 @@ class GetUrlRewriteTest extends WebapiAbstract
         return $item;
     }
 
-
+    /**
+     * set up test env
+     */
     protected function setUp()
     {
         $this->objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
         $this->fileSystem = $this->objectManager->get(\Magento\Framework\Filesystem::class);
     }
-
 
     /**
      * @magentoApiDataFixture ../../../../app/code/Deity/UrlRewriteApi/Test/_files/url_rewrite.php
@@ -65,12 +66,9 @@ class GetUrlRewriteTest extends WebapiAbstract
     protected function tearDown()
     {
         $rollbackfixturePath = $this->fileSystem->getDirectoryRead(DirectoryList::ROOT)
-                ->getAbsolutePath('/app/code/Deity/UrlRewriteApi/Test/_files/url_rewrite_rollback.php');
-        echo $rollbackfixturePath;
-            if (file_exists($rollbackfixturePath)) {
-                echo "RUN!";
-                include $rollbackfixturePath;
-            }
+            ->getAbsolutePath('/app/code/Deity/UrlRewriteApi/Test/_files/url_rewrite_rollback.php');
+        if (file_exists($rollbackfixturePath)) {
+            include $rollbackfixturePath;
+        }
     }
-
 }

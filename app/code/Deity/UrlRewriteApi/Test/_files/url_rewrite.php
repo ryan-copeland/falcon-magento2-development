@@ -4,21 +4,31 @@ use \Magento\UrlRewrite\Model\OptionProvider;
 use \Magento\UrlRewrite\Model\UrlRewrite;
 use Magento\TestFramework\Helper\Bootstrap;
 
-/** @var UrlRewrite $rewrite */
-/** @var \Magento\Framework\ObjectManagerInterface $objectManager */
+/**
+ * @var UrlRewrite $rewrite
+*/
+/**
+ * @var \Magento\Framework\ObjectManagerInterface $objectManager
+*/
 $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-/** @var \Magento\UrlRewrite\Model\ResourceModel\UrlRewrite $rewriteResource */
+/**
+ * @var \Magento\UrlRewrite\Model\ResourceModel\UrlRewrite $rewriteResource
+*/
 $rewriteResource = $objectManager->create(
     \Magento\UrlRewrite\Model\ResourceModel\UrlRewrite::class
 );
-/** @var \Magento\Cms\Model\ResourceModel\Page $pageResource */
+/**
+ * @var \Magento\Cms\Model\ResourceModel\Page $pageResource
+*/
 $pageResource = $objectManager->create(
     \Magento\Cms\Model\ResourceModel\Page::class
 );
 
 
 
-/** @var $page \Magento\Cms\Model\Page */
+/**
+ * @var $page \Magento\Cms\Model\Page
+*/
 $page = Bootstrap::getObjectManager()->create(\Magento\Cms\Model\Page::class);
 $page->setTitle('Cms Page A')
     ->setIdentifier('page-a')
