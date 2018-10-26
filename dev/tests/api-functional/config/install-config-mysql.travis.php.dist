@@ -14,7 +14,7 @@ return [
     'db-user'                      => 'root',
     'db-password'                  => '',
     'backend-frontname'            => 'backend',
-    'base-url'                     => 'http://localhost/',
+    'base-url'                     => 'http://magento2.travis/',
     'use-secure'                   => '0',
     'use-rewrites'                 => '0',
     'admin-lastname'               => 'Admin',
