@@ -72,10 +72,6 @@ atlassian*
 .DS_Store
 
 #Deity specific
-!/dev/tests/unit
-/dev/tests/unit
-!/dev/tests/unit/phpunit.xml
-!/dev/tests/static/phpunit.xml
 LICENSE.txt
 LICENSE_AFL.txt
 CHANGELOG.md
