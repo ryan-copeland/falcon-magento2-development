@@ -17,7 +17,7 @@ case $TEST_SUITE in
             CREATE DATABASE magento_integration_tests;
         '
         mv etc/install-config-mysql.travis.php.dist etc/install-config-mysql.php
-
+        echo "==> testsuite preparation complete"
         cd ../../..
         ;;
     api-functional)
