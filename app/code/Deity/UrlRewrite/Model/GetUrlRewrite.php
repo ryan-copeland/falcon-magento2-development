@@ -65,7 +65,7 @@ class GetUrlRewrite implements GetUrlRewriteInterface
          */
         $urlData = $this->urlRewriteFactory->create();
         $urlData->setEntityType($this->sanitizeType($urlModel->getEntityType()));
-        $urlData->setEntityId($urlModel->getEntityId());
+        $urlData->setEntityId((int)$urlModel->getEntityId());
         /**
          * @TODO provide relevant canonical URL that can be already used on the page
          */

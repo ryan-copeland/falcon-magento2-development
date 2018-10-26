@@ -23,7 +23,7 @@ interface UrlRewriteInterface
      * @param string $entityType
      * @return void
      */
-    public function setEntityType($entityType): void;
+    public function setEntityType(string $entityType): void;
 
     /**
      * @return int
@@ -34,7 +34,7 @@ interface UrlRewriteInterface
      * @param int $id
      * @return void
      */
-    public function setEntityId($id): void;
+    public function setEntityId(int $id): void;
 
     /**
      * @return string

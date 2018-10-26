@@ -11,12 +11,12 @@ class GetUrlRewriteTest extends WebapiAbstract
     /**
      * @var \Magento\Framework\ObjectManagerInterface
      */
-    protected $objectManager;
+    private $objectManager;
 
     /**
      * @var \Magento\Framework\Filesystem
      */
-    protected $fileSystem;
+    private $fileSystem;
 
     /**
      * Service constants
@@ -25,9 +25,9 @@ class GetUrlRewriteTest extends WebapiAbstract
 
     /**
      * @param $existingUrl
-     * @return array|bool|float|int|string
+     * @return array
      */
-    public function getUrlRewriteInfo($existingUrl)
+    public function getUrlRewriteInfo(string $existingUrl): array
     {
         $serviceInfo = [
             'rest' => [
@@ -65,10 +65,12 @@ class GetUrlRewriteTest extends WebapiAbstract
 
     protected function tearDown()
     {
+        /*
         $rollbackfixturePath = $this->fileSystem->getDirectoryRead(DirectoryList::ROOT)
             ->getAbsolutePath('/app/code/Deity/UrlRewriteApi/Test/_files/url_rewrite_rollback.php');
         if (file_exists($rollbackfixturePath)) {
             include $rollbackfixturePath;
         }
+        */
     }
 }

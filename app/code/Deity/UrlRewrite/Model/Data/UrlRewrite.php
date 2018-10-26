@@ -22,7 +22,7 @@ class UrlRewrite extends AbstractExtensibleObject implements UrlRewriteInterface
     /**
      * @inheritdoc
      */
-    public function setEntityType($entityType): void
+    public function setEntityType(string $entityType): void
     {
         $this->setData(self::ENTITY_TYPE, $entityType);
     }
@@ -38,7 +38,7 @@ class UrlRewrite extends AbstractExtensibleObject implements UrlRewriteInterface
     /**
      * @inheritdoc
      */
-    public function setEntityId($id): void
+    public function setEntityId(int $id): void
     {
         $this->setData(self::ENTITY_ID, $id);
     }
