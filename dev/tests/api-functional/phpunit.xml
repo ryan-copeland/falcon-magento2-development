@@ -15,7 +15,7 @@
 >
     <!-- Test suites definition -->
     <testsuites>
-        <testsuite name="Deity_Falcon">
+        <testsuite name="Falcon Api tests">
             <directory suffix="Test.php">../../../app/code/Deity/*/Test/Api</directory>
         </testsuite>
     </testsuites>
@@ -36,7 +36,7 @@
         <!-- WebSerivice Type. Possible values: soap, rest -->
         <const name="TESTS_WEB_API_ADAPTER" value="rest"/>
         <!-- Webserver URL -->
-        <const name="TESTS_BASE_URL" value="http://127.0.0.1:80/"/>
+        <const name="TESTS_BASE_URL" value="http://127.0.0.1:80"/>
         <!-- Webserver API user -->
         <const name="TESTS_WEBSERVICE_USER" value="admin"/>
         <!-- Webserver API key -->
@@ -58,7 +58,7 @@
         <!--Defines if Magento should be installed before tests execution-->
         <const name="TESTS_MAGENTO_INSTALLATION" value="disabled"/>
         <!-- Magento mode for tests execution. Possible values are "default", "developer" and "production". -->
-        <const name="TESTS_MAGENTO_MODE" value="developer"/>
+        <const name="TESTS_MAGENTO_MODE" value="default"/>
     </php>
 
     <!-- Test listeners -->

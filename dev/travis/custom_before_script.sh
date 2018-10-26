@@ -28,9 +28,9 @@ case $TEST_SUITE in
             SET @@global.sql_mode = NO_ENGINE_SUBSTITUTION;
             CREATE DATABASE magento_functional_tests;
         '
+        sed -e "s?127.0.0.1:80?${MAGENTO_HOST_NAME}?g" --in-place ./phpunit.xml
         mv config/install-config-mysql.travis.php.dist config/install-config-mysql.php
         echo "==> testsuite preparation complete"
-        echo "$(cat config/install-config-mysql.php)"
         cd ../../..
         ;;
     static)
