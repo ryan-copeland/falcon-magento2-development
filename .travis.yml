@@ -26,6 +26,7 @@ env:
     - TEST_SUITE=unit
     - TEST_SUITE=static
     - TEST_SUITE=integration
+    - TEST_SUITE=api-functional
 matrix:
   exclude:
     - php: 7.0
