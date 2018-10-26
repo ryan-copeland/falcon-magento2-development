@@ -59,5 +59,3 @@ script:
   - if [ $TEST_SUITE == "static" ]; then /bin/bash ./dev/travis/prepare_static_test.sh && phpunit -c dev/tests/$TEST_SUITE; fi
   - if [ $TEST_SUITE != "functional" ] && [ $TEST_SUITE != "js" ] && [ $TEST_SUITE != "static" ]; then phpunit -c dev/tests/$TEST_SUITE $TEST_FILTER; fi
   - if [ $TEST_SUITE == "js" ]; then grunt $GRUNT_COMMAND; fi
-  - curl -i http://127.0.0.1:80
-  - curl -i http://magento2.travis
