@@ -42,7 +42,7 @@
         <!-- Local XML configuration file ('.dist' extension will be added, if the specified file doesn't exist) -->
         <const name="TESTS_GLOBAL_CONFIG_FILE" value="etc/config-global.php"/>
         <!-- Semicolon-separated 'glob' patterns, that match global XML configuration files -->
-        <const name="TESTS_GLOBAL_CONFIG_DIR" value="../../../app/etc_webapi"/>
+        <const name="TESTS_GLOBAL_CONFIG_DIR" value="../../../app/etc"/>
         <!-- Whether to cleanup the application before running tests or not -->
         <const name="TESTS_CLEANUP" value="enabled"/>
         <!-- Memory usage and estimated leaks thresholds -->

@@ -52,7 +52,7 @@
         <ini name="soap.wsdl_cache_enabled" value="0" />
 
         <!-- Semicolon-separated 'glob' patterns, that match global XML configuration files -->
-        <const name="TESTS_GLOBAL_CONFIG_DIR" value="../../../app/etc_webapi"/>
+        <const name="TESTS_GLOBAL_CONFIG_DIR" value="../../../app/etc"/>
         <!-- Whether to cleanup the application before running tests or not -->
         <const name="TESTS_CLEANUP" value="enabled"/>
         <!--Defines if Magento should be installed before tests execution-->
