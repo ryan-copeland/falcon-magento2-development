@@ -3,20 +3,10 @@ declare(strict_types=1);
 
 namespace Deity\UrlRewriteApi\Test\Api;
 
-use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
 class GetUrlRewriteTest extends WebapiAbstract
 {
-    /**
-     * @var \Magento\Framework\ObjectManagerInterface
-     */
-    private $objectManager;
-
-    /**
-     * @var \Magento\Framework\Filesystem
-     */
-    private $fileSystem;
 
     /**
      * Service constants
@@ -40,15 +30,6 @@ class GetUrlRewriteTest extends WebapiAbstract
     }
 
     /**
-     * set up test env
-     */
-    protected function setUp()
-    {
-        $this->objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
-        $this->fileSystem = $this->objectManager->get(\Magento\Framework\Filesystem::class);
-    }
-
-    /**
      * @magentoApiDataFixture ../../../../app/code/Deity/UrlRewriteApi/Test/_files/url_rewrite.php
      */
     public function testExecute()
@@ -61,16 +42,5 @@ class GetUrlRewriteTest extends WebapiAbstract
         
         $item = $this->getUrlRewriteInfo('category-one');
         $this->assertEquals('CATEGORY', $item['entity_type'], "Item was retrieved successfully");
-    }
-
-    protected function tearDown()
-    {
-        /*
-        $rollbackfixturePath = $this->fileSystem->getDirectoryRead(DirectoryList::ROOT)
-            ->getAbsolutePath('/app/code/Deity/UrlRewriteApi/Test/_files/url_rewrite_rollback.php');
-        if (file_exists($rollbackfixturePath)) {
-            include $rollbackfixturePath;
-        }
-        */
     }
 }
