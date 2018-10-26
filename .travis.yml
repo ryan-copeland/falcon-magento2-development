@@ -57,6 +57,6 @@ script:
 
   # The scripts for grunt/phpunit type tests
   - if [ $TEST_SUITE == "functional" ]; then dev/tests/functional/vendor/phpunit/phpunit/phpunit -c dev/tests/$TEST_SUITE $TEST_FILTER; fi
-  - if [ $TEST_SUITE == "static" ]; cp dev/tests/static/phpunit.xml.custom dev/tests/static/phpunit.xml && then phpunit -c dev/tests/$TEST_SUITE; fi
+  - if [ $TEST_SUITE == "static" ]; then cp dev/tests/static/phpunit.xml.custom dev/tests/static/phpunit.xml && then phpunit -c dev/tests/$TEST_SUITE; fi
   - if [ $TEST_SUITE != "functional" ] && [ $TEST_SUITE != "js" ]; then phpunit -c dev/tests/$TEST_SUITE $TEST_FILTER; fi
   - if [ $TEST_SUITE == "js" ]; then grunt $GRUNT_COMMAND; fi
