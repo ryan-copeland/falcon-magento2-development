@@ -1,13 +1,17 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Plugin\Store\Api;
-
+namespace Deity\Store\Plugin\Model;
 
 use Magento\Store\Api\Data\StoreExtensionInterface;
 use Magento\Store\Api\Data\StoreExtensionFactory;
 use Magento\Store\Api\Data\StoreInterface;
 use Magento\Store\Api\StoreRepositoryInterface;
 
+/**
+ * Class StoreRepository
+ * @package Deity\Store\Plugin\Model
+ */
 class StoreRepository
 {
     /**
@@ -15,6 +19,10 @@ class StoreRepository
      */
     private $storeExtensionFactory;
 
+    /**
+     * StoreRepository constructor.
+     * @param StoreExtensionFactory $storeExtensionFactory
+     */
     public function __construct(StoreExtensionFactory $storeExtensionFactory)
     {
         $this->storeExtensionFactory = $storeExtensionFactory;
