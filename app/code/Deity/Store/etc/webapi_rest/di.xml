@@ -3,7 +3,7 @@
     <type name="Magento\Store\Api\StoreRepositoryInterface">
         <plugin name="deity_magento_store_extension_attributes" type="Deity\Store\Plugin\Model\StoreRepository" sortOrder="10" />
     </type>
-    <!--    <type name="Magento\Store\Api\StoreConfigManagerInterface">
-        <plugin name="deityMagentoApiStoreConfigManager" type="Deity\MagentoApi\Plugin\Store\Api\StoreConfigManager" />
-    </type>-->
+    <type name="Magento\Store\Api\StoreConfigManagerInterface">
+        <plugin name="deity_magento_store_config_extending" type="Deity\Store\Plugin\Service\StoreConfigManager" />
+    </type>
 </config>
