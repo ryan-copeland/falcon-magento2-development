@@ -32,10 +32,12 @@ class StoreRepository
      * @param StoreRepositoryInterface $subject
      * @param StoreInterface[] $result
      * @return mixed
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function afterGetList(StoreRepositoryInterface $subject, $result)
     {
-        foreach($result as $store) { /** @var StoreInterface $store */
+
+        foreach ($result as $store) { /** @var StoreInterface $store */
             /** @var StoreExtensionInterface $extensionAttributes */
             $extensionAttributes = $store->getExtensionAttributes();
             if (!$extensionAttributes) {
