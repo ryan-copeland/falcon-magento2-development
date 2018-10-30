@@ -52,5 +52,4 @@ class StoreRepositoryTest extends WebapiAbstract
         $accessData = $this->_webApiCall($serviceInfo, $requestData);
         return $accessData['token'];
     }
-
 }
