@@ -55,6 +55,10 @@ class StoreConfigManagerTest extends WebapiAbstract
             'min_password_length',
             'min_password_char_class',
         ];
-        $this->assertEquals($expectedExtensionKeys, array_keys($storeViews[0]['extension_attributes']));
+        $this->assertEquals(
+            $expectedExtensionKeys,
+            array_intersect(array_keys($storeViews[0]['extension_attributes']), $expectedExtensionKeys),
+            'Store view should contain new extension attributes'
+        );
     }
 }
