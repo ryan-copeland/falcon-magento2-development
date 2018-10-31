@@ -31,7 +31,7 @@ class StoreRepository
     /**
      * @param StoreRepositoryInterface $subject
      * @param StoreInterface[] $result
-     * @return mixed
+     * @return StoreInterface[]
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function afterGetList(StoreRepositoryInterface $subject, $result)
