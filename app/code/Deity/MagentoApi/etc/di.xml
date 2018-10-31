@@ -39,15 +39,6 @@
     <preference for="Magento\Paypal\Model\Express\Checkout" type="Deity\MagentoApi\Model\Payment\Paypal\Express\Checkout" />
     <preference for="Magento\Paypal\Model\Pro" type="Deity\MagentoApi\Model\Payment\Paypal\Pro" />
 
-    <!-- CUSTOM MAGENTO COMMANDS -->
-    <type name="Magento\Framework\Console\CommandListInterface">
-        <arguments>
-            <argument name="commands" xsi:type="array">
-                <item name="rapidflowAttributeOptions" xsi:type="object">Deity\MagentoApi\Console\Command\Rapidflow\Attribute\OptionsCommand</item>
-            </argument>
-        </arguments>
-    </type>
-
     <!-- ARGUMENTS FOR CONSTRUCTORS -->
     <type name="Magento\Catalog\Model\ProductRepository">
         <arguments>
