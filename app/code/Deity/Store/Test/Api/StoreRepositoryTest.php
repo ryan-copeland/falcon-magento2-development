@@ -27,8 +27,8 @@ class StoreRepositoryTest extends WebapiAbstract
         ];
 
         $storeViews = $this->_webApiCall($serviceInfo, []);
-        $this->assertTrue(isset($storeViews[0]['extension_attributes']));
-        $this->assertTrue(isset($storeViews[0]['extension_attributes']['is_active']));
+        $this->assertTrue(isset($storeViews[0]['extension_attributes']), 'Store view should have extension attributes');
+        $this->assertTrue(isset($storeViews[0]['extension_attributes']['is_active']), 'Store view should be active');
     }
 
     /**
