@@ -49,7 +49,7 @@ class StoreConfigManagerTest extends WebapiAbstract
         ];
 
         $storeViews = $this->_webApiCall($serviceInfo, []);
-        $this->assertTrue(isset($storeViews[0]['extension_attributes']));
+        $this->assertTrue(isset($storeViews[0]['extension_attributes']), 'Store view should have extension attributes');
         $expectedExtensionKeys = [
             'optional_post_codes',
             'min_password_length',
