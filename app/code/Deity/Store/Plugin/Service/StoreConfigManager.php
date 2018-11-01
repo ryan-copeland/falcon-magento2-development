@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Plugin\Store\Api;
+namespace Deity\Store\Plugin\Service;
 
 use Magento\Customer\Model\AccountManagement;
 use Magento\Directory\Helper\Data;
@@ -9,7 +10,6 @@ use Magento\Store\Api\Data\StoreConfigInterface;
 use Magento\Store\Api\StoreConfigManagerInterface;
 use Magento\Store\Api\Data\StoreConfigExtensionInterface;
 use Magento\Store\Api\Data\StoreConfigExtensionFactory;
-
 
 class StoreConfigManager
 {
@@ -49,9 +49,10 @@ class StoreConfigManager
             $optionalZipCodeCountries = explode(',', $optionalZipCodeCountries);
         }
         $minPasswordLength = $this->scopeConfig->getValue(AccountManagement::XML_PATH_MINIMUM_PASSWORD_LENGTH);
-        $minPasswordCharClass = $this->scopeConfig->getValue(AccountManagement::XML_PATH_REQUIRED_CHARACTER_CLASSES_NUMBER);
+        $minPasswordCharClass = $this->scopeConfig
+            ->getValue(AccountManagement::XML_PATH_REQUIRED_CHARACTER_CLASSES_NUMBER);
 
-        foreach($result as $item) { /** @var StoreConfigInterface $item */
+        foreach ($result as $item) { /** @var StoreConfigInterface $item */
             /** @var StoreConfigExtensionInterface $extensionAttributes */
             $extensionAttributes = $item->getExtensionAttributes();
             if (!$extensionAttributes) {
