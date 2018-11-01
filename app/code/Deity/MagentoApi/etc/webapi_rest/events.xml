@@ -6,16 +6,4 @@
     <event name="catalog_product_is_salable_after">
         <observer name="deity_magento_catalog_product_saleable_check" instance="Deity\MagentoApi\Observer\Catalog\Product\CheckWebsiteAvailability"/>
     </event>
-    <event name="cms_page_load_after">
-        <observer name="deity_magento_cms_page_load_after_observer" instance="Deity\MagentoApi\Observer\Cms\AfterLoadObserver"/>
-    </event>
-    <event name="cms_block_load_after">
-        <observer name="deity_magento_cms_block_load_after_observer" instance="Deity\MagentoApi\Observer\Cms\AfterLoadObserver"/>
-    </event>
-    <event name="cms_page_collection_load_after">
-        <observer name="deity_magento_cms_page_collection_load_after_observer" instance="Deity\MagentoApi\Observer\Cms\AfterCollectionLoadObserver" />
-    </event>
-    <event name="cms_block_collection_load_after">
-        <observer name="deity_magento_cms_block_collection_load_after_observer" instance="Deity\MagentoApi\Observer\Cms\AfterCollectionLoadObserver" />
-    </event>
 </config>
