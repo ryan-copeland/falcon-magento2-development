@@ -8,7 +8,6 @@
     <preference for="Deity\MagentoApi\Api\Customer\AddressRepositoryInterface" type="Deity\MagentoApi\Model\Customer\AddressRepository" />
     <preference for="Deity\MagentoApi\Api\ContactFormInterface" type="Deity\MagentoApi\Model\ContactForm" />
     <preference for="Deity\MagentoApi\Api\Data\BreadcrumbInterface" type="Deity\MagentoApi\Model\Api\Data\Breadcrumb" />
-    <preference for="Deity\MagentoApi\Api\Data\CategorySearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
     <preference for="Deity\MagentoApi\Api\Data\CategoryTreeInterface" type="Deity\MagentoApi\Model\Category" />
     <preference for="Deity\MagentoApi\Api\Data\FilterInterface" type="Deity\MagentoApi\Model\Api\Data\Filter" />
     <preference for="Deity\MagentoApi\Api\Data\FilterOptionInterface" type="Deity\MagentoApi\Model\Api\Data\FilterOption" />
@@ -19,7 +18,6 @@
     <preference for="Deity\MagentoApi\Api\Data\OrderResponseInterface" type="Deity\MagentoApi\Model\Api\Data\OrderResponse" />
     <preference for="Deity\MagentoApi\Api\Sales\GuestOrderManagementInterface" type="Deity\MagentoApi\Model\Sales\GuestOrderManagement" />
     <preference for="Deity\MagentoApi\Api\Sales\OrderManagementInterface" type="Deity\MagentoApi\Model\Sales\OrderManagement" />
-    <preference for="Deity\MagentoApi\Api\HomeCategoriesInterface" type="Deity\MagentoApi\Model\CategoryRepository" />
     <preference for="Deity\MagentoApi\Api\InfoInterface" type="Deity\MagentoApi\Model\Info" />
     <preference for="Deity\MagentoApi\Api\Integration\AdminTokenServiceInterface" type="Deity\MagentoApi\Model\Integration\AdminTokenService" />
     <preference for="Deity\MagentoApi\Api\Integration\CustomerTokenServiceInterface" type="Deity\MagentoApi\Model\Integration\CustomerTokenService" />
