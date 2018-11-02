@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\UrlRewrite\Model;
 
+use Deity\UrlRewriteApi\Api\ConvertEntityIdToUniqueKeyInterface;
 use Deity\UrlRewriteApi\Api\Data\UrlRewriteInterface;
 use Deity\UrlRewriteApi\Api\Data\UrlRewriteInterfaceFactory;
 use Deity\UrlRewriteApi\Api\GetUrlRewriteInterface;
@@ -34,20 +35,41 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     private $storeManager;
 
     /**
+     * @var ConvertEntityIdToUniqueKeyInterface[]
+     */
+    private $commandsPerEntityType;
+
+    /**
      * Url constructor.
      *
-     * @param UrlFinderInterface         $urlFinder
+     * @param UrlFinderInterface $urlFinder
      * @param UrlRewriteInterfaceFactory $urlRewriteFactory
-     * @param StoreManagerInterface      $storeManager
+     * @param StoreManagerInterface $storeManager
+     * @param array $commandsPerEntityType
+     * @throws LocalizedException
      */
     public function __construct(
         UrlFinderInterface $urlFinder,
         UrlRewriteInterfaceFactory $urlRewriteFactory,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        $commandsPerEntityType = []
     ) {
         $this->urlFinder = $urlFinder;
         $this->urlRewriteFactory = $urlRewriteFactory;
         $this->storeManager = $storeManager;
+
+        foreach ($commandsPerEntityType as $command) {
+            if (!$command instanceof ConvertEntityIdToUniqueKeyInterface) {
+                throw new LocalizedException(
+                    __(
+                        'Convert Entity class must implement %interface.',
+                        ['interface' => ConvertEntityIdToUniqueKeyInterface::class]
+                    )
+                );
+            }
+        }
+
+        $this->commandsPerEntityType = $commandsPerEntityType;
     }
 
     /**
@@ -65,11 +87,15 @@ class GetUrlRewrite implements GetUrlRewriteInterface
          */
         $urlData = $this->urlRewriteFactory->create();
         $urlData->setEntityType($this->sanitizeType($urlModel->getEntityType()));
-        $urlData->setEntityId((int)$urlModel->getEntityId());
+        $urlData->setEntityId((string)$urlModel->getEntityId());
         /**
          * @TODO provide relevant canonical URL that can be already used on the page
          */
         $urlData->setCanonicalUrl($urlModel->getTargetPath());
+
+        if (isset($this->commandsPerEntityType[$urlModel->getEntityType()])) {
+            $this->commandsPerEntityType[$urlModel->getEntityType()]->execute($urlData);
+        }
 
         return $urlData;
     }
