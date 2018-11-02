@@ -53,10 +53,6 @@
         <plugin name="deityMagentoApiRouterPlugin" type="Deity\MagentoApi\Plugin\App\Router"/>
     </type>
 
-    <type name="Magento\Framework\Webapi\Rest\Response">
-        <plugin name="deityMagentoApiRestResponse" type="Deity\MagentoApi\Plugin\Rest\Response" />
-    </type>
-
     <type name="Magento\Quote\Api\CartItemRepositoryInterface">
         <plugin name="deityMagentoApiCartItemRepositoryPlugin" type="Deity\MagentoApi\Plugin\Quote\Model\Cart\ItemRepository" />
     </type>
