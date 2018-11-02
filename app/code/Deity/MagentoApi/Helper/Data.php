@@ -13,7 +13,6 @@ use Magento\Store\Model\StoreManagerInterface;
 class Data extends AbstractHelper
 {
     const RESPONSE_TAGS_REGISTRY = 'response_tags';
-    const GENERATE_CATEGORY_PRODUCT_URL_PATH = 'deity/catalog/disable_product_category_rewrites';
     const FRONTEND_DOMAIN_PATH = 'deity/frontend/domain';
 
     /**
@@ -67,11 +66,6 @@ class Data extends AbstractHelper
         return $this->getConfigValue('app_home_url');
     }
 
-    public function shouldGenerateProductUrls($storeId = null)
-    {
-        return !$this->getConfigValue(self::GENERATE_CATEGORY_PRODUCT_URL_PATH, ScopeInterface::SCOPE_STORE, $storeId);
-    }
-
     /**
      * Replace base url with frontend url
      *
@@ -89,32 +83,6 @@ class Data extends AbstractHelper
         }
 
         return $url;
-    }
-
-    /**
-     * Retrieve node server url from magento config or default base url
-     *
-     * @return string
-     */
-    public function getNodeServerUrl()
-    {
-        $url = $this->scopeConfig->getValue("deity/general/node_server", ScopeInterface::SCOPE_STORE);
-
-        if (empty($url)) {
-            $url = $this->storeManager->getStore(0)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK);
-        }
-
-        return $url; 
-    }
-
-    /**
-     * Check configuration if node cache clear is enabled
-     *
-     * @return bool
-     */
-    public function isClearCacheEnabled()
-    {
-        return $this->scopeConfig->isSetFlag("deity /general/clear_cache", ScopeInterface::SCOPE_STORE);
     }
 
     /**

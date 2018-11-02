@@ -232,12 +232,7 @@ class Filter
     {
         $selectSubCategories = array_key_exists('selectSubCategories', $this->queries) ? $this->queries['selectSubCategories'] : null;
 
-        $storeId = $this->storeManager->getStore()->getId();
-        $showCategoryFilter = $this->scopeConfig->getValue(
-            \Deity\MagentoApi\Helper\Category::SHOW_CATEGORY_FILTER_PATH,
-            ScopeInterface::SCOPE_STORE, $storeId
-        );
-        if (!$selectSubCategories || !$showCategoryFilter) {
+        if (!$selectSubCategories) {
             return null;
         }
 

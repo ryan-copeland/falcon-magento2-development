@@ -2,7 +2,6 @@
 
 namespace Deity\MagentoApi\Plugin\Catalog\Model;
 
-use Deity\MagentoApi\Helper\Breadcrumb;
 use Deity\MagentoApi\Helper\Product as DeityProductHelper;
 use Magento\Catalog\Model\Product as MagentoProduct;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -19,28 +18,20 @@ class Product
     private $productHelper;
 
     /**
-     * @var Breadcrumb
-     */
-    private $breadcrumbHelper;
-
-    /**
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
 
     /**
      * @param DeityProductHelper $productHelper
-     * @param Breadcrumb $breadcrumbHelper
      * @param ScopeConfigInterface $scopeConfig
      */
     public function __construct(
         DeityProductHelper $productHelper,
-        Breadcrumb $breadcrumbHelper,
         ScopeConfigInterface $scopeConfig
     ) {
         $this->productHelper = $productHelper;
         $this->scopeConfig = $scopeConfig;
-        $this->breadcrumbHelper = $breadcrumbHelper;
     }
 
     /**
@@ -57,7 +48,6 @@ class Product
         $this->productHelper->addProductImageAttribute($product);
         $this->productHelper->addProductImageAttribute($product, 'product_list_image', 'thumbnail_url');
         $this->productHelper->addMediaGallerySizes($product);
-        $this->breadcrumbHelper->addProductBreadcrumbsData($product, $this->productHelper->getFilterableAttributes());
 
         if($product->getTypeId() !== 'configurable') {
             /** configurable product price is set to 0
