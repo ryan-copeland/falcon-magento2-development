@@ -54,18 +54,6 @@
     </virtualType>
 
     <!-- PLUGINS -->
-    <type name="Magento\CatalogUrlRewrite\Model\Product\AnchorUrlRewriteGenerator">
-        <plugin name="deityMagentoApiAnchorUrlRewriteGeneratorPlugin" type="Deity\MagentoApi\Plugin\CatalogUrlRewrite\Model\Product\AnchorUrlRewriteGenerator" />
-    </type>
-    <type name="Magento\CatalogUrlRewrite\Model\Product\CategoriesUrlRewriteGenerator">
-        <plugin name="deityMagentoApiCategoriesUrlRewriteGeneratorPlugin" type="Deity\MagentoApi\Plugin\CatalogUrlRewrite\Model\Product\CategoriesUrlRewriteGenerator" />
-    </type>
-    <type name="Magento\CatalogUrlRewrite\Model\Product\CurrentUrlRewritesRegenerator">
-        <plugin name="deityMagentoApiCurrentUrlRewritesRegeneratorPlugin" type="Deity\MagentoApi\Plugin\CatalogUrlRewrite\Model\Product\CurrentUrlRewritesRegenerator" />
-    </type>
-    <type name="Magento\CatalogUrlRewrite\Observer\UrlRewriteHandler">
-        <plugin name="deityMagentoApiUrlRewriteHandlerPlugin" type="Deity\MagentoApi\Plugin\CatalogUrlRewrite\Observer\UrlRewriteHandler" />
-    </type>
     <type name="Magento\Sales\Api\OrderManagementInterface">
         <plugin name="deityMagentoApiOrderManagementPlugin" type="Deity\MagentoApi\Plugin\Sales\Api\OrderManagement" />
     </type>

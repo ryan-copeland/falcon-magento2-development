@@ -62,16 +62,8 @@ class AfterLoadObserver implements ObserverInterface
             return;
         }
 
-        $addEmptyProductLinks = $this->scopeConfig->getValue(
-            'deity/catalog/disable_product_links',
-            ScopeInterface::SCOPE_STORE,
-            $collection->getStoreId()
-        );
         foreach ($collection as $item) {
             /** @var Product $item */
-            if ($addEmptyProductLinks ) {
-                $item->setProductLinks([]);   //improve speed when building output array
-            }
             $this->productHelper->ensurePriceForConfigurableProduct($item);
             $this->productHelper->calculateCatalogDisplayPrice($item);
             $this->productHelper->addProductImageAttribute($item, 'product_list_image', 'thumbnail_url');

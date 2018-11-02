@@ -13,7 +13,6 @@ use Magento\Store\Model\StoreManagerInterface;
 class Data extends AbstractHelper
 {
     const RESPONSE_TAGS_REGISTRY = 'response_tags';
-    const GENERATE_CATEGORY_PRODUCT_URL_PATH = 'deity/catalog/disable_product_category_rewrites';
     const FRONTEND_DOMAIN_PATH = 'deity/frontend/domain';
 
     /**
@@ -65,11 +64,6 @@ class Data extends AbstractHelper
     public function getAppHomeUrl()
     {
         return $this->getConfigValue('app_home_url');
-    }
-
-    public function shouldGenerateProductUrls($storeId = null)
-    {
-        return !$this->getConfigValue(self::GENERATE_CATEGORY_PRODUCT_URL_PATH, ScopeInterface::SCOPE_STORE, $storeId);
     }
 
     /**
