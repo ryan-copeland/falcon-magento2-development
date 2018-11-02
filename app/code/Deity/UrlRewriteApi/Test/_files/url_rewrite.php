@@ -48,14 +48,6 @@ $rewrite->setEntityType('custom')
 $rewriteResource->save($rewrite);
 
 $rewrite = $objectManager->create(UrlRewrite::class);
-$rewrite->setEntityType('product')
-    ->setRequestPath('product-one')
-    ->setTargetPath('catalog/product/view/id/1')
-    ->setStoreId(1)
-    ->setDescription('test product 1');
-$rewriteResource->save($rewrite);
-
-$rewrite = $objectManager->create(UrlRewrite::class);
 $rewrite->setEntityType('category')
     ->setRequestPath('category-one')
     ->setTargetPath('catalog/category/view/id/1')

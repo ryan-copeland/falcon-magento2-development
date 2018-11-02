@@ -39,7 +39,7 @@ class ConvertProductIdToSku implements ConvertEntityIdToUniqueKeyInterface
         $productId = $rewrite->getEntityId();
         $result = $this->productResourceModel->getProductsSku([$productId]);
         if (empty($result)) {
-            throw new IntegrationException(__('Given product id (%s) have no sku in entity table', $productId));
+            throw new IntegrationException(__('Given product id (%1) have no sku in entity table', $productId));
         }
         $sku = $result[0]['sku'];
         $rewrite->setEntityId($sku);
