@@ -14,8 +14,6 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Category extends AbstractHelper
 {
-    const SHOW_CATEGORY_FILTER_PATH = 'deity/catalog/show_category_filter';
-
     /** @var \Magento\Framework\View\ConfigInterface */
     private $viewConfig;
 

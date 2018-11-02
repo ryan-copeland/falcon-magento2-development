@@ -58,11 +58,8 @@ class AttributeManagement implements AttributeManagementInterface
         $search = $this->searchCriteriaBuilder->addFilter('is_filterable', 0, 'neq');
         $attributes = $this->attributeRepository->getList(Product::ENTITY, $search->create());
 
-        $result = [];
-        if ($this->scopeConfig->getValue(Category::SHOW_CATEGORY_FILTER_PATH, ScopeInterface::SCOPE_STORES)) {
-            $result[] = $this->getCategoryFilter();
-        }
-        foreach($attributes->getItems() as $item) { /** @var AttributeInterface $item */
+        $result[] = $this->getCategoryFilter();
+        foreach ($attributes->getItems() as $item) { /** @var AttributeInterface $item */
             $filter = $this->filterFactory->create();
             $options = $item->usesSource() ? $item->getSource()->getAllOptions(false) : null;
             if (empty($options)) {

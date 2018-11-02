@@ -86,32 +86,6 @@ class Data extends AbstractHelper
     }
 
     /**
-     * Retrieve node server url from magento config or default base url
-     *
-     * @return string
-     */
-    public function getNodeServerUrl()
-    {
-        $url = $this->scopeConfig->getValue("deity/general/node_server", ScopeInterface::SCOPE_STORE);
-
-        if (empty($url)) {
-            $url = $this->storeManager->getStore(0)->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_LINK);
-        }
-
-        return $url; 
-    }
-
-    /**
-     * Check configuration if node cache clear is enabled
-     *
-     * @return bool
-     */
-    public function isClearCacheEnabled()
-    {
-        return $this->scopeConfig->isSetFlag("deity /general/clear_cache", ScopeInterface::SCOPE_STORE);
-    }
-
-    /**
      * Get config value
      *
      * @param string $key
