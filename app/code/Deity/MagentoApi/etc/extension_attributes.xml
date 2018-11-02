@@ -11,10 +11,6 @@
         <attribute code="catalog_display_price" type="float" />
         <attribute code="min_price" type="float" />
         <attribute code="max_price" type="float" />
-        <attribute code="breadcrumbs" type="Deity\MagentoApi\Api\Data\BreadcrumbInterface[]" />
-    </extension_attributes>
-    <extension_attributes for="Magento\Catalog\Api\Data\CategoryInterface">
-        <attribute code="breadcrumbs" type="Deity\MagentoApi\Api\Data\BreadcrumbInterface[]"/>
     </extension_attributes>
     <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
         <attribute code="guest_quote_id" type="string" />

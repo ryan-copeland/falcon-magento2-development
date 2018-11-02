@@ -4,7 +4,6 @@ namespace Deity\MagentoApi\Helper;
 
 use Deity\MagentoApi\Api\Data\GalleryMediaEntrySizeInterface;
 use Deity\MagentoApi\Helper\Media as MediaHelper;
-use Deity\MagentoApi\Model\Config\Source\BreadcrumbsAttribute;
 use Magento\Catalog\Api\Data\ProductExtension;
 use Magento\Catalog\Api\Data\ProductExtensionFactory;
 use Magento\Catalog\Api\Data\ProductInterface;
@@ -259,18 +258,4 @@ class Product extends AbstractHelper
         $product->setExtensionAttributes($productExtension);
     }
 
-    /**
-     * Get list of attributes used in filters from config
-     *
-     * @return array
-     */
-    public function getFilterableAttributes()
-    {
-        $attributes = [];
-        if ($config = $this->scopeConfig->getValue(BreadcrumbsAttribute::BREADCRUMBS_ATTRIBUTES_CONFIG_PATH)) {
-            $attributes = explode(',', $config);
-        }
-
-        return $attributes;
-    }
 }

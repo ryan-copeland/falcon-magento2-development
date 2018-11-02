@@ -2,7 +2,6 @@
 
 namespace Deity\MagentoApi\Model\ResourceModel\Category;
 
-use Deity\MagentoApi\Helper\Breadcrumb;
 use Deity\MagentoApi\Helper\Category;
 use Magento\Catalog\Model\Category as CategoryModel;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as MagentoCategoryCollection;
@@ -23,9 +22,6 @@ class Collection extends MagentoCategoryCollection
     /** @var Category */
     protected $categoryHelper;
 
-    /** @var Breadcrumb */
-    protected $breadcrumbHelper;
-
     /**
      * Collection constructor.
      * @param CollectionEntityFactory $entityFactory
@@ -39,7 +35,6 @@ class Collection extends MagentoCategoryCollection
      * @param UniversalFactory $universalFactory
      * @param StoreManagerInterface $storeManager
      * @param Category $categoryHelper
-     * @param Breadcrumb $breadcrumbHelper
      * @param AdapterInterface|null $connection
      */
     public function __construct(
@@ -54,11 +49,9 @@ class Collection extends MagentoCategoryCollection
         UniversalFactory $universalFactory,
         StoreManagerInterface $storeManager,
         Category $categoryHelper,
-        Breadcrumb $breadcrumbHelper,
         AdapterInterface $connection = null
     ) {
         $this->categoryHelper = $categoryHelper;
-        $this->breadcrumbHelper = $breadcrumbHelper;
         return parent::__construct(
             $entityFactory,
             $logger,
@@ -96,7 +89,6 @@ class Collection extends MagentoCategoryCollection
 
         foreach ($this->_items as $category) { /** @var CategoryModel $category */
             $this->categoryHelper->addImageAttribute($category);
-            $this->breadcrumbHelper->addCategoryBreadcrumbs($category, $this);
         }
 
         return $this;
