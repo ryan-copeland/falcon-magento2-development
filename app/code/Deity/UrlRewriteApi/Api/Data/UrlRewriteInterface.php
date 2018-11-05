@@ -26,15 +26,15 @@ interface UrlRewriteInterface
     public function setEntityType(string $entityType): void;
 
     /**
-     * @return int
+     * @return string
      */
-    public function getEntityId(): int;
+    public function getEntityId(): string;
 
     /**
-     * @param int $id
+     * @param string $id
      * @return void
      */
-    public function setEntityId(int $id): void;
+    public function setEntityId(string $id): void;
 
     /**
      * @return string

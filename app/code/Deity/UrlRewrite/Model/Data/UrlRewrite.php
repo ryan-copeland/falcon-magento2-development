@@ -30,15 +30,15 @@ class UrlRewrite extends AbstractExtensibleObject implements UrlRewriteInterface
     /**
      * @inheritdoc
      */
-    public function getEntityId(): int
+    public function getEntityId(): string
     {
-        return (int)$this->_get(self::ENTITY_ID);
+        return (string)$this->_get(self::ENTITY_ID);
     }
 
     /**
      * @inheritdoc
      */
-    public function setEntityId(int $id): void
+    public function setEntityId(string $id): void
     {
         $this->setData(self::ENTITY_ID, $id);
     }

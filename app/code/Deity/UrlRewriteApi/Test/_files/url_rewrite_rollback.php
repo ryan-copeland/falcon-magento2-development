@@ -33,6 +33,6 @@ if (!empty($pages)) {
 $urlRewriteCollection = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
     ->create(\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection::class);
 $collection = $urlRewriteCollection
-    ->addFieldToFilter('request_path', ['page-a', 'page-one/', 'product-one', 'category-one'])
+    ->addFieldToFilter('request_path', ['page-a', 'page-one/', 'category-one'])
     ->load()
     ->walk('delete');

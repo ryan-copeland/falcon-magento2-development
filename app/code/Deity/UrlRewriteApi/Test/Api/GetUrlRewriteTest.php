@@ -36,11 +36,19 @@ class GetUrlRewriteTest extends WebapiAbstract
     {
         $item = $this->getUrlRewriteInfo('page-a');
         $this->assertEquals('CMS_PAGE', $item['entity_type'], "Item was retrieved successfully");
-
-        $item = $this->getUrlRewriteInfo('product-one');
-        $this->assertEquals('PRODUCT', $item['entity_type'], "Item was retrieved successfully");
         
         $item = $this->getUrlRewriteInfo('category-one');
         $this->assertEquals('CATEGORY', $item['entity_type'], "Item was retrieved successfully");
+    }
+
+    /**
+     * @magentoApiDataFixture Magento/Catalog/_files/products.php
+     */
+    public function testProductSkuReturn()
+    {
+        $item = $this->getUrlRewriteInfo('simple-product.html');
+
+        $this->assertEquals('PRODUCT', $item['entity_type'], "Item was retrieved successfully");
+        $this->assertEquals('simple', $item['entity_id'], "Item entity id was successfully converted");
     }
 }
