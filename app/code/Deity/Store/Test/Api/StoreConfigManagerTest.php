@@ -13,39 +13,13 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class StoreConfigManagerTest extends WebapiAbstract
 {
-    /**
-     * @return string
-     */
-    private function getAccessToken(): string
-    {
-        $adminUserNameFromFixture = 'webapi_user';
-
-        $serviceInfo = [
-            'rest' => [
-                'resourcePath' => AdminTokenServiceTest::RESOURCE_PATH_ADMIN_TOKEN,
-                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_POST,
-            ],
-        ];
-
-        $requestData = [
-            'username' => $adminUserNameFromFixture,
-            'password' => \Magento\TestFramework\Bootstrap::ADMIN_PASSWORD,
-        ];
-        $accessData = $this->_webApiCall($serviceInfo, $requestData);
-        return $accessData['token'];
-    }
-
-    /**
-     * @magentoApiDataFixture Magento/Webapi/_files/webapi_user.php
-     */
     public function testGetStoreConfigs()
     {
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => MagentoStoreConfigManagerTest::RESOURCE_PATH,
-                'httpMethod'  => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
-                'token' => $this->getAccessToken()
-            ]
+                'httpMethod'  => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET
+                ]
         ];
 
         $storeViews = $this->_webApiCall($serviceInfo, []);
