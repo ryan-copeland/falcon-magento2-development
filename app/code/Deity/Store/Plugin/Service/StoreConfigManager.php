@@ -13,15 +13,31 @@ use Magento\Store\Api\Data\StoreConfigExtensionFactory;
 
 class StoreConfigManager
 {
+
+    const DEITY_API_VERSION_CONFIG_PATH = 'deity/general/api_version';
+
     /**
      * @var ScopeConfigInterface
      */
-    protected $scopeConfig;
+    private $scopeConfig;
 
     /**
      * @var StoreConfigExtensionFactory
      */
-    protected $storeConfigExtensionFactory;
+    private $storeConfigExtensionFactory;
+
+    /**
+     *  Extension values that can be fetched directly from magento configuration
+     *
+     * @var string[]
+     */
+    private $extensionConfigData = [
+        'min_password_length' => AccountManagement::XML_PATH_MINIMUM_PASSWORD_LENGTH,
+        'min_password_char_class' => AccountManagement::XML_PATH_REQUIRED_CHARACTER_CLASSES_NUMBER,
+        'api_version' => self::DEITY_API_VERSION_CONFIG_PATH
+    ];
+
+
 
     /**
      * AfterGetStoreConfigs constructor.
@@ -48,9 +64,6 @@ class StoreConfigManager
         if (!empty($optionalZipCodeCountries)) {
             $optionalZipCodeCountries = explode(',', $optionalZipCodeCountries);
         }
-        $minPasswordLength = $this->scopeConfig->getValue(AccountManagement::XML_PATH_MINIMUM_PASSWORD_LENGTH);
-        $minPasswordCharClass = $this->scopeConfig
-            ->getValue(AccountManagement::XML_PATH_REQUIRED_CHARACTER_CLASSES_NUMBER);
 
         foreach ($result as $item) { /** @var StoreConfigInterface $item */
             /** @var StoreConfigExtensionInterface $extensionAttributes */
@@ -59,8 +72,13 @@ class StoreConfigManager
                 $extensionAttributes = $this->storeConfigExtensionFactory->create();
             }
             $extensionAttributes->setOptionalPostCodes($optionalZipCodeCountries);
-            $extensionAttributes->setMinPasswordLength($minPasswordLength);
-            $extensionAttributes->setMinPasswordCharClass($minPasswordCharClass);
+
+            foreach ($this->extensionConfigData as $dataKey => $storeConfigPath) {
+                $extensionAttributes->setData(
+                    $dataKey,
+                    $this->scopeConfig->getValue($storeConfigPath)
+                );
+            }
             $item->setExtensionAttributes($extensionAttributes);
         }
 
