@@ -37,8 +37,6 @@ class StoreConfigManager
         'api_version' => self::DEITY_API_VERSION_CONFIG_PATH
     ];
 
-
-
     /**
      * AfterGetStoreConfigs constructor.
      * @param ScopeConfigInterface $scopeConfig
@@ -57,6 +55,7 @@ class StoreConfigManager
      * @param StoreConfigManagerInterface $subject
      * @param StoreConfigInterface[] $result
      * @return StoreConfigInterface[]
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function afterGetStoreConfigs(StoreConfigManagerInterface $subject, $result)
     {
