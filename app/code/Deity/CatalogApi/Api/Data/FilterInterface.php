@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Api\Data;
+namespace Deity\CatalogApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 use Magento\Framework\Phrase;
@@ -20,7 +21,7 @@ interface FilterInterface extends ExtensibleDataInterface
 
     /**
      * @param string|Phrase $label
-     * @return \Deity\MagentoApi\Api\Data\FilterInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
     public function setLabel($label);
 
@@ -31,18 +32,18 @@ interface FilterInterface extends ExtensibleDataInterface
 
     /**
      * @param string $code
-     * @return \Deity\MagentoApi\Api\Data\FilterInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
     public function setCode($code);
 
     /**
-     * @return \Deity\MagentoApi\Api\Data\FilterOptionInterface[]|null
+     * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface[]|null
      */
     public function getOptions();
 
     /**
-     * @param \Deity\MagentoApi\Api\Data\FilterOptionInterface[] $options
-     * @return \Deity\MagentoApi\Api\Data\FilterInterface
+     * @param \Deity\CatalogApi\Api\Data\FilterOptionInterface[] $options
+     * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
     public function setOptions($options);
 
@@ -53,7 +54,7 @@ interface FilterInterface extends ExtensibleDataInterface
 
     /**
      * @param int $attributeId
-     * @return \Deity\MagentoApi\Api\Data\FilterInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
     public function setAttributeId($attributeId);
 
@@ -64,18 +65,18 @@ interface FilterInterface extends ExtensibleDataInterface
 
     /**
      * @param string $type
-     * @return \Deity\MagentoApi\Api\Data\FilterInterface;
+     * @return \Deity\CatalogApi\Api\Data\FilterInterface;
      */
     public function setType($type);
 
     /**
-     * @return \Deity\MagentoApi\Api\Data\FilterExtensionInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterExtensionInterface
      */
     public function getExtensionAttributes();
 
     /**
-     * @param \Deity\MagentoApi\Api\Data\FilterExtensionInterface $extensionAttributes
-     * @return \Deity\MagentoApi\Api\Data\FilterInterface
+     * @param \Deity\CatalogApi\Api\Data\FilterExtensionInterface $extensionAttributes
+     * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
     public function setExtensionAttributes(FilterExtensionInterface $extensionAttributes);
 

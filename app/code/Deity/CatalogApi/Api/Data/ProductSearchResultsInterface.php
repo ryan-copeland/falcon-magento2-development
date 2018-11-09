@@ -1,18 +1,19 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Api\Data;
+namespace Deity\CatalogApi\Api\Data;
 
 interface ProductSearchResultsInterface extends \Magento\Catalog\Api\Data\ProductSearchResultsInterface
 {
     /**
      * Get filters
-     * @return \Deity\MagentoApi\Api\Data\FilterInterface[]
+     * @return \Deity\CatalogApi\Api\Data\FilterInterface[]
      */
     public function getFilters();
 
     /**
      * Set filters
-     * @param \Deity\MagentoApi\Api\Data\FilterInterface[] $items
+     * @param \Deity\CatalogApi\Api\Data\FilterInterface[] $items
      * @return $this
      */
     public function setFilters($items);

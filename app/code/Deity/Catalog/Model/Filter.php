@@ -1,13 +1,17 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Model;
+namespace Deity\Catalog\Model;
 
-use Deity\MagentoApi\Api\Data\FilterInterface;
-use Deity\MagentoApi\Api\Data\FilterInterfaceFactory;
-use Deity\MagentoApi\Api\Data\FilterOptionInterface;
-use Deity\MagentoApi\Api\Data\FilterOptionInterfaceFactory;
+use Deity\CatalogApi\Api\Data\FilterInterface;
+use Deity\CatalogApi\Api\Data\FilterInterfaceFactory;
+use Deity\CatalogApi\Api\Data\FilterOptionInterface;
+use Deity\CatalogApi\Api\Data\FilterOptionInterfaceFactory;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\Product\Attribute\Source\Status as ProductStatus;
+use Magento\Catalog\Model\Product\Visibility as ProductVisibility;
+use Magento\Catalog\Model\ResourceModel\Eav\Attribute as CatalogResourceAttribute;
 use Magento\Eav\Model\Config;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -16,9 +20,6 @@ use Magento\Framework\DB\Select;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
-use Magento\Catalog\Model\Product\Attribute\Source\Status as ProductStatus;
-use Magento\Catalog\Model\Product\Visibility as ProductVisibility;
-use Magento\Catalog\Model\ResourceModel\Eav\Attribute as CatalogResourceAttribute;
 
 /**
  * Product list filter handling class

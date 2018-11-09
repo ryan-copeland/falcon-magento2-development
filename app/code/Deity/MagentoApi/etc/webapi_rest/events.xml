@@ -3,7 +3,4 @@
     <event name="catalog_product_collection_load_after">
         <observer name="deity_magento_catalog_product_collection_load_after_observer" instance="Deity\MagentoApi\Observer\Catalog\Product\Collection\AfterLoadObserver" />
     </event>
-    <event name="catalog_product_is_salable_after">
-        <observer name="deity_magento_catalog_product_saleable_check" instance="Deity\MagentoApi\Observer\Catalog\Product\CheckWebsiteAvailability"/>
-    </event>
 </config>

@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Model\ResourceModel\Product;
+namespace Deity\Catalog\Model\ResourceModel\Product;
 
 class Collection extends \Magento\Catalog\Model\ResourceModel\Product\Collection
 {

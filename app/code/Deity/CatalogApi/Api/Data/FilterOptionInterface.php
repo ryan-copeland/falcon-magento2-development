@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Api\Data;
+namespace Deity\CatalogApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
@@ -17,7 +18,7 @@ interface FilterOptionInterface extends ExtensibleDataInterface
 
     /**
      * @param string $label
-     * @return \Deity\MagentoApi\Api\Data\FilterOptionInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
     public function setLabel($label);
 
@@ -28,7 +29,7 @@ interface FilterOptionInterface extends ExtensibleDataInterface
 
     /**
      * @param string $value
-     * @return \Deity\MagentoApi\Api\Data\FilterOptionInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
     public function setValue($value);
 
@@ -39,18 +40,18 @@ interface FilterOptionInterface extends ExtensibleDataInterface
 
     /**
      * @param boolean $active
-     * @return \Deity\MagentoApi\Api\Data\FilterOptionInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
     public function setActive($active);
 
     /**
-     * @return \Deity\MagentoApi\Api\Data\FilterOptionExtensionInterface|null
+     * @return \Deity\CatalogApi\Api\Data\FilterOptionExtensionInterface|null
      */
     public function getExtensionAttributes();
 
     /**
-     * @param \Deity\MagentoApi\Api\Data\FilterOptionExtensionInterface $extensionAttributes
-     * @return \Deity\MagentoApi\Api\Data\FilterInterface
+     * @param \Deity\CatalogApi\Api\Data\FilterOptionExtensionInterface $extensionAttributes
+     * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
     public function setExtensionAttributes(FilterOptionExtensionInterface $extensionAttributes);
 
