@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__ . '/filterable_attribute.php';
+
 $objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
 
@@ -8,46 +10,24 @@ $installer = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create
     \Magento\Catalog\Setup\CategorySetup::class
 );
 $attributeSetId = $installer->getAttributeSetId('catalog_product', 'Default');
-$entityModel = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(\Magento\Eav\Model\Entity::class);
-$entityTypeId = $entityModel->setType(\Magento\Catalog\Model\Product::ENTITY)->getTypeId();
-$groupId = $installer->getDefaultAttributeGroupId($entityTypeId, $attributeSetId);
 
-/** @var $attribute \Magento\Catalog\Model\ResourceModel\Eav\Attribute */
-$attribute = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-    \Magento\Catalog\Model\ResourceModel\Eav\Attribute::class
+/** @var $options \Magento\Eav\Model\ResourceModel\Entity\Attribute\Option\Collection */
+$options = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
+    \Magento\Eav\Model\ResourceModel\Entity\Attribute\Option\Collection::class
 );
-$attribute->setAttributeCode(
-    'filterable_attribute_a'
-)->setEntityTypeId(
-    $entityTypeId
-)->setAttributeGroupId(
-    $groupId
-)->setAttributeSetId(
-    $attributeSetId
-)->setIsFilterable(
-    1
-)->setIsUserDefined(
-    1
-)->setOptions()->save();
+$options->setAttributeFilter($attribute->getId());
+$optionIds = $options->getAllIds();
 
-$attribute = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
-    \Magento\Catalog\Model\ResourceModel\Eav\Attribute::class
+$productRepository = $objectManager->create(
+    \Magento\Catalog\Api\ProductRepositoryInterface::class
 );
-$attribute->setAttributeCode(
-    'filterable_attribute_b'
-)->setEntityTypeId(
-    $entityTypeId
-)->setAttributeGroupId(
-    $groupId
-)->setAttributeSetId(
-    $attributeSetId
-)->setIsFilterable(
-    1
-)->setIsUserDefined(
-    1
-)->save();
 
-$attribute->getSource()->getOptionId('s');
+/** @var $installer \Magento\Catalog\Setup\CategorySetup */
+$installer = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
+    \Magento\Catalog\Setup\CategorySetup::class
+);
+$attributeSetId = $installer->getAttributeSetId('catalog_product', 'Default');
+
 $productRepository = $objectManager->create(
     \Magento\Catalog\Api\ProductRepositoryInterface::class
 );
@@ -113,6 +93,7 @@ $product->setTypeId(\Magento\Catalog\Model\Product\Type::TYPE_SIMPLE)
     ->setStoreId(1)
     ->setWebsiteIds([1])
     ->setName('Simple Product')
+    ->setData('filterable_attribute', $optionIds[0])
     ->setSku('simple-1')
     ->setPrice(10)
     ->setWeight(18)
@@ -134,6 +115,7 @@ $product->setTypeId(\Magento\Catalog\Model\Product\Type::TYPE_SIMPLE)
     ->setStoreId(1)
     ->setWebsiteIds([1])
     ->setName('Simple Product Two')
+    ->setData('filterable_attribute', $optionIds[1])
     ->setSku('simple-2') // SKU intentionally contains digits only
     ->setPrice(45.67)
     ->setWeight(56)
