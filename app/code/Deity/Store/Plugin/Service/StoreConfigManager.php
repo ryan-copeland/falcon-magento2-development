@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\Store\Plugin\Service;
 
+use Deity\Base\Model\Config;
 use Magento\Customer\Model\AccountManagement;
 use Magento\Directory\Helper\Data;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -13,8 +14,6 @@ use Magento\Store\Api\Data\StoreConfigExtensionFactory;
 
 class StoreConfigManager
 {
-
-    const DEITY_API_VERSION_CONFIG_PATH = 'deity/general/api_version';
 
     /**
      * @var ScopeConfigInterface
@@ -34,7 +33,7 @@ class StoreConfigManager
     private $extensionConfigData = [
         'min_password_length' => AccountManagement::XML_PATH_MINIMUM_PASSWORD_LENGTH,
         'min_password_char_class' => AccountManagement::XML_PATH_REQUIRED_CHARACTER_CLASSES_NUMBER,
-        'api_version' => self::DEITY_API_VERSION_CONFIG_PATH
+        'api_version' => Config::DEITY_API_VERSION_CONFIG_PATH
     ];
 
     /**
