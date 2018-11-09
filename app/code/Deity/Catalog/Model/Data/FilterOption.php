@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Model\Api\Data;
+namespace Deity\Catalog\Model\Data;
 
-use Deity\MagentoApi\Api\Data\FilterOptionInterface;
-use Deity\MagentoApi\Api\Data\FilterOptionExtensionInterface;
+use Deity\CatalogApi\Api\Data\FilterOptionInterface;
+use Deity\CatalogApi\Api\Data\FilterOptionExtensionInterface;
 use Magento\Framework\Model\AbstractExtensibleModel;
 
 class FilterOption extends AbstractExtensibleModel implements FilterOptionInterface
@@ -18,7 +19,7 @@ class FilterOption extends AbstractExtensibleModel implements FilterOptionInterf
 
     /**
      * @param string $label
-     * @return \Deity\MagentoApi\Api\Data\FilterOptionInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
     public function setLabel($label)
     {
@@ -35,7 +36,7 @@ class FilterOption extends AbstractExtensibleModel implements FilterOptionInterf
 
     /**
      * @param string $value
-     * @return \Deity\MagentoApi\Api\Data\FilterOptionInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
     public function setValue($value)
     {
@@ -52,7 +53,7 @@ class FilterOption extends AbstractExtensibleModel implements FilterOptionInterf
 
     /**
      * @param boolean $active
-     * @return \Deity\MagentoApi\Api\Data\FilterOptionInterface
+     * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
     public function setActive($active)
     {

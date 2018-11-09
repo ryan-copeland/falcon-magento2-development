@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Api;
+namespace Deity\CatalogApi\Api;
 
-use Deity\MagentoApi\Api\Data\ProductSearchResultsInterface;
+use Deity\CatalogApi\Api\Data\ProductSearchResultsInterface;
 
 class SearchResults extends \Magento\Framework\Api\SearchResults implements ProductSearchResultsInterface
 {

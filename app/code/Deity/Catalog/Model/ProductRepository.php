@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Model;
+namespace Deity\Catalog\Model;
 
-use Deity\MagentoApi\Api\ProductRepositoryInterface;
+use Deity\CatalogApi\Api\ProductRepositoryInterface;
 use Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory;
 use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Controller\Adminhtml\Product\Initialization\Helper;
@@ -214,7 +215,7 @@ class ProductRepository extends \Magento\Catalog\Model\ProductRepository impleme
             $attributes
         );
 
-        /** @var \Deity\MagentoApi\Api\SearchResults $searchResult */
+        /** @var \Deity\CatalogApi\Api\SearchResults $searchResult */
         $searchResult = $this->searchResultsFactory->create();
         $searchResult->setSearchCriteria($searchCriteria);
         $searchResult->setItems($collection->getItems());
