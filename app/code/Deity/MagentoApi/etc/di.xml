@@ -23,10 +23,8 @@
     <preference for="Deity\MagentoApi\Api\QuoteMaskInterface" type="Deity\MagentoApi\Model\QuoteMask" />
 
     <!-- OVERRIDES -->
-    <preference for="Magento\Catalog\Helper\Image" type="Deity\MagentoApi\Helper\Catalog\Image" />
     <preference for="Magento\Paypal\Model\Express\Checkout" type="Deity\MagentoApi\Model\Payment\Paypal\Express\Checkout" />
     <preference for="Magento\Paypal\Model\Express" type="Deity\MagentoApi\Model\Payment\Paypal\Express" />
-    <preference for="Magento\Paypal\Model\Express\Checkout" type="Deity\MagentoApi\Model\Payment\Paypal\Express\Checkout" />
     <preference for="Magento\Paypal\Model\Pro" type="Deity\MagentoApi\Model\Payment\Paypal\Pro" />
 
     <!-- PLUGINS -->

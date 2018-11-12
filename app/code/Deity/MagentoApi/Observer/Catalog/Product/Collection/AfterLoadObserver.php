@@ -3,7 +3,6 @@
 namespace Deity\MagentoApi\Observer\Catalog\Product\Collection;
 
 use Deity\MagentoApi\Helper\Product as ProductHelper;
-use Deity\MagentoApi\Helper\Stock as StockHelper;
 use Magento\Catalog\Model\Product as Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Catalog\Model\ResourceModel\Product\Compare\Item\Collection as CompareProductItemCollection;
@@ -12,7 +11,6 @@ use Magento\ConfigurableProduct\Model\ResourceModel\Product\Type\Configurable\Pr
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
-use Magento\Store\Model\ScopeInterface;
 
 /**
  * @package Deity\MagentoApi\Observer
@@ -21,9 +19,6 @@ class AfterLoadObserver implements ObserverInterface
 {
     /** @var ProductHelper */
     protected $productHelper;
-
-    /** @var StockHelper */
-    protected $stockHelper;
 
     /** @var ScopeConfigInterface */
     protected $scopeConfig;
@@ -35,11 +30,9 @@ class AfterLoadObserver implements ObserverInterface
      */
     public function __construct(
         ProductHelper $productHelper,
-        StockHelper $stockHelper,
         ScopeConfigInterface $scopeConfig
     ) {
         $this->productHelper = $productHelper;
-        $this->stockHelper = $stockHelper;
         $this->scopeConfig = $scopeConfig;
     }
 
@@ -68,7 +61,5 @@ class AfterLoadObserver implements ObserverInterface
             $this->productHelper->calculateCatalogDisplayPrice($item);
             $this->productHelper->addProductImageAttribute($item, 'product_list_image', 'thumbnail_url');
         }
-
-        $this->stockHelper->addStockDataToCollection($collection);
     }
 }
