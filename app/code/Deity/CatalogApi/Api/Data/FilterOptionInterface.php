@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\CatalogApi\Api\Data;
 
-use Magento\Framework\Api\ExtensibleDataInterface;
-
-interface FilterOptionInterface extends ExtensibleDataInterface
+interface FilterOptionInterface
 {
     const LABEL = 'label';
     const VALUE = 'value';
@@ -43,16 +41,5 @@ interface FilterOptionInterface extends ExtensibleDataInterface
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
     public function setActive($active);
-
-    /**
-     * @return \Deity\CatalogApi\Api\Data\FilterOptionExtensionInterface|null
-     */
-    public function getExtensionAttributes();
-
-    /**
-     * @param \Deity\CatalogApi\Api\Data\FilterOptionExtensionInterface $extensionAttributes
-     * @return \Deity\CatalogApi\Api\Data\FilterInterface
-     */
-    public function setExtensionAttributes(FilterOptionExtensionInterface $extensionAttributes);
 
 }

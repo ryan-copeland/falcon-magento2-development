@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Deity\Catalog\Model\Data;
 
 use Deity\CatalogApi\Api\Data\FilterInterface;
-use Deity\CatalogApi\Api\Data\FilterExtensionInterface;
 use Magento\Framework\Model\AbstractExtensibleModel;
 use Magento\Framework\Phrase;
 
@@ -93,25 +92,5 @@ class Filter extends AbstractExtensibleModel implements FilterInterface
     public function setOptions($options)
     {
         return $this->setData(self::OPTIONS, $options);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getExtensionAttributes()
-    {
-        /** @var FilterExtensionInterface $extensionAttributes */
-        $extensionAttributes = $this->_getExtensionAttributes()
-            ?: $this->extensionAttributesFactory->create(FilterInterface::class);
-
-        return $extensionAttributes;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setExtensionAttributes(FilterExtensionInterface $extensionAttributes)
-    {
-        return $this->_setExtensionAttributes($extensionAttributes);
     }
 }
