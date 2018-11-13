@@ -5,6 +5,7 @@
     <preference for="Deity\CatalogApi\Api\ProductRepositoryInterface" type="Deity\Catalog\Model\ProductRepository" />
     <preference for="Deity\CatalogApi\Api\Data\FilterInterface" type="Deity\Catalog\Model\Data\Filter" />
     <preference for="Deity\CatalogApi\Api\Data\FilterOptionInterface" type="Deity\Catalog\Model\Data\FilterOption" />
+    <preference for="Deity\CatalogApi\Api\CategoryProductListInterface" type="Deity\Catalog\Model\CategoryProductList" />
 
     <!-- ARGUMENTS FOR CONSTRUCTORS -->
     <type name="Magento\Catalog\Model\ProductRepository">

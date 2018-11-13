@@ -9,7 +9,7 @@ interface ProductRepositoryInterface extends \Magento\Catalog\Api\ProductReposit
      * Get product list
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      * @param bool $includeSubcategories
-     * @param mixed $withAttributeFilters
+     * @param \Deity\CatalogApi\Api\Data\FilterInterface[] $withAttributeFilters
      * @return \Deity\CatalogApi\Api\Data\ProductSearchResultsInterface
      */
     public function getList(
