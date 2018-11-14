@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Deity\Catalog\Model\Data;
 
 use Deity\CatalogApi\Api\Data\FilterOptionInterface;
-use Magento\Framework\Model\AbstractExtensibleModel;
+use Magento\Framework\Api\AbstractSimpleObject;
 
-class FilterOption extends AbstractExtensibleModel implements FilterOptionInterface
+class FilterOption extends AbstractSimpleObject implements FilterOptionInterface
 {
     /**
      * @return string

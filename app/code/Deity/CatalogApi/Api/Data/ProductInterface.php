@@ -11,8 +11,6 @@ use Magento\Framework\Api\ExtensibleDataInterface;
  */
 interface ProductInterface extends ExtensibleDataInterface
 {
-    const ID = 'id';
-
     const SKU = 'sku';
 
     const NAME = 'name';
@@ -31,17 +29,6 @@ interface ProductInterface extends ExtensibleDataInterface
      * @return \Deity\CatalogApi\Api\Data\ProductInterface
      */
     public function setExtensionAttributes(ProductExtensionInterface $extensionAttributes);
-
-    /**
-     * @return int
-     */
-    public function getId(): int;
-
-    /**
-     * @param int $id
-     * @return \Deity\CatalogApi\Api\Data\ProductInterface
-     */
-    public function setId(int $id): ProductInterface;
 
     /**
      * @return string
