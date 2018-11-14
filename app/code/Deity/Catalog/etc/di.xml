@@ -2,26 +2,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <!-- INTERFACE PREFERENCES FOR DI -->
-    <preference for="Deity\CatalogApi\Api\ProductRepositoryInterface" type="Deity\Catalog\Model\ProductRepository" />
     <preference for="Deity\CatalogApi\Api\Data\FilterInterface" type="Deity\Catalog\Model\Data\Filter" />
     <preference for="Deity\CatalogApi\Api\Data\FilterOptionInterface" type="Deity\Catalog\Model\Data\FilterOption" />
     <preference for="Deity\CatalogApi\Api\CategoryProductListInterface" type="Deity\Catalog\Model\CategoryProductList" />
+    <preference for="Deity\CatalogApi\Api\Data\ProductSearchResultsInterface" type="Deity\Catalog\Model\Data\ProductSearchResults" />
+    <preference for="Deity\CatalogApi\Api\Data\ProductInterface" type="Deity\Catalog\Model\Data\Product" />
 
-    <!-- ARGUMENTS FOR CONSTRUCTORS -->
-    <type name="Magento\Catalog\Model\ProductRepository">
-        <arguments>
-            <argument name="collectionFactory" xsi:type="object">ProductRepositoryCollectionFactory</argument>
-            <argument name="searchResultsFactory" xsi:type="object">ProductRepositorySearchResultsFactory</argument>
-        </arguments>
-    </type>
-    <virtualType name="ProductRepositoryCollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\CollectionFactory">
-        <arguments>
-            <argument name="instanceName" xsi:type="string">Deity\Catalog\Model\ResourceModel\Product\Collection</argument>
-        </arguments>
-    </virtualType>
-    <virtualType name="ProductRepositorySearchResultsFactory" type="Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory">
-        <arguments>
-            <argument name="instanceName" xsi:type="string">Deity\CatalogApi\Api\SearchResults</argument>
-        </arguments>
-    </virtualType>
 </config>

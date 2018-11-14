@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace Deity\Catalog\Model\Data;
 
 use Deity\CatalogApi\Api\Data\FilterInterface;
-use Magento\Framework\Model\AbstractExtensibleModel;
+use Magento\Framework\Api\AbstractSimpleObject;
 use Magento\Framework\Phrase;
 
-class Filter extends AbstractExtensibleModel implements FilterInterface
+class Filter extends AbstractSimpleObject implements FilterInterface
 {
     /**
      * @return string

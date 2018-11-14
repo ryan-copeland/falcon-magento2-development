@@ -6,7 +6,7 @@ namespace Deity\Catalog\Model\Data;
 use Deity\CatalogApi\Api\Data\ProductSearchResultsInterface;
 use Magento\Framework\Api\AbstractSimpleObject;
 
-class SearchResults extends AbstractSimpleObject implements ProductSearchResultsInterface
+class ProductSearchResults extends AbstractSimpleObject implements ProductSearchResultsInterface
 {
     /**
      * {@inheritdoc}
