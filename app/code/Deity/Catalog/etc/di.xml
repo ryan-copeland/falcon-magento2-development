@@ -7,5 +7,12 @@
     <preference for="Deity\CatalogApi\Api\CategoryProductListInterface" type="Deity\Catalog\Model\CategoryProductList" />
     <preference for="Deity\CatalogApi\Api\Data\ProductSearchResultsInterface" type="Deity\Catalog\Model\Data\ProductSearchResults" />
     <preference for="Deity\CatalogApi\Api\Data\ProductInterface" type="Deity\Catalog\Model\Data\Product" />
+    <preference for="Deity\CatalogApi\Api\ProductConvertInterface" type="Deity\Catalog\Model\ProductConvert" />
+
+    <type name="Deity\Catalog\Model\ProductConvert">
+        <arguments>
+            <argument name="urlFinder" xsi:type="object">Magento\CatalogUrlRewrite\Model\Storage\DbStorage</argument>
+        </arguments>
+    </type>
 
 </config>
