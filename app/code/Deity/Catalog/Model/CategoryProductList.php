@@ -96,6 +96,8 @@ class CategoryProductList implements CategoryProductListInterface
 
         $productSearchResult->setItems($responseProducts);
 
+        $productSearchResult->setTotalCount($this->catalogLayer->getProductCollection()->getSize());
+
         return $productSearchResult;
     }
 }
