@@ -7,6 +7,7 @@ use Deity\CatalogApi\Api\ProductConvertInterface;
 use Deity\CatalogApi\Api\Data\ProductInterfaceFactory;
 use Deity\CatalogApi\Api\Data\ProductInterface as DeityProductInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
+use Magento\Catalog\Block\Product\ImageBuilder;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\UrlRewrite\Model\UrlFinderInterface;
@@ -32,15 +33,25 @@ class ProductConvert implements ProductConvertInterface
     /**
      * @var \Magento\UrlRewrite\Model\UrlFinderInterface
      */
-    protected $urlFinder;
+    private $urlFinder;
+
+    /**
+     * @var ImageBuilder
+     */
+    private $imageBuilder;
 
     /**
      * ProductConvert constructor.
      * @param ProductInterfaceFactory $productFactory
      * @param UrlFinderInterface $urlFinder
+     * @param ImageBuilder $imageBuilder
      */
-    public function __construct(ProductInterfaceFactory $productFactory, UrlFinderInterface $urlFinder)
-    {
+    public function __construct(
+        ProductInterfaceFactory $productFactory,
+        UrlFinderInterface $urlFinder,
+        ImageBuilder $imageBuilder
+    ) {
+        $this->imageBuilder = $imageBuilder;
         $this->urlFinder = $urlFinder;
         $this->productFactory = $productFactory;
     }
@@ -50,6 +61,7 @@ class ProductConvert implements ProductConvertInterface
      *
      * @param Product $product
      * @return DeityProductInterface
+     * @throws LocalizedException
      */
     public function convert(Product $product): DeityProductInterface
     {
@@ -59,7 +71,10 @@ class ProductConvert implements ProductConvertInterface
         $deityProduct->setName($product->getName());
         $deityProduct->setSku($product->getSku());
         $deityProduct->setUrlPath($this->getProductUrlPath($product));
-        $deityProduct->setImage($product->getImage());
+        $imageObject = $this->imageBuilder->setProduct($product)
+            ->setImageId('deity_category_page_list')
+            ->create();
+        $deityProduct->setImage($imageObject->getImageUrl());
         return $deityProduct;
     }
 
