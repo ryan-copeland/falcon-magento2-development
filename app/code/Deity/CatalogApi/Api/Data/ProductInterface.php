@@ -19,6 +19,8 @@ interface ProductInterface extends ExtensibleDataInterface
 
     const URL_PATH = 'url_path';
 
+    const IS_SALABLE = 'is_salable';
+
     /**
      * @return \Deity\CatalogApi\Api\Data\ProductExtensionInterface|null
      */
@@ -29,6 +31,17 @@ interface ProductInterface extends ExtensibleDataInterface
      * @return \Deity\CatalogApi\Api\Data\ProductInterface
      */
     public function setExtensionAttributes(ProductExtensionInterface $extensionAttributes);
+
+    /**
+     * @return int
+     */
+    public function getIsSalable(): int;
+
+    /**
+     * @param int $salableFlag
+     * @return ProductInterface
+     */
+    public function setIsSalable(int $salableFlag): ProductInterface;
 
     /**
      * @return string
