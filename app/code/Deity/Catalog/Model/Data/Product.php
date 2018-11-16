@@ -106,4 +106,21 @@ class Product extends AbstractExtensibleModel implements ProductInterface
         $this->_setExtensionAttributes($extensionAttributes);
     }
 
+    /**
+     * @return int
+     */
+    public function getIsSalable(): int
+    {
+        return (int)$this->getData(self::IS_SALABLE);
+    }
+
+    /**
+     * @param int $salableFlag
+     * @return ProductInterface
+     */
+    public function setIsSalable(int $salableFlag): ProductInterface
+    {
+        $this->setData(self::IS_SALABLE, $salableFlag);
+        return $this;
+    }
 }

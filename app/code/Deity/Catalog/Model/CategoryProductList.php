@@ -10,6 +10,8 @@ use Deity\CatalogApi\Api\Data\ProductSearchResultsInterfaceFactory;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Model\Layer\Resolver;
 use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\ResourceModel\Product\Collection;
+use Magento\CatalogInventory\Helper\Stock;
 use Magento\Framework\Registry;
 
 /**
@@ -47,6 +49,11 @@ class CategoryProductList implements CategoryProductListInterface
      */
     private $registry;
 
+    /**
+     * @var Stock
+     */
+    private $stockHelper;
+
 
     /**
      * CategoryProductList constructor.
@@ -54,6 +61,7 @@ class CategoryProductList implements CategoryProductListInterface
      * @param ProductConvertInterface $convert
      * @param CategoryRepositoryInterface $categoryRepository
      * @param Registry $registry
+     * @param Stock $stockHelper
      * @param Resolver $layerResolver
      */
     public function __construct(
@@ -61,8 +69,10 @@ class CategoryProductList implements CategoryProductListInterface
         ProductConvertInterface $convert,
         CategoryRepositoryInterface $categoryRepository,
         Registry $registry,
+        Stock $stockHelper,
         Resolver $layerResolver
     ) {
+        $this->stockHelper = $stockHelper;
         $this->productConverter = $convert;
         $this->productSearchResultFactory = $productSearchResultFactory;
         $this->catalogLayer = $layerResolver->get();
@@ -87,7 +97,7 @@ class CategoryProductList implements CategoryProductListInterface
         $this->catalogLayer->setCurrentCategory($currentCategory);
 
         $responseProducts = [];
-        foreach ($this->catalogLayer->getProductCollection() as $productObject) {
+        foreach ($this->getProductCollection() as $productObject) {
             /** @var $productObject Product */
             $responseProducts[] = $this->productConverter->convert($productObject);
         }
@@ -96,8 +106,18 @@ class CategoryProductList implements CategoryProductListInterface
 
         $productSearchResult->setItems($responseProducts);
 
-        $productSearchResult->setTotalCount($this->catalogLayer->getProductCollection()->getSize());
+        $productSearchResult->setTotalCount($this->getProductCollection()->getSize());
 
         return $productSearchResult;
+    }
+
+    /**
+     * @return Collection
+     */
+    private function getProductCollection(): Collection
+    {
+        $collection = $this->catalogLayer->getProductCollection();
+        $this->stockHelper->addIsInStockFilterToCollection($collection);
+        return $collection;
     }
 }
