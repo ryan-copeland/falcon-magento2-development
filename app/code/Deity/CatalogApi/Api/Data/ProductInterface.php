@@ -22,6 +22,17 @@ interface ProductInterface extends ExtensibleDataInterface
     const IS_SALABLE = 'is_salable';
 
     /**
+     * @return \Deity\CatalogApi\Api\Data\ProductPriceInterface
+     */
+    public function getPrice(): ProductPriceInterface;
+
+    /**
+     * @param \Deity\CatalogApi\Api\Data\ProductPriceInterface $productPrice
+     * @return  \Deity\CatalogApi\Api\Data\ProductInterface
+     */
+    public function setPrice(ProductPriceInterface $productPrice): ProductInterface;
+
+    /**
      * @return \Deity\CatalogApi\Api\Data\ProductExtensionInterface|null
      */
     public function getExtensionAttributes();

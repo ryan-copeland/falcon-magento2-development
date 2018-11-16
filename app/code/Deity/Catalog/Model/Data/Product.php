@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Deity\Catalog\Model\Data;
 
 use Deity\CatalogApi\Api\Data\ProductInterface;
+use Deity\CatalogApi\Api\Data\ProductPriceInterface;
 use Magento\Framework\Model\AbstractExtensibleModel;
 
 /**
@@ -12,6 +13,12 @@ use Magento\Framework\Model\AbstractExtensibleModel;
  */
 class Product extends AbstractExtensibleModel implements ProductInterface
 {
+
+    /**
+     * @var ProductPriceInterface
+     */
+    private $priceObject;
+
     /**
      * @return string
      */
@@ -121,6 +128,24 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     public function setIsSalable(int $salableFlag): ProductInterface
     {
         $this->setData(self::IS_SALABLE, $salableFlag);
+        return $this;
+    }
+
+    /**
+     * @return \Deity\CatalogApi\Api\Data\ProductPriceInterface
+     */
+    public function getPrice(): ProductPriceInterface
+    {
+        return $this->priceObject;
+    }
+
+    /**
+     * @param \Deity\CatalogApi\Api\Data\ProductPriceInterface $productPrice
+     * @return  \Deity\CatalogApi\Api\Data\ProductInterface
+     */
+    public function setPrice(ProductPriceInterface $productPrice): ProductInterface
+    {
+        $this->priceObject = $productPrice;
         return $this;
     }
 }
