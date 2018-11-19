@@ -13,7 +13,7 @@ class FilterOption extends AbstractSimpleObject implements FilterOptionInterface
      */
     public function getLabel()
     {
-        return $this->_getData(self::LABEL);
+        return $this->_get(self::LABEL);
     }
 
     /**
@@ -30,7 +30,7 @@ class FilterOption extends AbstractSimpleObject implements FilterOptionInterface
      */
     public function getValue()
     {
-        return $this->_getData(self::VALUE);
+        return $this->_get(self::VALUE);
     }
 
     /**
@@ -45,17 +45,17 @@ class FilterOption extends AbstractSimpleObject implements FilterOptionInterface
     /**
      * @return boolean
      */
-    public function getActive()
+    public function getIsActive()
     {
-        return $this->_getData(self::ACTIVE);
+        return $this->_get(self::IS_ACTIVE);
     }
 
     /**
      * @param boolean $active
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setActive($active)
+    public function setIsActive($active)
     {
-        return $this->setData(self::ACTIVE, $active);
+        return $this->setData(self::IS_ACTIVE, $active);
     }
 }

@@ -14,6 +14,7 @@ use Magento\Catalog\Model\Product;
 use Magento\Catalog\Pricing\Price\FinalPriceInterface;
 use Magento\Catalog\Pricing\Price\MinimalPriceCalculatorInterface;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Profiler;
 use Magento\UrlRewrite\Model\UrlFinderInterface;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
@@ -84,6 +85,8 @@ class ProductConvert implements ProductConvertInterface
      */
     public function convert(Product $product): DeityProductInterface
     {
+        Profiler::start('__PRODUCT_LISTING_CONVERT__', ['group' => 'Deity']);
+
         $this->currentProductObject = $product;
 
         $deityProduct = $this->productFactory->create();
@@ -97,7 +100,6 @@ class ProductConvert implements ProductConvertInterface
         /** @var FinalPriceInterface $priceObject */
         $priceObject = $priceInfo->getPrice('final_price');
         $minPrice = $priceObject->getMinimalPrice();
-        $maxPrice = $priceObject->getMaximalPrice();
         $minimalPrice = $this->minimalPriceCalculator->getValue($product);
         $imageObject = $this->imageBuilder->setProduct($product)
             ->setImageId('deity_category_page_list')
@@ -110,6 +112,8 @@ class ProductConvert implements ProductConvertInterface
 
         $deityProduct->setPrice($priceObject);
         $deityProduct->setImage($imageObject->getImageUrl());
+
+        Profiler::stop('__PRODUCT_LISTING_CONVERT__');
         return $deityProduct;
     }
 
