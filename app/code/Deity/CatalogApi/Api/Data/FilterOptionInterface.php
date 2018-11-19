@@ -7,7 +7,7 @@ interface FilterOptionInterface
 {
     const LABEL = 'label';
     const VALUE = 'value';
-    const ACTIVE = 'active';
+    const IS_ACTIVE = 'is_active';
 
     /**
      * @return string
@@ -34,12 +34,11 @@ interface FilterOptionInterface
     /**
      * @return boolean|null
      */
-    public function getActive();
+    public function getIsActive();
 
     /**
      * @param boolean $active
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setActive($active);
-
+    public function setIsActive($active);
 }

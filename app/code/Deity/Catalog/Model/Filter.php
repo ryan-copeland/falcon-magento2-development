@@ -148,9 +148,11 @@ class Filter
     {
         $connection = $this->resourceConnection->getConnection();
         $filtersOptions = [];
-        $explodeResult = function($value) {return explode(',', $value);};
+        $explodeResult = function ($value) {
+            return explode(',', $value);
+        };
 
-        foreach($attributes as $code) {
+        foreach ($attributes as $code) {
             if ($code === 'category_id') {
                 $select = $this->getCategoryProductAssociation($productIds, $categories);
                 $result = $connection->fetchPairs($select);
@@ -196,9 +198,13 @@ class Filter
         $allProductsIds
     ) {
         $optionValuesProducts = $this->convertProductOptionsValuesToOptionValuesProducts($productOptionValues);
-        list ($usedFilters, $usedProducts) = $this->getUsedProducts($searchCriteria, $optionValuesProducts, $allProductsIds);
+        list ($usedFilters, $usedProducts) = $this->getUsedProducts(
+            $searchCriteria,
+            $optionValuesProducts,
+            $allProductsIds
+        );
 
-        foreach($attributeFilters as $filter) { /** @var FilterInterface $filter */
+        foreach ($attributeFilters as $filter) { /** @var FilterInterface $filter */
             $code = $filter->getCode();
             if (!array_key_exists($code, $optionValuesProducts)) {
                 continue;
@@ -231,7 +237,9 @@ class Filter
      */
     protected function addCategoryFilter($categoryID)
     {
-        $selectSubCategories = array_key_exists('selectSubCategories', $this->queries) ? $this->queries['selectSubCategories'] : null;
+        $selectSubCategories = array_key_exists('selectSubCategories', $this->queries) ?
+            $this->queries['selectSubCategories'] :
+            null;
 
         if (!$selectSubCategories) {
             return null;
@@ -310,9 +318,11 @@ class Filter
             }
         } else {
             foreach ($attribute->getOptions() as $option) {
-                if (
-                    !$option->getValue() ||
-                    ('multiselect' != $attribute->getFrontendInput() && !in_array($option->getValue(), $availableOptions))
+                if (!$option->getValue() ||
+                    (
+                        'multiselect' != $attribute->getFrontendInput() &&
+                        !in_array($option->getValue(), $availableOptions)
+                    )
                 ) {
                     continue;
                 }
@@ -342,7 +352,11 @@ class Filter
         $selectSubCategories = $connection->select()
             ->distinct()
             ->from(['category' => $connection->getTableName('catalog_category_entity')], ['entity_id'])
-            ->joinInner(['varchar' => $connection->getTableName('catalog_category_entity_varchar')], 'varchar.entity_id = category.entity_id', 'varchar.value')
+            ->joinInner(
+                ['varchar' => $connection->getTableName('catalog_category_entity_varchar')],
+                'varchar.entity_id = category.entity_id',
+                'varchar.value'
+            )
             ->where('category.parent_id = :parent_id')
             ->where('varchar.attribute_id = :attribute_id')
             ->where('category.level = :level')
@@ -372,13 +386,21 @@ class Filter
         foreach ($extraAttributes as $attributeCode => $attributeValues) {
             $attributeSelectInt = $connection->select()
                 ->from('catalog_product_entity_int', 'entity_id')
-                ->joinLeft('eav_attribute', 'catalog_product_entity_int.attribute_id = eav_attribute.attribute_id', null)
+                ->joinLeft(
+                    'eav_attribute',
+                    'catalog_product_entity_int.attribute_id = eav_attribute.attribute_id',
+                    null
+                )
                 ->where('value in (?)', $attributeValues)
                 ->where('attribute_code = ?', $attributeCode);
 
             $attributeSelectVarchar = $connection->select()
                 ->from('catalog_product_entity_int', 'entity_id')
-                ->joinLeft('eav_attribute', 'catalog_product_entity_int.attribute_id = eav_attribute.attribute_id', null)
+                ->joinLeft(
+                    'eav_attribute',
+                    'catalog_product_entity_int.attribute_id = eav_attribute.attribute_id',
+                    null
+                )
                 ->where('value in (?)', $attributeValues)
                 ->where('attribute_code = ?', $attributeCode);
 
@@ -403,7 +425,11 @@ class Filter
         return $connection->select()
             ->distinct()
             ->from(['attr_value' => $connection->getTableName('catalog_product_entity_' . $type)], ['value'])
-            ->joinLeft(['product' => $connection->getTableName('catalog_category_product')], 'attr_value.entity_id = product.product_id', null)
+            ->joinLeft(
+                ['product' => $connection->getTableName('catalog_category_product')],
+                'attr_value.entity_id = product.product_id',
+                null
+            )
             ->where('attr_value.attribute_id = :attribute_id');
     }
 
@@ -418,7 +444,8 @@ class Filter
     protected function getAttributeProductValueSelect($type, $attributeId, $products)
     {
         return $this->resourceConnection->getConnection()->select()
-            ->from([
+            ->from(
+                [
                 'attr_value' => $this->resourceConnection->getTableName('catalog_product_entity_' . $type)],
                 [
                     'entity_id' => 'attr_value_default.entity_id',
@@ -427,7 +454,8 @@ class Filter
             )
             ->joinLeft(
                 ['attr_value_default' => $this->resourceConnection->getTableName('catalog_product_entity_varchar')],
-                'attr_value_default.attribute_id = attr_value.attribute_id AND attr_value_default.entity_id = attr_value.entity_id',
+                'attr_value_default.attribute_id = attr_value.attribute_id AND ' .
+                ' attr_value_default.entity_id = attr_value.entity_id',
                 null
             )
             ->where('attr_value.attribute_id = ?', $attributeId)
@@ -446,7 +474,8 @@ class Filter
     protected function getCategoryProductAssociation($products, $categories)
     {
         return $this->resourceConnection->getConnection()->select()
-            ->from([
+            ->from(
+                [
                 'cat_prod' => $this->resourceConnection->getTableName('catalog_category_product_index')],
                 [
                     'entity_id' => 'cat_prod.product_id',
@@ -473,7 +502,7 @@ class Filter
             $value = $option->getValue();
             $optionProducts = isset($optionValuesProducts[$value]) ? $optionValuesProducts[$value] : [];
             $active = !empty($optionProducts) ? !empty(array_intersect($usedProducts, $optionProducts)) : false;
-            $option->setActive($active);
+            $option->setIsActive($active);
         }
 
         return $options;
@@ -489,8 +518,8 @@ class Filter
     {
         $usedFilters = [];
         $usedProducts = $allProductsIds;
-        foreach($searchCriteria->getFilterGroups() as $filterGroup) {
-            foreach($filterGroup->getFilters() as $filter) {
+        foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
+            foreach ($filterGroup->getFilters() as $filter) {
                 if (isset($optionValuesProducts[$filter->getField()][$filter->getValue()])) {
                     $products = $optionValuesProducts[$filter->getField()][$filter->getValue()];
                 } else {
@@ -517,7 +546,7 @@ class Filter
     protected function getProductIdBaseWithoutFilter($allProductIds, $usedFilters, $excludeFilterCode)
     {
         $usedProducts = $allProductIds;
-        foreach($usedFilters as $code => $data) {
+        foreach ($usedFilters as $code => $data) {
             if ($code !== $excludeFilterCode) {
                 $usedProducts = array_intersect($usedProducts, $data['products']);
             }
@@ -527,7 +556,8 @@ class Filter
     }
 
     /**
-     * Convert array where each product has its value of the given attribute to an array where each option has a list of available products
+     * Convert array where each product has its value of the given attribute to an array
+     * where each option has a list of available products
      *
      * @param array $productOptionValues
      * @return array
@@ -535,7 +565,7 @@ class Filter
     protected function convertProductOptionsValuesToOptionValuesProducts($productOptionValues)
     {
         $optionValuesProducts = [];
-        foreach($productOptionValues as $code => $options) {
+        foreach ($productOptionValues as $code => $options) {
             foreach ($options as $productId => $optionValues) {
                 if (is_array($optionValues)) {
                     foreach ($optionValues as $optId) {

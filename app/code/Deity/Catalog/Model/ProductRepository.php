@@ -191,9 +191,15 @@ class ProductRepository extends \Magento\Catalog\Model\ProductRepository impleme
     /**
      * {@inheritdoc}
      */
-    public function getList(SearchCriteriaInterface $searchCriteria, $includeSubcategories = false, $withAttributeFilters = [])
-    {
-        list ($categoryIDs, $subcategories) = $this->getCategoryIdFromSearchCriteria($searchCriteria, $includeSubcategories);
+    public function getList(
+        SearchCriteriaInterface $searchCriteria,
+        $includeSubcategories = false,
+        $withAttributeFilters = []
+    ) {
+        list ($categoryIDs, $subcategories) = $this->getCategoryIdFromSearchCriteria(
+            $searchCriteria,
+            $includeSubcategories
+        );
 
         /** @var ProductCollection $collection */
         $collection = $this->collectionFactory->create();
@@ -206,7 +212,11 @@ class ProductRepository extends \Magento\Catalog\Model\ProductRepository impleme
         $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
         $this->setListPosition($collection, $searchCriteria, $categoryIDs);
 
-        list($attributeFilters, $attributes) = $this->filter->getAttributeFilters($withAttributeFilters, $categoryIDs, $includeSubcategories);
+        list($attributeFilters, $attributes) = $this->filter->getAttributeFilters(
+            $withAttributeFilters,
+            $categoryIDs,
+            $includeSubcategories
+        );
         $this->processSearchCriteria(
             $collection,
             $searchCriteria,
@@ -224,8 +234,17 @@ class ProductRepository extends \Magento\Catalog\Model\ProductRepository impleme
         if ($this->filter->isAvailabilityEnabled()) {
             /** @var int[] $allProductIds get all ids available in this category */
             $allProductIds = $this->getAllProductIds($categoryIDs);
-            $productFilterOptionValues = $this->filter->getFiltersOptions($allProductIds, $withAttributeFilters, $categoryIDs);
-            $attributeFilters = $this->filter->setFiltersAvailability($attributeFilters, $productFilterOptionValues, $searchCriteria, $allProductIds);
+            $productFilterOptionValues = $this->filter->getFiltersOptions(
+                $allProductIds,
+                $withAttributeFilters,
+                $categoryIDs
+            );
+            $attributeFilters = $this->filter->setFiltersAvailability(
+                $attributeFilters,
+                $productFilterOptionValues,
+                $searchCriteria,
+                $allProductIds
+            );
         }
         $searchResult->setFilters($attributeFilters);
 
@@ -239,8 +258,11 @@ class ProductRepository extends \Magento\Catalog\Model\ProductRepository impleme
      * @param SearchCriteriaInterface $searchCriteria
      * @param int[] $categoryIDs
      */
-    protected function setListPosition(ProductCollection $collection, SearchCriteriaInterface $searchCriteria, $categoryIDs)
-    {
+    protected function setListPosition(
+        ProductCollection $collection,
+        SearchCriteriaInterface $searchCriteria,
+        $categoryIDs
+    ) {
         $sortOrders = (array)$searchCriteria->getSortOrders();
 
         /** @var SortOrder $sortOrder */
@@ -257,13 +279,19 @@ class ProductRepository extends \Magento\Catalog\Model\ProductRepository impleme
             // category level and product position for specific category
             $categoryLevelSelect = $this->connection
                 ->select()
-                ->from(['category' => $this->connection->getTableName('catalog_category_entity')], ['entity_id', 'level'])
+                ->from(
+                    ['category' => $this->connection->getTableName('catalog_category_entity')],
+                    ['entity_id', 'level']
+                )
                 ->where('category.entity_id in (?)', $categoryIDs)
                 ->order('category.level ASC');
 
             $categoryPositionSelect = $this->connection
                 ->select()
-                ->from(['cp' => $this->connection->getTableName('catalog_category_product')], ['category_id', 'product_id', 'position'])
+                ->from(
+                    ['cp' => $this->connection->getTableName('catalog_category_product')],
+                    ['category_id', 'product_id', 'position']
+                )
                 ->join($categoryLevelSelect, 'cp.category_id = t.entity_id')
                 ->group('cp.product_id');
 
@@ -282,13 +310,19 @@ class ProductRepository extends \Magento\Catalog\Model\ProductRepository impleme
      * @param array $categories
      * @param CatalogResourceAttribute[] $attributes
      */
-    protected function processSearchCriteria(ProductCollection $collection, SearchCriteriaInterface $searchCriteria, $includeSubcategories, $categories, $attributes)
-    {
+    protected function processSearchCriteria(
+        ProductCollection $collection,
+        SearchCriteriaInterface $searchCriteria,
+        $includeSubcategories,
+        $categories,
+        $attributes
+    ) {
 
-        $categoryIDs = array_key_exists('subcategoryFilter', $categories) && !empty($categories['subcategoryFilter']) ? $categories['subcategoryFilter'] : $categories['categoryIDs'];
+        $categoryIDs = array_key_exists('subcategoryFilter', $categories) &&
+        !empty($categories['subcategoryFilter']) ? $categories['subcategoryFilter'] : $categories['categoryIDs'];
         //Add filters from root filter group to the collection
         foreach ($searchCriteria->getFilterGroups() as $group) { /** @var FilterGroup $group */
-            if($includeSubcategories) {
+            if ($includeSubcategories) {
                 // if including products for subcategories - modify category filter group
                 foreach ($group->getFilters() as $filter) {
                     /** @var \Magento\Framework\Api\Filter $filter */
@@ -321,8 +355,10 @@ class ProductRepository extends \Magento\Catalog\Model\ProductRepository impleme
      * @param bool $includeSubcategories
      * @return array
      */
-    protected function getCategoryIdFromSearchCriteria(SearchCriteriaInterface $searchCriteria, $includeSubcategories = false)
-    {
+    protected function getCategoryIdFromSearchCriteria(
+        SearchCriteriaInterface $searchCriteria,
+        $includeSubcategories = false
+    ) {
         $categoryIDs = [];
         $subcategoryIds = [];
 

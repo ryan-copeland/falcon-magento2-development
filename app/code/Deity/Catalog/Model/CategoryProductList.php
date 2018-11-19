@@ -25,8 +25,7 @@ class CategoryProductList implements CategoryProductListInterface
      * @var ProductSearchResultsInterfaceFactory
      */
     private $productSearchResultFactory;
-
-
+    
     /**
      * @var ProductConvertInterface
      */
@@ -54,7 +53,6 @@ class CategoryProductList implements CategoryProductListInterface
      */
     private $stockHelper;
 
-
     /**
      * CategoryProductList constructor.
      * @param ProductSearchResultsInterfaceFactory $productSearchResultFactory
@@ -79,7 +77,6 @@ class CategoryProductList implements CategoryProductListInterface
         $this->categoryRepository = $categoryRepository;
         $this->registry = $registry;
     }
-
 
     /**
      * @param int $categoryId
