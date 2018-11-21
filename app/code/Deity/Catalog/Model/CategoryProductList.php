@@ -7,6 +7,7 @@ use Deity\CatalogApi\Api\CategoryProductListInterface;
 use Deity\CatalogApi\Api\ProductConvertInterface;
 use Deity\CatalogApi\Api\Data\ProductSearchResultsInterface;
 use Deity\CatalogApi\Api\Data\ProductSearchResultsInterfaceFactory;
+use Deity\CatalogApi\Api\ProductFilterProviderInterface;
 use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Model\Layer\Resolver;
 use Magento\Catalog\Model\Product;
@@ -54,6 +55,11 @@ class CategoryProductList implements CategoryProductListInterface
     private $stockHelper;
 
     /**
+     * @var ProductFilterProviderInterface
+     */
+    private $filterProvider;
+
+    /**
      * CategoryProductList constructor.
      * @param ProductSearchResultsInterfaceFactory $productSearchResultFactory
      * @param ProductConvertInterface $convert
@@ -61,6 +67,7 @@ class CategoryProductList implements CategoryProductListInterface
      * @param Registry $registry
      * @param Stock $stockHelper
      * @param Resolver $layerResolver
+     * @param ProductFilterProviderInterface $productFilterProvider
      */
     public function __construct(
         ProductSearchResultsInterfaceFactory $productSearchResultFactory,
@@ -68,9 +75,11 @@ class CategoryProductList implements CategoryProductListInterface
         CategoryRepositoryInterface $categoryRepository,
         Registry $registry,
         Stock $stockHelper,
-        Resolver $layerResolver
+        Resolver $layerResolver,
+        ProductFilterProviderInterface $productFilterProvider
     ) {
         $this->stockHelper = $stockHelper;
+        $this->filterProvider = $productFilterProvider;
         $this->productConverter = $convert;
         $this->productSearchResultFactory = $productSearchResultFactory;
         $this->catalogLayer = $layerResolver->get();
@@ -101,6 +110,9 @@ class CategoryProductList implements CategoryProductListInterface
         /** @var ProductSearchResultsInterface $productSearchResult */
         $productSearchResult = $this->productSearchResultFactory->create();
 
+        $productSearchResult->setFilters(
+            $this->filterProvider->getFilterList($this->catalogLayer)
+        );
         $productSearchResult->setItems($responseProducts);
 
         $productSearchResult->setTotalCount($this->getProductCollection()->getSize());

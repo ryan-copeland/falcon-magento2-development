@@ -43,19 +43,19 @@ class FilterOption extends AbstractSimpleObject implements FilterOptionInterface
     }
 
     /**
-     * @return boolean
+     * @return int
      */
-    public function getIsActive()
+    public function getCount(): int
     {
-        return $this->_get(self::IS_ACTIVE);
+        return (int)$this->_get(self::COUNT);
     }
 
     /**
-     * @param boolean $active
+     * @param int $count
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setIsActive($active)
+    public function setCount(int $count)
     {
-        return $this->setData(self::IS_ACTIVE, $active);
+        return $this->setData(self::COUNT, $count);
     }
 }

@@ -3,18 +3,13 @@ declare(strict_types=1);
 
 namespace Deity\Catalog\Model;
 
-use Deity\Catalog\Model\Data\ProductPrice;
-use Deity\CatalogApi\Api\ProductConvertInterface;
-use Deity\CatalogApi\Api\Data\ProductInterfaceFactory;
-use Deity\CatalogApi\Api\Data\ProductPriceInterfaceFactory;
 use Deity\CatalogApi\Api\Data\ProductInterface as DeityProductInterface;
+use Deity\CatalogApi\Api\Data\ProductInterfaceFactory;
+use Deity\CatalogApi\Api\ProductConvertInterface;
 use Deity\CatalogApi\Api\ProductImageProviderInterface;
 use Deity\CatalogApi\Api\ProductPriceProviderInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Catalog\Block\Product\ImageBuilder;
 use Magento\Catalog\Model\Product;
-use Magento\Catalog\Pricing\Price\FinalPriceInterface;
-use Magento\Catalog\Pricing\Price\MinimalPriceCalculatorInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Profiler;
 use Magento\UrlRewrite\Model\UrlFinderInterface;

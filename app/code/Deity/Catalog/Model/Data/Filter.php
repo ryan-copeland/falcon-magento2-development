@@ -14,7 +14,7 @@ class Filter extends AbstractSimpleObject implements FilterInterface
      */
     public function getLabel()
     {
-        return (string)$this->_getData(self::LABEL);
+        return (string)$this->_get(self::LABEL);
     }
 
     /**
@@ -31,7 +31,7 @@ class Filter extends AbstractSimpleObject implements FilterInterface
      */
     public function getCode()
     {
-        return $this->_getData(self::CODE);
+        return $this->_get(self::CODE);
     }
 
     /**
@@ -48,7 +48,7 @@ class Filter extends AbstractSimpleObject implements FilterInterface
      */
     public function getAttributeId()
     {
-        return $this->_getData(self::ATTRIBUTE_ID);
+        return $this->_get(self::ATTRIBUTE_ID);
     }
 
     /**
@@ -57,7 +57,7 @@ class Filter extends AbstractSimpleObject implements FilterInterface
      */
     public function setAttributeId($attributeId)
     {
-        return $this->setData(self::ATTRIBUTE_ID);
+        return $this->setData(self::ATTRIBUTE_ID, $attributeId);
     }
 
     /**
@@ -65,7 +65,7 @@ class Filter extends AbstractSimpleObject implements FilterInterface
      */
     public function getType()
     {
-        return $this->_getData(self::TYPE);
+        return $this->_get(self::TYPE);
     }
 
     /**
@@ -82,7 +82,7 @@ class Filter extends AbstractSimpleObject implements FilterInterface
      */
     public function getOptions()
     {
-        return $this->_getData(self::OPTIONS);
+        return $this->_get(self::OPTIONS);
     }
 
     /**
