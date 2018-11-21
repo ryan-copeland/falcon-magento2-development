@@ -8,6 +8,7 @@ use Deity\CatalogApi\Api\ProductConvertInterface;
 use Deity\CatalogApi\Api\Data\ProductInterfaceFactory;
 use Deity\CatalogApi\Api\Data\ProductPriceInterfaceFactory;
 use Deity\CatalogApi\Api\Data\ProductInterface as DeityProductInterface;
+use Deity\CatalogApi\Api\ProductImageProviderInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Block\Product\ImageBuilder;
 use Magento\Catalog\Model\Product;
@@ -41,9 +42,9 @@ class ProductConvert implements ProductConvertInterface
     private $urlFinder;
 
     /**
-     * @var ImageBuilder
+     * @var ProductImageProviderInterface
      */
-    private $imageBuilder;
+    private $imageProvider;
 
     /**
      * @var MinimalPriceCalculatorInterface
@@ -60,18 +61,19 @@ class ProductConvert implements ProductConvertInterface
      * @param ProductInterfaceFactory $productFactory
      * @param UrlFinderInterface $urlFinder
      * @param MinimalPriceCalculatorInterface $minimalPriceCalculator
-     * @param ImageBuilder $imageBuilder
+     * @param ProductPriceInterfaceFactory $productPriceFactory
+     * @param ProductImageProviderInterface $imageProvider
      */
     public function __construct(
         ProductInterfaceFactory $productFactory,
         UrlFinderInterface $urlFinder,
         MinimalPriceCalculatorInterface $minimalPriceCalculator,
         ProductPriceInterfaceFactory $productPriceFactory,
-        ImageBuilder $imageBuilder
+        ProductImageProviderInterface $imageProvider
     ) {
         $this->productPriceFactory = $productPriceFactory;
         $this->minimalPriceCalculator = $minimalPriceCalculator;
-        $this->imageBuilder = $imageBuilder;
+        $this->imageProvider = $imageProvider;
         $this->urlFinder = $urlFinder;
         $this->productFactory = $productFactory;
     }
@@ -101,9 +103,7 @@ class ProductConvert implements ProductConvertInterface
         $priceObject = $priceInfo->getPrice('final_price');
         $minPrice = $priceObject->getMinimalPrice();
         $minimalPrice = $this->minimalPriceCalculator->getValue($product);
-        $imageObject = $this->imageBuilder->setProduct($product)
-            ->setImageId('deity_category_page_list')
-            ->create();
+
         /** @var ProductPrice $priceObject */
         $priceObject = $this->productPriceFactory->create();
         $priceObject->setRegularPrice($regularPriceValue)
@@ -111,7 +111,9 @@ class ProductConvert implements ProductConvertInterface
             ->setMinTierPrice($minimalPrice);
 
         $deityProduct->setPrice($priceObject);
-        $deityProduct->setImage($imageObject->getImageUrl());
+        $deityProduct->setImage(
+            $this->imageProvider->getProductImageTypeUrl($product, 'deity_category_page_list')
+        );
 
         Profiler::stop('__PRODUCT_LISTING_CONVERT__');
         return $deityProduct;

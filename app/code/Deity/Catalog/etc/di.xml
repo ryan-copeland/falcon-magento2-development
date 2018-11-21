@@ -9,6 +9,7 @@
     <preference for="Deity\CatalogApi\Api\Data\ProductInterface" type="Deity\Catalog\Model\Data\Product" />
     <preference for="Deity\CatalogApi\Api\ProductConvertInterface" type="Deity\Catalog\Model\ProductConvert" />
     <preference for="Deity\CatalogApi\Api\Data\ProductPriceInterface" type="Deity\Catalog\Model\Data\ProductPrice" />
+    <preference for="Deity\CatalogApi\Api\ProductImageProviderInterface" type="Deity\Catalog\Model\Product\ImageProvider" />
 
     <type name="Deity\Catalog\Model\ProductConvert">
         <arguments>
