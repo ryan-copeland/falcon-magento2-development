@@ -9,6 +9,7 @@ use Deity\CatalogApi\Api\Data\ProductInterfaceFactory;
 use Deity\CatalogApi\Api\Data\ProductPriceInterfaceFactory;
 use Deity\CatalogApi\Api\Data\ProductInterface as DeityProductInterface;
 use Deity\CatalogApi\Api\ProductImageProviderInterface;
+use Deity\CatalogApi\Api\ProductPriceProviderInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Block\Product\ImageBuilder;
 use Magento\Catalog\Model\Product;
@@ -47,32 +48,24 @@ class ProductConvert implements ProductConvertInterface
     private $imageProvider;
 
     /**
-     * @var MinimalPriceCalculatorInterface
+     * @var ProductPriceProviderInterface
      */
-    private $minimalPriceCalculator;
-
-    /**
-     * @var ProductPriceInterfaceFactory
-     */
-    private $productPriceFactory;
+    private $priceProvider;
 
     /**
      * ProductConvert constructor.
      * @param ProductInterfaceFactory $productFactory
      * @param UrlFinderInterface $urlFinder
-     * @param MinimalPriceCalculatorInterface $minimalPriceCalculator
-     * @param ProductPriceInterfaceFactory $productPriceFactory
+     * @param ProductPriceProviderInterface $priceProvider
      * @param ProductImageProviderInterface $imageProvider
      */
     public function __construct(
         ProductInterfaceFactory $productFactory,
         UrlFinderInterface $urlFinder,
-        MinimalPriceCalculatorInterface $minimalPriceCalculator,
-        ProductPriceInterfaceFactory $productPriceFactory,
+        ProductPriceProviderInterface $priceProvider,
         ProductImageProviderInterface $imageProvider
     ) {
-        $this->productPriceFactory = $productPriceFactory;
-        $this->minimalPriceCalculator = $minimalPriceCalculator;
+        $this->priceProvider = $priceProvider;
         $this->imageProvider = $imageProvider;
         $this->urlFinder = $urlFinder;
         $this->productFactory = $productFactory;
@@ -96,24 +89,16 @@ class ProductConvert implements ProductConvertInterface
         $deityProduct->setSku($product->getSku());
         $deityProduct->setUrlPath($this->getProductUrlPath($product));
         $deityProduct->setIsSalable((int)$product->getIsSalable());
-        $priceInfo = $product->getPriceInfo();
-        $regularPrice = $priceInfo->getPrice('regular_price');
-        $regularPriceValue = $regularPrice->getValue();
-        /** @var FinalPriceInterface $priceObject */
-        $priceObject = $priceInfo->getPrice('final_price');
-        $minPrice = $priceObject->getMinimalPrice();
-        $minimalPrice = $this->minimalPriceCalculator->getValue($product);
 
-        /** @var ProductPrice $priceObject */
-        $priceObject = $this->productPriceFactory->create();
-        $priceObject->setRegularPrice($regularPriceValue)
-            ->setSpecialPrice($minPrice->getValue())
-            ->setMinTierPrice($minimalPrice);
-
-        $deityProduct->setPrice($priceObject);
         $deityProduct->setImage(
             $this->imageProvider->getProductImageTypeUrl($product, 'deity_category_page_list')
         );
+
+        Profiler::start('__PRODUCT_LISTING_CONVERT_PRICE_CALC__', ['group' => 'Deity']);
+        $deityProduct->setPrice(
+            $this->priceProvider->getPriceData($product)
+        );
+        Profiler::stop('__PRODUCT_LISTING_CONVERT_PRICE_CALC__');
 
         Profiler::stop('__PRODUCT_LISTING_CONVERT__');
         return $deityProduct;
