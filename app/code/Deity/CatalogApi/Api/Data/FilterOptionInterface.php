@@ -7,7 +7,7 @@ interface FilterOptionInterface
 {
     const LABEL = 'label';
     const VALUE = 'value';
-    const IS_ACTIVE = 'is_active';
+    const COUNT = 'count';
 
     /**
      * @return string
@@ -32,13 +32,13 @@ interface FilterOptionInterface
     public function setValue($value);
 
     /**
-     * @return boolean|null
+     * @return int
      */
-    public function getIsActive();
+    public function getCount(): int;
 
     /**
-     * @param boolean $active
+     * @param int $count
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setIsActive($active);
+    public function setCount(int $count);
 }

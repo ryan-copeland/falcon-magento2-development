@@ -11,10 +11,17 @@
     <preference for="Deity\CatalogApi\Api\Data\ProductPriceInterface" type="Deity\Catalog\Model\Data\ProductPrice" />
     <preference for="Deity\CatalogApi\Api\ProductImageProviderInterface" type="Deity\Catalog\Model\Product\ImageProvider" />
     <preference for="Deity\CatalogApi\Api\ProductPriceProviderInterface" type="Deity\Catalog\Model\Product\PriceProvider" />
+    <preference for="Deity\CatalogApi\Api\ProductFilterProviderInterface" type="Deity\Catalog\Model\ProductFilterProvider" />
 
     <type name="Deity\Catalog\Model\ProductConvert">
         <arguments>
             <argument name="urlFinder" xsi:type="object">Magento\CatalogUrlRewrite\Model\Storage\DbStorage</argument>
+        </arguments>
+    </type>
+
+    <type name="Deity\Catalog\Model\ProductFilterProvider">
+        <arguments>
+            <argument name="filterList" xsi:type="object">categoryFilterList</argument>
         </arguments>
     </type>
 

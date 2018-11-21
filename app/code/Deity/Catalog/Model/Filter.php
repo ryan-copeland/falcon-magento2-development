@@ -502,7 +502,7 @@ class Filter
             $value = $option->getValue();
             $optionProducts = isset($optionValuesProducts[$value]) ? $optionValuesProducts[$value] : [];
             $active = !empty($optionProducts) ? !empty(array_intersect($usedProducts, $optionProducts)) : false;
-            $option->setIsActive($active);
+            $option->setCount($active);
         }
 
         return $options;
