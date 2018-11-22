@@ -81,51 +81,106 @@ class CategoryProductListTest extends WebapiAbstract
     }
 
     /**
+     * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_children.php
+     */
+    public function testGetListWithPageSizeParam()
+    {
+        $searchCriteria = [
+            'searchCriteria' => [
+                'filter_groups' => [],
+                'current_page' => 1,
+                'page_size' => 1
+            ],
+        ];
+
+        $categoryId = 3;
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(2, $response['total_count'], 'Two product is expected');
+
+        $this->assertEquals(1, count($response['items']), 'One product is expected in response');
+    }
+
+    /**
+     * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_children.php
+     */
+    public function testGetListWithCurrentPageParam()
+    {
+        $searchCriteria = [
+            'searchCriteria' => [
+                'filter_groups' => [],
+                'current_page' => 2,
+                'page_size' => 1
+            ],
+        ];
+
+        $categoryId = 3;
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+            ]
+        ];
+        $response = $this->_webApiCall($serviceInfo);
+
+        $this->assertEquals(2, $response['total_count'], 'Two product is expected');
+
+        $this->assertEquals(1, count($response['items']), 'One product is expected in response');
+    }
+
+    /**
      * @magentoApiDataFixture ../../../../app/code/Deity/CatalogApi/Test/_files/categories_with_filters.php
      */
-    /*
     public function testGetListFilterReturnFields()
     {
+
+        /** @var $attribute \Magento\Catalog\Model\ResourceModel\Eav\Attribute */
+        $attribute = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()->create(
+            \Magento\Catalog\Model\ResourceModel\Eav\Attribute::class
+        );
+        $attribute->loadByCode('catalog_product', 'filterable_attribute');
+        /** @var \Magento\Eav\Api\Data\AttributeOptionInterface[]  $options */
+        $options = $attribute->getOptions();
+        /** @var \Magento\Eav\Api\Data\AttributeOptionInterface $testOption */
+        //skip 0 one, that's default
+        $testOption = $options[1];
         $searchCriteria = [
             'searchCriteria' => [
                 'filter_groups' => [
                     [
                         'filters' => [
                             [
-                                'field' => 'category_id',
-                                'value' => '3',
+                                'field' => 'sku',
+                                'value' => 'simple-1',
                                 'condition_type' => 'eq',
                             ],
                         ],
                     ],
                 ],
                 'current_page' => 1,
-                'page_size' => 2
+                'page_size' => 2,
             ],
-            'includeSubcategories' => 0,
-            'withAttributeFilters' => ['filterable_attribute']
         ];
 
+        $categoryId = 3;
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => self::RESOURCE_PATH . '?' . http_build_query($searchCriteria),
+                'resourcePath' => str_replace(':categoryId', $categoryId, self::RESOURCE_PATH) .
+                    '?' . http_build_query($searchCriteria),
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
             ]
         ];
+        var_dump($serviceInfo);
         $response = $this->_webApiCall($serviceInfo);
-
-        $this->assertNotNull($response['filters'][0], "Filter data is expected");
-        $filterData = $response['filters'][0];
-
-        $this->assertEquals('Filterable Attribute', $filterData['label'], "Filter label should be set");
-        $this->assertEquals('filterable_attribute', $filterData['code'], "Filter code should be set");
-        $this->assertEquals('int', $filterData['type'], "Filter backend type should be set");
-
-        $this->assertNotNull($response['filters'][0]['options'], "Filter data is expected");
-        $optionsData = $response['filters'][0]['options'][0];
-
-        $this->assertArrayHasKey('label', $optionsData, "Attribute option label should be provided");
-        $this->assertArrayHasKey('value', $optionsData, "Attribute option value should be provided");
+        var_dump($response);
     }
-    */
+
 }
