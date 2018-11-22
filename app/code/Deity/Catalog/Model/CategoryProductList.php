@@ -4,17 +4,15 @@ declare(strict_types=1);
 namespace Deity\Catalog\Model;
 
 use Deity\CatalogApi\Api\CategoryProductListInterface;
-use Deity\CatalogApi\Api\ProductConvertInterface;
 use Deity\CatalogApi\Api\Data\ProductSearchResultsInterface;
 use Deity\CatalogApi\Api\Data\ProductSearchResultsInterfaceFactory;
+use Deity\CatalogApi\Api\ProductConvertInterface;
 use Deity\CatalogApi\Api\ProductFilterProviderInterface;
-use Magento\Catalog\Api\CategoryRepositoryInterface;
 use Magento\Catalog\Model\Layer\Resolver;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\CatalogInventory\Helper\Stock;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
-use Magento\Framework\Registry;
 
 /**
  * Class CategoryProductList
@@ -41,16 +39,6 @@ class CategoryProductList implements CategoryProductListInterface
     private $catalogLayer;
 
     /**
-     * @var CategoryRepositoryInterface
-     */
-    private $categoryRepository;
-
-    /**
-     * @var Registry
-     */
-    private $registry;
-
-    /**
      * @var Stock
      */
     private $stockHelper;
@@ -69,8 +57,6 @@ class CategoryProductList implements CategoryProductListInterface
      * CategoryProductList constructor.
      * @param ProductSearchResultsInterfaceFactory $productSearchResultFactory
      * @param ProductConvertInterface $convert
-     * @param CategoryRepositoryInterface $categoryRepository
-     * @param Registry $registry
      * @param Stock $stockHelper
      * @param Resolver $layerResolver
      * @param ProductFilterProviderInterface $productFilterProvider
@@ -79,8 +65,6 @@ class CategoryProductList implements CategoryProductListInterface
     public function __construct(
         ProductSearchResultsInterfaceFactory $productSearchResultFactory,
         ProductConvertInterface $convert,
-        CategoryRepositoryInterface $categoryRepository,
-        Registry $registry,
         Stock $stockHelper,
         Resolver $layerResolver,
         ProductFilterProviderInterface $productFilterProvider,
@@ -92,8 +76,6 @@ class CategoryProductList implements CategoryProductListInterface
         $this->productConverter = $convert;
         $this->productSearchResultFactory = $productSearchResultFactory;
         $this->catalogLayer = $layerResolver->get();
-        $this->categoryRepository = $categoryRepository;
-        $this->registry = $registry;
     }
 
     /**
@@ -107,11 +89,11 @@ class CategoryProductList implements CategoryProductListInterface
         \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null
     ): ProductSearchResultsInterface {
 
-        $currentCategory = $this->categoryRepository->get($categoryId);
-        $this->registry->register('current_category', $currentCategory);
-        $this->catalogLayer->setCurrentCategory($currentCategory);
+        $this->catalogLayer->setCurrentCategory($categoryId);
 
-        $this->collectionProcessor->process($searchCriteria, $this->getProductCollection());
+        if ($searchCriteria !== null) {
+            $this->collectionProcessor->process($searchCriteria, $this->getProductCollection());
+        }
 
         $responseProducts = [];
         foreach ($this->getProductCollection() as $productObject) {

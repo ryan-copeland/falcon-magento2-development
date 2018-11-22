@@ -41,7 +41,6 @@ class PriceProvider implements ProductPriceProviderInterface
         $this->productPriceFactory = $productPriceFactory;
     }
 
-
     /**
      * @param Product $product
      * @return ProductPriceInterface
