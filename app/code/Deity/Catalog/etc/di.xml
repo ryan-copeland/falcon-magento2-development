@@ -18,11 +18,14 @@
             <argument name="urlFinder" xsi:type="object">Magento\CatalogUrlRewrite\Model\Storage\DbStorage</argument>
         </arguments>
     </type>
-
     <type name="Deity\Catalog\Model\ProductFilterProvider">
         <arguments>
             <argument name="filterList" xsi:type="object">categoryFilterList</argument>
         </arguments>
     </type>
-
+    <type name="Deity\Catalog\Model\CategoryProductList">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object">Magento\Catalog\Model\Api\SearchCriteria\ProductCollectionProcessor</argument>
+        </arguments>
+    </type>
 </config>

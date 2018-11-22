@@ -13,6 +13,7 @@ use Magento\Catalog\Model\Layer\Resolver;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\CatalogInventory\Helper\Stock;
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Registry;
 
 /**
@@ -60,6 +61,11 @@ class CategoryProductList implements CategoryProductListInterface
     private $filterProvider;
 
     /**
+     * @var CollectionProcessorInterface
+     */
+    private $collectionProcessor;
+
+    /**
      * CategoryProductList constructor.
      * @param ProductSearchResultsInterfaceFactory $productSearchResultFactory
      * @param ProductConvertInterface $convert
@@ -68,6 +74,7 @@ class CategoryProductList implements CategoryProductListInterface
      * @param Stock $stockHelper
      * @param Resolver $layerResolver
      * @param ProductFilterProviderInterface $productFilterProvider
+     * @param CollectionProcessorInterface $collectionProcessor
      */
     public function __construct(
         ProductSearchResultsInterfaceFactory $productSearchResultFactory,
@@ -76,9 +83,11 @@ class CategoryProductList implements CategoryProductListInterface
         Registry $registry,
         Stock $stockHelper,
         Resolver $layerResolver,
-        ProductFilterProviderInterface $productFilterProvider
+        ProductFilterProviderInterface $productFilterProvider,
+        CollectionProcessorInterface $collectionProcessor
     ) {
         $this->stockHelper = $stockHelper;
+        $this->collectionProcessor = $collectionProcessor;
         $this->filterProvider = $productFilterProvider;
         $this->productConverter = $convert;
         $this->productSearchResultFactory = $productSearchResultFactory;
@@ -101,6 +110,8 @@ class CategoryProductList implements CategoryProductListInterface
         $currentCategory = $this->categoryRepository->get($categoryId);
         $this->registry->register('current_category', $currentCategory);
         $this->catalogLayer->setCurrentCategory($currentCategory);
+
+        $this->collectionProcessor->process($searchCriteria, $this->getProductCollection());
 
         $responseProducts = [];
         foreach ($this->getProductCollection() as $productObject) {

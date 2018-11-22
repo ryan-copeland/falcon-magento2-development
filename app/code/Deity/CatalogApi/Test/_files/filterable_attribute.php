@@ -45,8 +45,7 @@ $attribute->setData(
             ],
             'order' => [
                 'option_1' => 1,
-                'option_2' => 2,
-                'option_3' => 3,
+                'option_2' => 2
             ],
         ],
     ]
