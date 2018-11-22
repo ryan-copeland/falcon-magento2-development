@@ -151,6 +151,7 @@ class CategoryProductListTest extends WebapiAbstract
         $options = $attribute->getOptions();
         /** @var \Magento\Eav\Api\Data\AttributeOptionInterface $testOption */
         //skip 0 one, that's default
+        /** @var \Magento\Eav\Model\Entity\Attribute\Option $testOption */
         $testOption = $options[1];
         $searchCriteria = [
             'searchCriteria' => [
@@ -158,8 +159,8 @@ class CategoryProductListTest extends WebapiAbstract
                     [
                         'filters' => [
                             [
-                                'field' => 'sku',
-                                'value' => 'simple-1',
+                                'field' => 'filterable_attribute',
+                                'value' => $testOption->getValue(),
                                 'condition_type' => 'eq',
                             ],
                         ],
@@ -178,9 +179,7 @@ class CategoryProductListTest extends WebapiAbstract
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
             ]
         ];
-        var_dump($serviceInfo);
         $response = $this->_webApiCall($serviceInfo);
-        var_dump($response);
+        $this->assertEquals(1, $response['total_count'], 'Only one product is expected');
     }
-
 }

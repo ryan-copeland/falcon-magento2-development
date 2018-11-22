@@ -49,7 +49,6 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
         $this->filterFactory = $filterFactory;
     }
 
-
     /**
      * @param Layer $layer
      * @return \Deity\CatalogApi\Api\Data\FilterInterface[]
