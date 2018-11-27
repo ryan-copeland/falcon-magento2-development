@@ -17,8 +17,8 @@ set('repository', '');
 set('languages', 'en_US');
 
 // OPcache configuration
-task('cache:clear:opcache', 'sudo systemctl reload php-fpm');
-after('cache:clear', 'cache:clear:opcache');
+/*task('cache:clear:opcache', 'sudo systemctl reload php-fpm');
+after('cache:clear', 'cache:clear:opcache');*/
 
 set('dev_modules', [
     'Magento_TestModule1',
