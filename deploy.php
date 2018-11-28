@@ -36,8 +36,8 @@ localhost('build');
 
 // Remote Servers
 host('release')
-    ->hostname('142.93.102.62')
-    ->user('deployer')
+    ->hostname(getenv('DEPLOY_SERVER_HOSTNAME'))
+    ->user(getenv('DEPLOY_USER_NAME'))
     ->set('deploy_path', '/var/www/html')
     ->identityFile('~/.ssh/magento-deploy-key')
     ->stage('dev')
