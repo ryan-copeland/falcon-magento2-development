@@ -52,7 +52,7 @@ before_install:
   - composer config --global http-basic.repo.magento.com "$MAGENTO_USERNAME" "$MAGENTO_PASSWORD"
 install: composer install --no-interaction
 before_script:
-  - /bin/bash /dev/travis/custom_before_script.sh
+  - /bin/bash ./dev/travis/custom_before_script.sh
 script:
   # Set arguments for variants of phpunit based tests; '|| true' prevents failing script when leading test fails
   - test $TEST_SUITE = "functional" && TEST_FILTER='dev/tests/functional/testsuites/Magento/Mtf/TestSuite/InjectableTests.php' || true
