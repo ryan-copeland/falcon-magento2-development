@@ -9,7 +9,7 @@ trap '>&2 echo Error: Command \`$BASH_COMMAND\` on line $LINENO failed with exit
 # prepare for test suite
 case $TEST_SUITE in
     integration)
-        cd dev/tests/integration
+         cd dev/tests/integration
 
         # create database and move db config into place
         mysql -uroot -e '
@@ -100,6 +100,7 @@ case $TEST_SUITE in
         sed -e "s?basic?travis_acceptance?g" --in-place ./phpunit.xml
         cp ./.htaccess.sample ./.htaccess
         cd ./utils
+        php -f generate/moduleSequence.php
         php -f mtf troubleshooting:check-all
 
         cd ../../..
