@@ -71,6 +71,7 @@ atlassian*
 .DS_Store
 
 #Deity specific
+artifacts
 LICENSE.txt
 LICENSE_AFL.txt
 CHANGELOG.md
