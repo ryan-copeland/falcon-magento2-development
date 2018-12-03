@@ -12,16 +12,16 @@ class Filter extends AbstractSimpleObject implements FilterInterface
     /**
      * @return string
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return (string)$this->_get(self::LABEL);
     }
 
     /**
-     * @param string|Phrase $label
+     * @param string $label
      * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
-    public function setLabel($label)
+    public function setLabel(string $label): FilterInterface
     {
         return $this->setData(self::LABEL, $label);
     }
@@ -29,16 +29,16 @@ class Filter extends AbstractSimpleObject implements FilterInterface
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
-        return $this->_get(self::CODE);
+        return (string)$this->_get(self::CODE);
     }
 
     /**
      * @param string $code
      * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
-    public function setCode($code)
+    public function setCode(string $code): FilterInterface
     {
         return $this->setData(self::CODE, $code);
     }
@@ -46,16 +46,16 @@ class Filter extends AbstractSimpleObject implements FilterInterface
     /**
      * @return int
      */
-    public function getAttributeId()
+    public function getAttributeId(): int
     {
-        return $this->_get(self::ATTRIBUTE_ID);
+        return (int)$this->_get(self::ATTRIBUTE_ID);
     }
 
     /**
      * @param int $attributeId
      * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
-    public function setAttributeId($attributeId)
+    public function setAttributeId(int $attributeId): FilterInterface
     {
         return $this->setData(self::ATTRIBUTE_ID, $attributeId);
     }
@@ -63,16 +63,16 @@ class Filter extends AbstractSimpleObject implements FilterInterface
     /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
-        return $this->_get(self::TYPE);
+        return (string)$this->_get(self::TYPE);
     }
 
     /**
      * @param string $type
      * @return \Deity\CatalogApi\Api\Data\FilterInterface;
      */
-    public function setType($type)
+    public function setType(string $type): FilterInterface
     {
         return $this->setData(self::TYPE, $type);
     }
@@ -80,7 +80,7 @@ class Filter extends AbstractSimpleObject implements FilterInterface
     /**
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface[]
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->_get(self::OPTIONS);
     }
@@ -89,7 +89,7 @@ class Filter extends AbstractSimpleObject implements FilterInterface
      * @param \Deity\CatalogApi\Api\Data\FilterOptionInterface[] $options
      * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
-    public function setOptions($options)
+    public function setOptions(array $options): FilterInterface
     {
         return $this->setData(self::OPTIONS, $options);
     }

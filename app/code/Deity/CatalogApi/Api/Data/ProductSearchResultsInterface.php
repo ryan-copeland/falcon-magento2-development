@@ -16,14 +16,14 @@ interface ProductSearchResultsInterface
      * Get filters
      * @return \Deity\CatalogApi\Api\Data\FilterInterface[]
      */
-    public function getFilters();
+    public function getFilters(): array;
 
     /**
      * Set filters
      * @param \Deity\CatalogApi\Api\Data\FilterInterface[] $items
-     * @return $this
+     * @return \Deity\CatalogApi\Api\Data\ProductSearchResultsInterface
      */
-    public function setFilters($items);
+    public function setFilters(array $items): ProductSearchResultsInterface;
 
     /**
      * Get items list.
@@ -36,9 +36,9 @@ interface ProductSearchResultsInterface
      * Set items list.
      *
      * @param \Deity\CatalogApi\Api\Data\ProductInterface[] $items
-     * @return $this
+     * @return \Deity\CatalogApi\Api\Data\ProductSearchResultsInterface
      */
-    public function setItems(array $items);
+    public function setItems(array $items): ProductSearchResultsInterface;
 
     /**
      * Get total count.
@@ -51,7 +51,7 @@ interface ProductSearchResultsInterface
      * Set total count.
      *
      * @param int $totalCount
-     * @return $this
+     * @return \Deity\CatalogApi\Api\Data\ProductSearchResultsInterface
      */
-    public function setTotalCount(int $totalCount);
+    public function setTotalCount(int $totalCount): ProductSearchResultsInterface;
 }

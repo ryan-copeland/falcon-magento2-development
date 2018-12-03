@@ -11,16 +11,16 @@ class FilterOption extends AbstractSimpleObject implements FilterOptionInterface
     /**
      * @return string
      */
-    public function getLabel()
+    public function getLabel(): string
     {
-        return $this->_get(self::LABEL);
+        return (string)$this->_get(self::LABEL);
     }
 
     /**
      * @param string $label
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setLabel($label)
+    public function setLabel(string $label): FilterOptionInterface
     {
         return $this->setData(self::LABEL, $label);
     }
@@ -28,16 +28,16 @@ class FilterOption extends AbstractSimpleObject implements FilterOptionInterface
     /**
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
-        return $this->_get(self::VALUE);
+        return (string)$this->_get(self::VALUE);
     }
 
     /**
      * @param string $value
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setValue($value)
+    public function setValue(string $value): FilterOptionInterface
     {
         return $this->setData(self::VALUE, $value);
     }
@@ -54,7 +54,7 @@ class FilterOption extends AbstractSimpleObject implements FilterOptionInterface
      * @param int $count
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setCount(int $count)
+    public function setCount(int $count): FilterOptionInterface
     {
         return $this->setData(self::COUNT, $count);
     }

@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Deity\CatalogApi\Api\Data;
 
-use Magento\Framework\Phrase;
-
 interface FilterInterface
 {
     const LABEL = 'label';
@@ -16,55 +14,55 @@ interface FilterInterface
     /**
      * @return string
      */
-    public function getLabel();
+    public function getLabel(): string;
 
     /**
-     * @param string|Phrase $label
+     * @param string $label
      * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
-    public function setLabel($label);
+    public function setLabel(string $label): FilterInterface;
 
     /**
      * @return string
      */
-    public function getCode();
+    public function getCode(): string;
 
     /**
      * @param string $code
      * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
-    public function setCode($code);
+    public function setCode(string $code): FilterInterface;
 
     /**
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface[]|null
      */
-    public function getOptions();
+    public function getOptions(): array;
 
     /**
      * @param \Deity\CatalogApi\Api\Data\FilterOptionInterface[] $options
      * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
-    public function setOptions($options);
+    public function setOptions(array $options): FilterInterface;
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getAttributeId();
+    public function getAttributeId(): int;
 
     /**
      * @param int $attributeId
      * @return \Deity\CatalogApi\Api\Data\FilterInterface
      */
-    public function setAttributeId($attributeId);
+    public function setAttributeId(int $attributeId): FilterInterface;
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getType();
+    public function getType(): string;
 
     /**
      * @param string $type
      * @return \Deity\CatalogApi\Api\Data\FilterInterface;
      */
-    public function setType($type);
+    public function setType(string $type): FilterInterface;
 }

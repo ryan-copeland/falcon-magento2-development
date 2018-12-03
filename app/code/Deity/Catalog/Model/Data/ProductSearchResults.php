@@ -11,7 +11,7 @@ class ProductSearchResults extends AbstractSimpleObject implements ProductSearch
     /**
      * {@inheritdoc}
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return $this->_get(self::KEY_FILTERS) === null ? [] : $this->_get(self::KEY_FILTERS);
     }
@@ -19,9 +19,10 @@ class ProductSearchResults extends AbstractSimpleObject implements ProductSearch
     /**
      * {@inheritdoc}
      */
-    public function setFilters($items)
+    public function setFilters(array $items): ProductSearchResultsInterface
     {
-        return $this->setData(self::KEY_FILTERS, $items);
+        $this->setData(self::KEY_FILTERS, $items);
+        return $this;
     }
 
     /**
@@ -40,7 +41,7 @@ class ProductSearchResults extends AbstractSimpleObject implements ProductSearch
      * @param \Deity\CatalogApi\Api\Data\ProductInterface[] $items
      * @return $this
      */
-    public function setItems(array $items)
+    public function setItems(array $items): ProductSearchResultsInterface
     {
         $this->setData(self::KEY_ITEMS, $items);
         return $this;
@@ -62,7 +63,7 @@ class ProductSearchResults extends AbstractSimpleObject implements ProductSearch
      * @param int $totalCount
      * @return $this
      */
-    public function setTotalCount(int $totalCount)
+    public function setTotalCount(int $totalCount): ProductSearchResultsInterface
     {
         $this->setData(self::KEY_TOTAL_COUNT, $totalCount);
         return $this;

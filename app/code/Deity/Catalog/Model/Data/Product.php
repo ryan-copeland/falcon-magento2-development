@@ -98,7 +98,9 @@ class Product extends AbstractExtensibleModel implements ProductInterface
     {
         $extensionAttributes = $this->_getExtensionAttributes();
         if (!$extensionAttributes) {
-            return $this->extensionAttributesFactory->create(ProductInterface::class);
+            $extensionAttributes = $this->extensionAttributesFactory->create(ProductInterface::class);
+            $this->_setExtensionAttributes($extensionAttributes);
+            return $extensionAttributes;
         }
         return $extensionAttributes;
     }
@@ -109,8 +111,9 @@ class Product extends AbstractExtensibleModel implements ProductInterface
      */
     public function setExtensionAttributes(
         \Deity\CatalogApi\Api\Data\ProductExtensionInterface $extensionAttributes
-    ) {
+    ): ProductInterface {
         $this->_setExtensionAttributes($extensionAttributes);
+        return $this;
     }
 
     /**
