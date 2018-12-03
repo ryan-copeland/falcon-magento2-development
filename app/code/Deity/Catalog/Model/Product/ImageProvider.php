@@ -43,15 +43,18 @@ class ImageProvider implements ProductImageProviderInterface
      */
     public function getProductImageTypeUrl(Product $product, string $imageType): string
     {
-        $this->appEmulation->startEnvironmentEmulation($product->getStoreId(), Area::AREA_FRONTEND, true);
-        // TODO: Implement getProductImageTypeUrl() method.
-        $imageObject = $this->imageBuilder->setProduct($product)
-            ->setImageId($imageType)
-            ->create();
+        try {
+            $this->appEmulation->startEnvironmentEmulation($product->getStoreId(), Area::AREA_FRONTEND, true);
+            $imageObject = $this->imageBuilder->setProduct($product)
+                ->setImageId($imageType)
+                ->create();
 
-        $imageUrl = $imageObject->getImageUrl();
-
-        $this->appEmulation->stopEnvironmentEmulation();
+            $imageUrl = $imageObject->getImageUrl();
+        } catch (\Exception $e) {
+            $imageUrl = '';
+        } finally {
+            $this->appEmulation->stopEnvironmentEmulation();
+        }
 
         return $imageUrl;
     }

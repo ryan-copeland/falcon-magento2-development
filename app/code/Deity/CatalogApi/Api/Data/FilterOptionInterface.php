@@ -12,24 +12,24 @@ interface FilterOptionInterface
     /**
      * @return string
      */
-    public function getLabel();
+    public function getLabel(): string;
 
     /**
      * @param string $label
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setLabel($label);
+    public function setLabel(string $label): FilterOptionInterface;
 
     /**
      * @return string
      */
-    public function getValue();
+    public function getValue(): string;
 
     /**
      * @param string $value
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setValue($value);
+    public function setValue(string $value): FilterOptionInterface;
 
     /**
      * @return int
@@ -40,5 +40,5 @@ interface FilterOptionInterface
      * @param int $count
      * @return \Deity\CatalogApi\Api\Data\FilterOptionInterface
      */
-    public function setCount(int $count);
+    public function setCount(int $count): FilterOptionInterface;
 }

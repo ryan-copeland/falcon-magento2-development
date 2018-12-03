@@ -41,7 +41,7 @@ interface ProductInterface extends ExtensibleDataInterface
      * @param \Deity\CatalogApi\Api\Data\ProductExtensionInterface $extensionAttributes
      * @return \Deity\CatalogApi\Api\Data\ProductInterface
      */
-    public function setExtensionAttributes(ProductExtensionInterface $extensionAttributes);
+    public function setExtensionAttributes(ProductExtensionInterface $extensionAttributes): ProductInterface;
 
     /**
      * @return int
