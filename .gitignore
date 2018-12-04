@@ -71,6 +71,7 @@ atlassian*
 .DS_Store
 
 #Deity specific
+app/etc/config.*
 LICENSE.txt
 LICENSE_AFL.txt
 CHANGELOG.md
