@@ -65,12 +65,12 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
             }
             /** @var FilterInterface $filterObject */
             $filterObject = $this->filterFactory->create();
-            $filterObject->setLabel($magentoFilter->getName());
+            $filterObject->setLabel((string)$magentoFilter->getName());
             if ($magentoFilter->getRequestVar() == 'cat') {
                 $filterObject->setCode($magentoFilter->getRequestVar());
                 $filterObject->setType('int');
             } else {
-                $filterObject->setAttributeId($magentoFilter->getAttributeModel()->getAttributeId());
+                $filterObject->setAttributeId((int)$magentoFilter->getAttributeModel()->getAttributeId());
                 $filterObject->setCode($magentoFilter->getAttributeModel()->getAttributeCode());
                 $filterObject->setType($magentoFilter->getAttributeModel()->getBackendType());
             }
@@ -81,7 +81,7 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
             foreach ($magentoOptions as $magentoOption) {
                 /** @var FilterOptionInterface $filterOption */
                 $filterOption =$this->filterOptionFactory->create();
-                $filterOption->setLabel($magentoOption->getData('label'));
+                $filterOption->setLabel((string)$magentoOption->getData('label'));
                 $filterOption->setValue($magentoOption->getValueString());
                 $filterOption->setCount((int)$magentoOption->getData('count'));
                 $filterOptions[] = $filterOption;

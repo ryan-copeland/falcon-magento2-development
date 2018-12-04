@@ -20,8 +20,15 @@ class ProductConvertPluginExample
      */
     public function afterConvert(ProductConvertInterface $productConvertObject, ProductInterface $deityProduct)
     {
-        /** @var Product $magentoProduct */
+        /**
+         * Instance of magento product that is currently being processed by converter
+         * @var Product $magentoProduct
+         */
         $magentoProduct = $productConvertObject->getCurrentProduct();
+
+        /**
+         * Target object that could be generically extended using `extension_attributes.xml`
+         */
         $attributes = $deityProduct->getExtensionAttributes();
 
         $attributes->setUrlKey($magentoProduct->getData('url_key'));
