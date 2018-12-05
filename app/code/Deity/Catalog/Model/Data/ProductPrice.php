@@ -41,7 +41,6 @@ class ProductPrice implements ProductPriceInterface
         $this->minTierPrice = $minTierPrice;
     }
 
-
     /**
      * @return float
      */

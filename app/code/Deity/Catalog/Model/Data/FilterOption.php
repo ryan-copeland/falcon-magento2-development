@@ -37,7 +37,6 @@ class FilterOption implements FilterOptionInterface
         $this->count = $count;
     }
 
-
     /**
      * @return string
      */

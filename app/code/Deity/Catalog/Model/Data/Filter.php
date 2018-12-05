@@ -53,7 +53,6 @@ class Filter implements FilterInterface
         $this->options = $options;
     }
 
-
     /**
      * @return string
      */
