@@ -70,9 +70,9 @@ class ProductConvertTest extends TestCase
             'tier price should be set to minimal available value'
         );
         $this->assertEquals(
-            0.00,
+            null,
             $productPriceData->getSpecialPrice(),
-            'if product has no special price, should be set to 0.00'
+            'if product has no special price, should be set to null'
         );
     }
 
@@ -91,7 +91,7 @@ class ProductConvertTest extends TestCase
         $productPriceData = $convertedProduct->getPrice();
 
         $this->assertEquals(10, $productPriceData->getRegularPrice(), 'original product price should match');
-        $this->assertEquals(0.0, $productPriceData->getMinTierPrice(), 'if no tier price set, should be 0.00');
+        $this->assertEquals(null, $productPriceData->getMinTierPrice(), 'if no tier price set, should be null');
         $this->assertEquals(
             5.99,
             $productPriceData->getSpecialPrice(),

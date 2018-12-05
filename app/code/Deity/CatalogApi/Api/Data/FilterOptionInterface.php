@@ -23,5 +23,4 @@ interface FilterOptionInterface
      * @return int
      */
     public function getCount(): int;
-
 }
