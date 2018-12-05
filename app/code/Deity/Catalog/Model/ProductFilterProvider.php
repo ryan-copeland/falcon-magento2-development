@@ -63,30 +63,33 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
             if (!$magentoFilter->getItemsCount()) {
                 continue;
             }
-            /** @var FilterInterface $filterObject */
-            $filterObject = $this->filterFactory->create();
-            $filterObject->setLabel((string)$magentoFilter->getName());
+            $filterInitData = [];
+            $filterInitData['label'] = (string)$magentoFilter->getName();
             if ($magentoFilter->getRequestVar() == 'cat') {
-                $filterObject->setCode($magentoFilter->getRequestVar());
-                $filterObject->setType('int');
+                $filterInitData['code'] = $magentoFilter->getRequestVar();
+                $filterInitData['type'] = 'int';
+                $filterInitData['attributeId'] = 0;
             } else {
-                $filterObject->setAttributeId((int)$magentoFilter->getAttributeModel()->getAttributeId());
-                $filterObject->setCode($magentoFilter->getAttributeModel()->getAttributeCode());
-                $filterObject->setType($magentoFilter->getAttributeModel()->getBackendType());
+                $filterInitData['code'] = $magentoFilter->getAttributeModel()->getAttributeCode();
+                $filterInitData['type'] = $magentoFilter->getAttributeModel()->getBackendType();
+                $filterInitData['attributeId'] = (int)$magentoFilter->getAttributeModel()->getAttributeId();
             }
-
+            /** @var FilterInterface $filterObject */
+            $filterObject = $this->filterFactory->create($filterInitData);
             $magentoOptions = $magentoFilter->getItems();
-            $filterOptions = [];
+
             /** @var Item $magentoOption */
             foreach ($magentoOptions as $magentoOption) {
                 /** @var FilterOptionInterface $filterOption */
-                $filterOption =$this->filterOptionFactory->create();
-                $filterOption->setLabel((string)$magentoOption->getData('label'));
-                $filterOption->setValue($magentoOption->getValueString());
-                $filterOption->setCount((int)$magentoOption->getData('count'));
-                $filterOptions[] = $filterOption;
+                $filterOption =$this->filterOptionFactory->create(
+                    [
+                        'label' => (string)$magentoOption->getData('label'),
+                        'value' => $magentoOption->getValueString(),
+                        'count' => (int)$magentoOption->getData('count')
+                    ]
+                );
+                $filterObject->addOption($filterOption);
             }
-            $filterObject->setOptions($filterOptions);
 
             $resultFilters[] = $filterObject;
         }
