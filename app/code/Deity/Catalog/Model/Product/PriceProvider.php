@@ -57,14 +57,17 @@ class PriceProvider implements ProductPriceProviderInterface
 
         $specialPrice = $minPrice->getValue();
         if ($specialPrice >= $regularPriceValue) {
-            $specialPrice = 0.00;
+            $specialPrice = null;
         }
 
         /** @var ProductPrice $priceObject */
-        $priceObject = $this->productPriceFactory->create();
-        $priceObject->setRegularPrice($regularPriceValue)
-            ->setSpecialPrice($specialPrice)
-            ->setMinTierPrice($minimalPrice);
+        $priceObject = $this->productPriceFactory->create(
+            [
+                'regularPrice' => $regularPriceValue,
+                'specialPrice' => $specialPrice,
+                'minTierPrice' => $minimalPrice
+            ]
+        );
 
         return $priceObject;
     }

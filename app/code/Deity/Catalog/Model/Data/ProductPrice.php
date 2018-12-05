@@ -10,43 +10,52 @@ use Magento\Framework\Api\AbstractSimpleObject;
  * Class ProductPrice
  * @package Deity\Catalog\Model\Data
  */
-class ProductPrice extends AbstractSimpleObject implements ProductPriceInterface
+class ProductPrice implements ProductPriceInterface
 {
+
+    /**
+     * @var float
+     */
+    private $regularPrice;
+
+    /**
+     * @var float
+     */
+    private $specialPrice;
+
+    /**
+     * @var float
+     */
+    private $minTierPrice;
+
+    /**
+     * ProductPrice constructor.
+     * @param float $regularPrice
+     * @param float $specialPrice
+     * @param float $minTierPrice
+     */
+    public function __construct(float $regularPrice, float $specialPrice = null, float $minTierPrice = null)
+    {
+        $this->regularPrice = $regularPrice;
+        $this->specialPrice = $specialPrice;
+        $this->minTierPrice = $minTierPrice;
+    }
+
 
     /**
      * @return float
      */
     public function getRegularPrice(): float
     {
-        return (float)$this->_get(self::REGULAR_PRICE);
-    }
-
-    /**
-     * @param float $regularPrice
-     * @return ProductPriceInterface
-     */
-    public function setRegularPrice(float $regularPrice): ProductPriceInterface
-    {
-        $this->setData(self::REGULAR_PRICE, $regularPrice);
-        return $this;
+        return $this->regularPrice;
     }
 
     /**
      * @return float
      */
-    public function getSpecialPrice(): float
+    public function getSpecialPrice(): ?float
     {
-        return (float)$this->_get(self::SPECIAL_PRICE);
-    }
-
-    /**
-     * @param float $specialPrice
-     * @return ProductPriceInterface
-     */
-    public function setSpecialPrice(float $specialPrice): ProductPriceInterface
-    {
-        $this->setData(self::SPECIAL_PRICE, $specialPrice);
-        return $this;
+        return $this->specialPrice;
     }
 
     /**
@@ -54,16 +63,6 @@ class ProductPrice extends AbstractSimpleObject implements ProductPriceInterface
      */
     public function getMinTierPrice(): ?float
     {
-        return (float)$this->_get(self::MIN_TIER_PRICE);
-    }
-
-    /**
-     * @param float $minTierPrice
-     * @return ProductPriceInterface
-     */
-    public function setMinTierPrice(?float $minTierPrice): ProductPriceInterface
-    {
-        $this->setData(self::MIN_TIER_PRICE, $minTierPrice);
-        return $this;
+        return $this->minTierPrice;
     }
 }
