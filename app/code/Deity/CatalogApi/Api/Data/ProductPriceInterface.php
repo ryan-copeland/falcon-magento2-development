@@ -21,30 +21,12 @@ interface ProductPriceInterface
     public function getRegularPrice(): float;
 
     /**
-     * @param float $regularPrice
-     * @return ProductPriceInterface
-     */
-    public function setRegularPrice(float $regularPrice): ProductPriceInterface;
-
-    /**
      * @return float
      */
-    public function getSpecialPrice(): float;
-
-    /**
-     * @param float $specialPrice
-     * @return ProductPriceInterface
-     */
-    public function setSpecialPrice(float $specialPrice): ProductPriceInterface;
+    public function getSpecialPrice(): ?float;
 
     /**
      * @return float
      */
     public function getMinTierPrice(): ?float;
-
-    /**
-     * @param float $minTierPrice
-     * @return ProductPriceInterface
-     */
-    public function setMinTierPrice(?float $minTierPrice): ProductPriceInterface;
 }
