@@ -1,36 +1,42 @@
 image: php:7.1.11
 
-# Select what we should cache between builds
-cache:
-  paths:
-  - vendor/
-
-before_script:
-- apt-get update -yqq
-- apt-get install -yqq git libmcrypt-dev libxslt-dev libpq-dev libcurl4-gnutls-dev libicu-dev libvpx-dev libjpeg-dev libpng-dev libxpm-dev zlib1g-dev libfreetype6-dev libxml2-dev libexpat1-dev libbz2-dev libgmp3-dev libldap2-dev unixodbc-dev libsqlite3-dev libaspell-dev libsnmp-dev libpcre3-dev libtidy-dev
-# Install PHP extensions
-- docker-php-ext-configure gd --enable-gd-native-ttf --with-jpeg-dir=/usr/lib/x86_64-linux-gnu/ --with-png-dir=/usr/lib/x86_64-linux-gnu/ --with-freetype-dir=/usr/lib/x86_64-linux-gnu/
-- docker-php-ext-install gd bcmath intl mcrypt mbstring mysqli opcache soap xsl zip bz2 exif pdo_mysql
-
-# Install and run Composer
-- curl -sS https://getcomposer.org/installer | php
-- php composer.phar config --global http-basic.repo.magento.com "$MAGENTO_USERNAME" "$MAGENTO_PASSWORD"
-- php composer.phar install
-
 stages:
-- build
-- deploy
+- release
 
-build:
-  stage: build
-  script: ./vendor/bin/dep build
-  artifacts:
-    paths:
-      - artifacts/artifact.tar.gz
-    expire_in: 30 days
+packagist:
+  stage: release
+  before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$GIT_SSH_PRIV_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - git config --global user.email "sergii@deity.io"
+  - git config --global user.name "Sergii Gzh"
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan github.com >> ~/.ssh/known_hosts
+  - if [ `which git 2> /dev/null` ]; then
+    OUT_REVISION=`git describe --always`;
+    if  [ "`git rev-parse tags/$CI_COMMIT_REF_NAME 2>/dev/null`" = "tags/$CI_COMMIT_REF_NAME" ]; then
+    BRANCH_NAME=$CI_COMMIT_REF_NAME;
+    else
+    BRANCH_NAME=$(git branch -a --contains $(git rev-parse tags/$CI_COMMIT_REF_NAME)|grep origin|awk -F/ '{print $3}');
+    fi;
+    else
+    OUT_REVISION=nevermind;
+    BRANCH_NAME=$CI_COMMIT_REF_NAME;
+    fi;
+  - echo -e "\n\n\033[47m\033[1;30m\n\n    ----------------------------------------------------------"
+      "\n    `date`\n    Building branch $BRANCH_NAME\n    Revision $OUT_REVISION\n"
+      "   From working dir $CI_PROJECT_DIR\n    Out Image ${IMAGE_TAG}\n    Building tag $CI_BUILD_REF_NAME\n    --------\n\n\033[0m"
 
-deploy_stage:
-  stage: deploy
-  script: ./vendor/bin/dep deploy-artifact release
+  script:
+  - git clone -b $BRANCH_NAME --single-branch git@github.com:deity-io/falcon-magento2-module.git
+  - rm -fr falcon-magento2-module/src/*
+  - cp -r app/code/Deity/ falcon-magento2-module/src/
+  - cd falcon-magento2-module
+  - git add src
+  - git commit -m "$CI_COMMIT_MESSAGE"
+  - git push origin $BRANCH_NAME
   only:
-    - feature/gitlab-config
+  - 2.0-develop
+  - 2.0-develop-m2.3
