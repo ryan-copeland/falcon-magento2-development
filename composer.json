@@ -9,10 +9,10 @@
     ],
     "require": {
         "magento/product-community-edition": "2.3.0",
-        "composer/composer": "@alpha",
-        "jalogut/magento2-deployer-plus": "^2.2"
+        "composer/composer": "@alpha"
     },
     "require-dev": {
+        "jalogut/magento2-deployer-plus": "^2.2",
         "friendsofphp/php-cs-fixer": "~2.13.0",
         "lusitanian/oauth": "~0.8.10",
         "magento/magento2-functional-testing-framework": "2.3.11",

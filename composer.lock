@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb0f1d0753a262584bd59f6140e8d578",
+    "content-hash": "fcedb0de5f68e589b63a0f1bc1789e20",
     "packages": [
         {
             "name": "amzn/amazon-pay-and-login-magento-2-module",
@@ -872,38 +872,6 @@
             "time": "2017-02-14T19:40:03+00:00"
         },
         {
-            "name": "deployer/dist",
-            "version": "v6.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/deployphp/distribution.git",
-                "reference": "eec133237328f86c52c7d8480b5845281633ef3f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/deployphp/distribution/zipball/eec133237328f86c52c7d8480b5845281633ef3f",
-                "reference": "eec133237328f86c52c7d8480b5845281633ef3f",
-                "shasum": ""
-            },
-            "bin": [
-                "dep"
-            ],
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anton Medvedev",
-                    "email": "anton@medv.io"
-                }
-            ],
-            "description": "Deployer Phar Distribution",
-            "homepage": "https://deployer.org",
-            "time": "2018-08-27T07:06:35+00:00"
-        },
-        {
             "name": "donatj/phpuseragentparser",
             "version": "v0.11.1",
             "source": {
@@ -1476,57 +1444,6 @@
                 "stream"
             ],
             "time": "2014-10-12T19:18:40+00:00"
-        },
-        {
-            "name": "jalogut/magento2-deployer-plus",
-            "version": "2.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jalogut/magento2-deployer-plus.git",
-                "reference": "d3679af0de0840d54e70e630c10591c1d53fe51e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jalogut/magento2-deployer-plus/zipball/d3679af0de0840d54e70e630c10591c1d53fe51e",
-                "reference": "d3679af0de0840d54e70e630c10591c1d53fe51e",
-                "shasum": ""
-            },
-            "require": {
-                "deployer/dist": "^6.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.11",
-                "nikic/php-parser": "^3.1",
-                "phpmd/phpmd": "^2.6",
-                "phpro/grumphp": "^0.14.0",
-                "phpstan/phpstan": "^0.9.2",
-                "squizlabs/php_codesniffer": "^3.2"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "autoload.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Juan Alonso",
-                    "email": "juan.jalogut@gmail.com"
-                }
-            ],
-            "description": "Magento 2 deployment tool based on deployer.org",
-            "keywords": [
-                "deploy",
-                "deployer",
-                "deployment",
-                "magento2",
-                "tool"
-            ],
-            "time": "2018-10-19T14:18:06+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -14596,6 +14513,38 @@
             "time": "2018-10-28T01:52:03+00:00"
         },
         {
+            "name": "deployer/dist",
+            "version": "v6.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deployphp/distribution.git",
+                "reference": "eec133237328f86c52c7d8480b5845281633ef3f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deployphp/distribution/zipball/eec133237328f86c52c7d8480b5845281633ef3f",
+                "reference": "eec133237328f86c52c7d8480b5845281633ef3f",
+                "shasum": ""
+            },
+            "bin": [
+                "dep"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anton Medvedev",
+                    "email": "anton@medv.io"
+                }
+            ],
+            "description": "Deployer Phar Distribution",
+            "homepage": "https://deployer.org",
+            "time": "2018-08-27T07:06:35+00:00"
+        },
+        {
             "name": "dflydev/dot-access-data",
             "version": "v1.1.0",
             "source": {
@@ -15279,6 +15228,57 @@
             ],
             "description": "Expands internal property references in a yaml file.",
             "time": "2017-12-16T16:06:03+00:00"
+        },
+        {
+            "name": "jalogut/magento2-deployer-plus",
+            "version": "2.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jalogut/magento2-deployer-plus.git",
+                "reference": "d3679af0de0840d54e70e630c10591c1d53fe51e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jalogut/magento2-deployer-plus/zipball/d3679af0de0840d54e70e630c10591c1d53fe51e",
+                "reference": "d3679af0de0840d54e70e630c10591c1d53fe51e",
+                "shasum": ""
+            },
+            "require": {
+                "deployer/dist": "^6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.11",
+                "nikic/php-parser": "^3.1",
+                "phpmd/phpmd": "^2.6",
+                "phpro/grumphp": "^0.14.0",
+                "phpstan/phpstan": "^0.9.2",
+                "squizlabs/php_codesniffer": "^3.2"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Juan Alonso",
+                    "email": "juan.jalogut@gmail.com"
+                }
+            ],
+            "description": "Magento 2 deployment tool based on deployer.org",
+            "keywords": [
+                "deploy",
+                "deployer",
+                "deployment",
+                "magento2",
+                "tool"
+            ],
+            "time": "2018-10-19T14:18:06+00:00"
         },
         {
             "name": "jms/metadata",
