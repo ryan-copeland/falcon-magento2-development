@@ -3,3 +3,4 @@
 * * ../../../app/code/Deity/Catalog*
 * * ../../../app/code/Deity/Store*
 * * ../../../app/code/Deity/Base*
+* * ../../../app/code/Deity/Breadcrumbs*

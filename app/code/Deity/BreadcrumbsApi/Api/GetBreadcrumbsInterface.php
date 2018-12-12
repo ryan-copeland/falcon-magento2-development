@@ -9,8 +9,8 @@ namespace Deity\BreadcrumbsApi\Api;
 interface GetBreadcrumbsInterface
 {
     /**
-     * @param string $urlPath
+     * @param string $url
      * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
      */
-    public function execute(string $urlPath): array;
+    public function execute(string $url): array;
 }
