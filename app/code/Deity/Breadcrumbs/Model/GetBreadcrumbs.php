@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Deity\Breadcrumbs\Model;
 
-use Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface;
 use Deity\BreadcrumbsApi\Api\GetBreadcrumbsInterface;
-use Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterfaceFactory;
+use Deity\BreadcrumbsApi\Api\UrlRewriteBreadcrumbResolverInterface;
+use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\UrlRewrite\Model\UrlFinderInterface;
@@ -18,16 +18,10 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 class GetBreadcrumbs implements GetBreadcrumbsInterface
 {
 
-
     /**
      * @var UrlFinderInterface
      */
     private $urlFinder;
-
-    /**
-     * @var BreadcrumbInterfaceFactory
-     */
-    private $breadcrumbFactory;
 
     /**
      * @var StoreManagerInterface
@@ -35,43 +29,56 @@ class GetBreadcrumbs implements GetBreadcrumbsInterface
     private $storeManager;
 
     /**
+     * @var UrlRewriteBreadcrumbResolverInterface[];
+     */
+    private $urlRewriteResolvers;
+
+    /**
      * GetBreadcrumbs constructor.
      * @param UrlFinderInterface $urlFinder
-     * @param BreadcrumbInterfaceFactory $breadcrumbFactory
      * @param StoreManagerInterface $storeManager
+     * @param array $urlRewriteResolvers
+     * @throws InputException
      */
     public function __construct(
         UrlFinderInterface $urlFinder,
-        BreadcrumbInterfaceFactory $breadcrumbFactory,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        array $urlRewriteResolvers = []
     ) {
         $this->urlFinder = $urlFinder;
-        $this->breadcrumbFactory = $breadcrumbFactory;
         $this->storeManager = $storeManager;
+
+        foreach ($urlRewriteResolvers as $type => $resolver) {
+            if (!$resolver instanceof UrlRewriteBreadcrumbResolverInterface) {
+                throw new InputException('Url resolver must implement UrlRewriteBreadcrumbResolverInterface');
+            }
+            $this->urlRewriteResolvers[$type] = $resolver;
+        }
     }
 
+    /**
+     * @param UrlRewrite $urlModel
+     * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
+     * @throws InputException
+     */
+    private function getBreadcrumbsByUrlModel(UrlRewrite $urlModel): array
+    {
+        if (!isset($this->urlRewriteResolvers[$urlModel->getEntityType()])) {
+            throw new InputException('Given url type: %1 is not supported', $urlModel->getEntityType());
+        }
+
+        return $this->urlRewriteResolvers[$urlModel->getEntityType()]->getBreadcrumbsByUrlRewrite($urlModel);
+    }
 
     /**
-     * @param string $urlPath
+     * @param string $url
      * @return \Deity\BreadcrumbsApi\Api\Data\BreadcrumbInterface[]
      * @throws NoSuchEntityException
+     * @throws InputException
      */
-    public function execute(string $urlPath): array
+    public function execute(string $url): array
     {
-
-        $urlModel = $this->getUrlModel($urlPath);
-
-        /**
-         * @var BreadcrumbInterface $urlData
-         */
-        $breadcrumb = $this->breadcrumbFactory->create(
-            [
-                BreadcrumbInterface::NAME => $urlModel->getEntityType(),
-                BreadcrumbInterface::URL_PATH => $urlModel->getRequestPath()
-            ]
-        );
-
-        return [$breadcrumb];
+        return $this->getBreadcrumbsByUrlModel($this->getUrlModel($url));
     }
 
     /**
@@ -84,8 +91,8 @@ class GetBreadcrumbs implements GetBreadcrumbsInterface
     {
         $urlModel = $this->urlFinder->findOneByData(
             [
-                'request_path' => $path,
-                'store_id'  => $this->storeManager->getStore()->getId()
+                UrlRewrite::REQUEST_PATH => $path,
+                UrlRewrite::STORE_ID  => $this->storeManager->getStore()->getId()
             ]
         );
 

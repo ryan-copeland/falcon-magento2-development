@@ -21,5 +21,4 @@ interface BreadcrumbInterface
      * @return string
      */
     public function getUrlPath(): string;
-
 }
