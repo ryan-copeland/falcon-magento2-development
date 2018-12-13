@@ -58,6 +58,5 @@ class GetBreadcrumbsTest extends WebapiAbstract
         $breadcrumbData = $breadcrumbs[1];
         $this->assertEquals('winter/shoes.html', $breadcrumbData['url_path']);
         $this->assertEquals('Category 1.1', $breadcrumbData['name']);
-
     }
 }
