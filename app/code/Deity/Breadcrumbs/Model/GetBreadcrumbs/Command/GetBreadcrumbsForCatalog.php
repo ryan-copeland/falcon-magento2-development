@@ -86,7 +86,7 @@ class GetBreadcrumbsForCatalog implements UrlRewriteBreadcrumbResolverInterface
     private function getBreadcrumbsForCategory(int $leafCategoryId, $excludeLeafCategory = true): array
     {
         $leafCategoryObject = $this->categoryRepository->get($leafCategoryId);
-        if ($leafCategoryObject->getLevel() <= 3 && $excludeLeafCategory === true) {
+        if ($leafCategoryObject->getLevel() <= 2 && $excludeLeafCategory === true) {
             //1 level category
             return [];
         }
