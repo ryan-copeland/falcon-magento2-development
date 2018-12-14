@@ -3,23 +3,19 @@ declare(strict_types=1);
 
 namespace Deity\MenuApi\Api\Data;
 
+use Magento\Framework\Api\ExtensibleDataInterface;
+
 /**
  * Menu interface
  *
  * @package Deity\MenuApi\Api\Data
  */
-interface MenuInterface
+interface MenuInterface extends ExtensibleDataInterface
 {
     const CHILDREN = 'children';
     const NAME = 'name';
-    const ID = 'id';
-    const URL = 'url';
-    const HAS_ACTIVE = 'hasActive';
-    const IS_ACTIVE = 'isActive';
-    const LEVEL = 'level';
-    const IS_FIRST = 'isFirst';
-    const IS_LAST = 'isLast';
-    const POSITION_CLASS = 'positionClass';
+    const URL_PATH = 'url_path';
+    const CSS_CLASS = 'css_class';
 
     /**
      * @return string
@@ -27,44 +23,32 @@ interface MenuInterface
     public function getName(): string;
 
     /**
-     * @return int
+     * @param string $name
+     * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
-    public function getId(): int;
+    public function setName(string $name): MenuInterface;
 
     /**
      * @return string
      */
-    public function getUrl(): string;
+    public function getCssClass(): string;
 
     /**
-     * @return boolean
+     * @param string $cssClass
+     * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
-    public function getHasActive(): bool;
-
-    /**
-     * @return boolean
-     */
-    public function getIsActive(): bool;
-
-    /**
-     * @return int
-     */
-    public function getLevel(): int;
-
-    /**
-     * @return boolean
-     */
-    public function getIsFirst(): bool;
-
-    /**
-     * @return boolean
-     */
-    public function getIsLast(): bool;
+    public function setCssClass(string $cssClass): MenuInterface;
 
     /**
      * @return string
      */
-    public function getPositionClass(): string;
+    public function getUrlPath(): string;
+
+    /**
+     * @param string $urlPath
+     * @return \Deity\MenuApi\Api\Data\MenuInterface
+     */
+    public function setUrlPath(string $urlPath): MenuInterface;
     
     /**
      * @return \Deity\MenuApi\Api\Data\MenuInterface[]
@@ -76,4 +60,15 @@ interface MenuInterface
      * @return void
      */
     public function setChildren(array $children);
+
+    /**
+     * @return \Deity\MenuApi\Api\Data\MenuExtensionInterface
+     */
+    public function getExtensionAttributes();
+
+    /**
+     * @param \Deity\MenuApi\Api\Data\MenuExtensionInterface $extensionAttributes
+     * @return \Deity\MenuApi\Api\Data\MenuInterface
+     */
+    public function setExtensionAttributes(MenuExtensionInterface $extensionAttributes): MenuInterface;
 }

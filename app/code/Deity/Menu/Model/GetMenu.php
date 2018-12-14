@@ -82,19 +82,11 @@ class GetMenu implements GetMenuInterface
     {
         $items = [];
         foreach($node->getChildren() as $childNode) { /** @var Node $childNode */
-            $menuItem = $this->menuFactory->create(
-                [
-                    MenuInterface::ID => (int)$childNode->getId(),
-                    MenuInterface::NAME => $childNode->getName(),
-                    MenuInterface::URL => $childNode->getUrl(),
-                    MenuInterface::LEVEL => $childNode->getLevel(),
-                    MenuInterface::IS_ACTIVE => $childNode->getIsActive(),
-                    MenuInterface::HAS_ACTIVE => $childNode->getHasActive(),
-                    MenuInterface::IS_FIRST => $childNode->getIsFirst(),
-                    MenuInterface::IS_LAST => $childNode->getIsLast(),
-                    MenuInterface::POSITION_CLASS => $childNode->getPositionClass(),
-                ]
-            );
+            /** @var MenuInterface $menuItem */
+            $menuItem = $this->menuFactory->create();
+
+            $menuItem->setName($childNode->getName());
+            $menuItem->setUrlPath($childNode->getUrl());
 
             if ($childNode->hasChildren()) {
                 $children = $this->convertMenuNodesToMenuItems($childNode);
