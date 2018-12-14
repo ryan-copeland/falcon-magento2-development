@@ -8,7 +8,6 @@ use Deity\MenuApi\Api\Data\MenuInterfaceFactory;
 use Deity\MenuApi\Api\GetMenuInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Data\Tree\Node;
-use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\View\Element\BlockFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Theme\Block\Html\Topmenu;
@@ -19,19 +18,24 @@ use Magento\Theme\Block\Html\Topmenu;
  */
 class GetMenu implements GetMenuInterface
 {
-    /** @var MenuInterfaceFactory */
+    /**
+     * @var MenuInterfaceFactory
+     */
     protected $menuFactory;
 
-    /** @var StoreManagerInterface */
+    /**
+     * @var StoreManagerInterface
+     */
     protected $storeManager;
 
-    /** @var ScopeConfigInterface */
+    /**
+     * @var ScopeConfigInterface
+     */
     protected $scopeConfig;
 
-    /** @var ManagerInterface */
-    protected $eventManager;
-
-    /** @var BlockFactory */
+    /**
+     * @var BlockFactory
+     */
     protected $blockFactory;
 
     /**
@@ -39,20 +43,17 @@ class GetMenu implements GetMenuInterface
      * @param MenuInterfaceFactory $menuFactory
      * @param StoreManagerInterface $storeManager
      * @param ScopeConfigInterface $scopeConfig
-     * @param ManagerInterface $eventManager
      * @param BlockFactory $blockFactory yes, really, check further description below
      */
     public function __construct(
         MenuInterfaceFactory $menuFactory,
         StoreManagerInterface $storeManager,
         ScopeConfigInterface $scopeConfig,
-        ManagerInterface $eventManager,
         BlockFactory $blockFactory
     )
     {
         $this->storeManager = $storeManager;
         $this->scopeConfig = $scopeConfig;
-        $this->eventManager = $eventManager;
         $this->blockFactory = $blockFactory;
         $this->menuFactory = $menuFactory;
     }
