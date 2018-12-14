@@ -64,7 +64,6 @@ $category->setId(4)
     ->setAvailableSortBy('name')
     ->setDefaultSortBy('name')
     ->setUrlKey('child')
-    ->setUrlKey('child')
     ->setIsActive(true)
     ->setPosition(1)
     ->save();
