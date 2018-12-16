@@ -118,7 +118,6 @@ class CustomerTokenService extends MagentoCustomerTokenService implements Custom
         /** @var CustomerTokenInterface $customerToken */
         $customerToken = $this->customerTokenFactory->create();
         $customerToken->setToken($token);
-        $customerToken->setValidTime((int)$this->scopeConfig->getValue('oauth/access_token_lifetime/customer'));
 
         try {
             if ($this->shouldMergeCart($guestQuoteId)) {

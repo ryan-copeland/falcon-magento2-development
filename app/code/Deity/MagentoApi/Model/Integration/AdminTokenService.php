@@ -47,6 +47,8 @@ class AdminTokenService extends MagentoAdminTokenService implements AdminTokenSe
      * @param string $password
      * @return AdminTokenInterface
      * @throws AuthenticationException
+     * @throws \Magento\Framework\Exception\InputException
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function createAdminAccessToken($username, $password)
     {
@@ -55,7 +57,6 @@ class AdminTokenService extends MagentoAdminTokenService implements AdminTokenSe
         /** @var AdminTokenInterface $adminToken */
         $adminToken = $this->adminTokenFactory->create();
         $adminToken->setToken($token);
-        $adminToken->setValidTime((int)$this->scopeConfig->getValue('oauth/access_token_lifetime/admin'));
 
         return $adminToken;
     }
