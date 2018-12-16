@@ -24,23 +24,6 @@ class AdminToken extends AbstractExtensibleObject implements AdminTokenInterface
     }
 
     /**
-     * @return int
-     */
-    public function getValidTime()
-    {
-        return $this->_get(self::VALID_TIME);
-    }
-
-    /**
-     * @param $time
-     * @return \Deity\MagentoApi\Api\Integration\Data\AdminTokenInterface
-     */
-    public function setValidTime($time)
-    {
-        return $this->setData(self::VALID_TIME, $time);
-    }
-
-    /**
      * @return \Deity\MagentoApi\Api\Integration\Data\AdminTokenExtensionInterface
      */
     public function getExtensionAttributes()

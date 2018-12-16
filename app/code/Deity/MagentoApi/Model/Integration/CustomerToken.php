@@ -25,23 +25,6 @@ class CustomerToken extends AbstractExtensibleObject implements CustomerTokenInt
     }
 
     /**
-     * @return int
-     */
-    public function getValidTime()
-    {
-        return $this->_get(self::VALID_TIME);
-    }
-
-    /**
-     * @param $time
-     * @return \Deity\MagentoApi\Api\Integration\Data\CustomerTokenInterface
-     */
-    public function setValidTime($time)
-    {
-        return $this->setData(self::VALID_TIME, $time);
-    }
-
-    /**
      * @return \Deity\MagentoApi\Api\Integration\Data\CustomerTokenExtensionInterface
      */
     public function getExtensionAttributes()
