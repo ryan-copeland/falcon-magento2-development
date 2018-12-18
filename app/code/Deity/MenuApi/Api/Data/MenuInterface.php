@@ -12,6 +12,7 @@ use Magento\Framework\Api\ExtensibleDataInterface;
  */
 interface MenuInterface extends ExtensibleDataInterface
 {
+    const ID = 'id';
     const CHILDREN = 'children';
     const NAME = 'name';
     const URL_PATH = 'url_path';
@@ -27,6 +28,19 @@ interface MenuInterface extends ExtensibleDataInterface
      * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
     public function setName(string $name): MenuInterface;
+
+    /**
+     * @return string
+     */
+    public function getId(): string;
+
+    /**
+     * Strict typing ommited to comply to AbstractModel
+     *
+     * @param $id
+     * @return \Deity\MenuApi\Api\Data\MenuInterface
+     */
+    public function setId($id): MenuInterface;
 
     /**
      * @return string
@@ -56,10 +70,10 @@ interface MenuInterface extends ExtensibleDataInterface
     public function getChildren(): array;
 
     /**
-     * @param array $children
-     * @return void
+     * @param \Deity\MenuApi\Api\Data\MenuInterface[] $children
+     * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
-    public function setChildren(array $children);
+    public function setChildren(array $children): MenuInterface;
 
     /**
      * @return \Deity\MenuApi\Api\Data\MenuExtensionInterface

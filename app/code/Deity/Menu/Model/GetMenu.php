@@ -6,11 +6,13 @@ namespace Deity\Menu\Model;
 use Deity\MenuApi\Api\Data\MenuInterface;
 use Deity\MenuApi\Api\Data\MenuInterfaceFactory;
 use Deity\MenuApi\Api\GetMenuInterface;
+use Magento\Catalog\Model\Category;
+use Magento\Catalog\Model\ResourceModel\Category\Collection;
+use Magento\Catalog\Model\ResourceModel\Category\StateDependentCollectionFactory;
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Framework\Data\Tree\Node;
-use Magento\Framework\View\Element\BlockFactory;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
-use Magento\Theme\Block\Html\Topmenu;
 
 /**
  * Class GetMenu
@@ -21,95 +23,121 @@ class GetMenu implements GetMenuInterface
     /**
      * @var MenuInterfaceFactory
      */
-    protected $menuFactory;
+    private $menuFactory;
 
     /**
      * @var StoreManagerInterface
      */
-    protected $storeManager;
+    private $storeManager;
 
     /**
      * @var ScopeConfigInterface
      */
-    protected $scopeConfig;
+    private $scopeConfig;
 
     /**
-     * @var BlockFactory
+     * @var StateDependentCollectionFactory
      */
-    protected $blockFactory;
+    private $collectionFactory;
 
     /**
-     * MenuRepository constructor.
+     * GetMenu constructor.
      * @param MenuInterfaceFactory $menuFactory
      * @param StoreManagerInterface $storeManager
      * @param ScopeConfigInterface $scopeConfig
-     * @param BlockFactory $blockFactory yes, really, check further description below
+     * @param StateDependentCollectionFactory $collectionFactory
      */
     public function __construct(
         MenuInterfaceFactory $menuFactory,
         StoreManagerInterface $storeManager,
         ScopeConfigInterface $scopeConfig,
-        BlockFactory $blockFactory
-    )
-    {
+        StateDependentCollectionFactory $collectionFactory
+    ) {
+        $this->menuFactory = $menuFactory;
         $this->storeManager = $storeManager;
         $this->scopeConfig = $scopeConfig;
-        $this->blockFactory = $blockFactory;
-        $this->menuFactory = $menuFactory;
+        $this->collectionFactory = $collectionFactory;
     }
+
 
     /**
      * @return \Deity\MenuApi\Api\Data\MenuInterface[]
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
      */
     public function execute(): array
     {
-        /** @var Node $menuTree */
-        $menuTree = $this->getMenuFromTopmenuBlock();
-
-        /** @var MenuInterface[] $items */
-        $items = $this->convertMenuNodesToMenuItems($menuTree);
-
-        return $items;
-    }
-
-    /**
-     * Convert node tree from topmenu block into array of MenuInterface objects
-     *
-     * @param Node $node
-     * @return MenuInterface[]
-     */
-    protected function convertMenuNodesToMenuItems(Node $node)
-    {
-        $items = [];
-        foreach($node->getChildren() as $childNode) { /** @var Node $childNode */
-            /** @var MenuInterface $menuItem */
-            $menuItem = $this->menuFactory->create();
-
-            $menuItem->setName($childNode->getName());
-            $menuItem->setUrlPath($childNode->getUrl());
-
-            if ($childNode->hasChildren()) {
-                $children = $this->convertMenuNodesToMenuItems($childNode);
-                $menuItem->setChildren($children);
-            }
-            $items[] = $menuItem;
+        $rootId = $this->storeManager->getStore()->getRootCategoryId();
+        $storeId = $this->storeManager->getStore()->getId();
+        /** @var Collection $collection */
+        $collection = $this->getCategoryTree($storeId, $rootId);
+        $menuStack = [];
+        foreach ($collection as $category) {
+            $menuStack[$category->getParentId()][] = $category;
         }
 
-        return  $items;
+        return $this->buildTree($menuStack, $rootId);
     }
 
     /**
-     * @return Node
+     * @param array $menuStack
+     * @param $rootId
+     * @return \Deity\MenuApi\Api\Data\MenuInterface[]
      */
-    protected function getMenuFromTopmenuBlock()
+    private function buildTree(array $menuStack, $rootId): array
     {
-        /** @var Topmenu $topMenuBlock */
-        $topMenuBlock = $this->blockFactory->createBlock(Topmenu::class);
-        //need to call this for plugins to work but we don't care about the generated html,
-        // it's just few ms of the processor time we need to waste
-        $topMenuBlock->getHtml();
+        $resultStack = [];
+        foreach ($menuStack[$rootId] as $key => $category) {
+            $id = $category->getId();
+            $menuObject = $this->convertCategoryToMenuItem($category);
+            if (isset($menuStack[$id])) {
+                $menuObject->setChildren($this->buildTree($menuStack, $id));
+            }
+            $resultStack[$key] = $menuObject;
+        }
 
-        //now we how menu tree to work with
-        return $topMenuBlock->getMenu();
+        return $resultStack;
+    }
+
+    /**
+     * Convert category to array
+     *
+     * @param Category $category
+     * @return MenuInterface
+     */
+    public function convertCategoryToMenuItem(Category $category): MenuInterface
+    {
+        /** @var MenuInterface $menuItem */
+        $menuItem = $this->menuFactory->create();
+        $menuItem->setId($category->getId());
+        $menuItem->setUrlPath($category->getRequestPath());
+        $menuItem->setName($category->getName());
+        return $menuItem;
+    }
+
+    /**
+     * Get Category Tree
+     *
+     * @param int $storeId
+     * @param int $rootId
+     * @return Collection
+     * @throws LocalizedException
+     */
+    private function getCategoryTree($storeId, $rootId)
+    {
+        /** @var Collection $collection */
+        $collection = $this->collectionFactory->create();
+        $collection->setStoreId($storeId);
+        $collection->addAttributeToSelect('name');
+        $collection->addFieldToFilter('path', ['like' => '1/' . $rootId . '/%']); //load only from store root
+        $collection->addAttributeToFilter('include_in_menu', 1);
+        $collection->addIsActiveFilter();
+        $collection->addUrlRewriteToResult();
+        $collection->addOrder('level', Collection::SORT_ORDER_ASC);
+        $collection->addOrder('position', Collection::SORT_ORDER_ASC);
+        $collection->addOrder('parent_id', Collection::SORT_ORDER_ASC);
+        $collection->addOrder('entity_id', Collection::SORT_ORDER_ASC);
+
+        return $collection;
     }
 }

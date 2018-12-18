@@ -24,6 +24,24 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return (string)$this->_getData(self::ID);
+    }
+
+    /**
+     * @param mixed $value
+     * @return MenuInterface
+     */
+    public function setId($value): MenuInterface
+    {
+        $this->setData(self::ID, $value);
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @return \Deity\MenuApi\Api\Data\MenuInterface
      */
@@ -78,12 +96,13 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @param array $children
-     * @return void
+     * @param MenuInterface[] $children
+     * @return MenuInterface
      */
-    public function setChildren(array $children)
+    public function setChildren(array $children): MenuInterface
     {
         $this->children = $children;
+        return $this;
     }
 
     /**
