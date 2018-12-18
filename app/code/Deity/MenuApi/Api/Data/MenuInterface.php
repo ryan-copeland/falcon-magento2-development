@@ -43,6 +43,8 @@ interface MenuInterface extends ExtensibleDataInterface
     public function setId($id): MenuInterface;
 
     /**
+     * New Field for magento to provide special css-class that can be used on Frontend
+     *
      * @return string
      */
     public function getCssClass(): string;
