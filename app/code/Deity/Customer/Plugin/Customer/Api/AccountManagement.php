@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Deity\Customer\Plugin\Customer\Api;
 
@@ -9,6 +10,10 @@ use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class AccountManagement
+ * @package Deity\Customer\Plugin\Customer\Api
+ */
 class AccountManagement
 {
     /** @var CustomerRepositoryInterface */
