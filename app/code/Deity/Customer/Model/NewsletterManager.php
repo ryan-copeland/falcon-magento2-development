@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Customer\Model\Customer;
+namespace Deity\Customer\Model;
 
 use Deity\Customer\Model\Security\CustomerContext;
 use Deity\CustomerApi\Api\NewsletterManagerInterface;
@@ -11,7 +11,7 @@ use Magento\Newsletter\Model\SubscriberFactory;
 
 /**
  * Class NewsletterManager
- * @package Deity\Customer\Model\Customer
+ * @package Deity\Customer\Model
  */
 class NewsletterManager implements NewsletterManagerInterface
 {

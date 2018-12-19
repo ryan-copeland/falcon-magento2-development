@@ -17,6 +17,8 @@ class PasswordResetTest extends WebapiAbstract
 {
     const RESOURCE_PATH = '/V1/customers';
 
+    const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
+
     /**
      * @var CustomerHelper
      */
@@ -118,6 +120,17 @@ class PasswordResetTest extends WebapiAbstract
         ];
         $response = $this->_webApiCall($serviceInfo, $requestData);
         $this->assertTrue($response);
+
+        // get customer ID token to prove that new password works
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => self::RESOURCE_PATH_CUSTOMER_TOKEN,
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_POST,
+            ],
+        ];
+        $requestData = ['username' => $customerData[Customer::EMAIL], 'password' => $password];
+        $token = $this->_webApiCall($serviceInfo, $requestData);
+        $this->assertNotEmpty($token);
     }
 
     /**
