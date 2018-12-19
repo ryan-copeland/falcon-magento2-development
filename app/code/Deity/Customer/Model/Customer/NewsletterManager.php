@@ -1,12 +1,18 @@
 <?php
+declare(strict_types=1);
+
 namespace Deity\Customer\Model\Customer;
 
-use Deity\CustomerApi\Api\NewsletterManagerInterface;
 use Deity\Customer\Model\Security\CustomerContext;
+use Deity\CustomerApi\Api\NewsletterManagerInterface;
 use Magento\Framework\Exception\AuthorizationException;
 use Magento\Newsletter\Model\Subscriber;
 use Magento\Newsletter\Model\SubscriberFactory;
 
+/**
+ * Class NewsletterManager
+ * @package Deity\Customer\Model\Customer
+ */
 class NewsletterManager implements NewsletterManagerInterface
 {
     /** @var CustomerContext */
