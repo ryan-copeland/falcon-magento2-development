@@ -97,15 +97,16 @@ class NewsletterTest extends WebapiAbstract
      */
     public function tearDown()
     {
+        if (isset($this->customerData[CustomerInterface::ID])) {
+            /** @var \Magento\Framework\Registry $registry */
+            $registry = Bootstrap::getObjectManager()->get(\Magento\Framework\Registry::class);
+            $registry->unregister('isSecureArea');
+            $registry->register('isSecureArea', true);
+            $this->customerRepository->deleteById($this->customerData[CustomerInterface::ID]);
+            $registry->unregister('isSecureArea');
+            $registry->register('isSecureArea', false);
+        }
         $this->customerRepository = null;
-
-        /** @var \Magento\Framework\Registry $registry */
-        $registry = Bootstrap::getObjectManager()->get(\Magento\Framework\Registry::class);
-        $registry->unregister('isSecureArea');
-        $registry->register('isSecureArea', true);
-
-        $registry->unregister('isSecureArea');
-        $registry->register('isSecureArea', false);
         parent::tearDown();
     }
 

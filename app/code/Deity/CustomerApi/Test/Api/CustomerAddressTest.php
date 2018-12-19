@@ -90,15 +90,16 @@ class CustomerAddressTest extends WebapiAbstract
      */
     public function tearDown()
     {
+        if (isset($this->customerData[CustomerInterface::ID])) {
+            /** @var \Magento\Framework\Registry $registry */
+            $registry = Bootstrap::getObjectManager()->get(\Magento\Framework\Registry::class);
+            $registry->unregister('isSecureArea');
+            $registry->register('isSecureArea', true);
+            $this->customerRepository->deleteById($this->customerData[CustomerInterface::ID]);
+            $registry->unregister('isSecureArea');
+            $registry->register('isSecureArea', false);
+        }
         $this->customerRepository = null;
-
-        /** @var \Magento\Framework\Registry $registry */
-        $registry = Bootstrap::getObjectManager()->get(\Magento\Framework\Registry::class);
-        $registry->unregister('isSecureArea');
-        $registry->register('isSecureArea', true);
-
-        $registry->unregister('isSecureArea');
-        $registry->register('isSecureArea', false);
         parent::tearDown();
     }
 
@@ -175,37 +176,82 @@ class CustomerAddressTest extends WebapiAbstract
     /**
      * Tests if addresses can be deleted by ID
      */
-    public function testAddressDelete()
+    public function testAddressUpdate()
     {
-        //Get expected details from the Service directly
         $customerData = $this->getCustomerData($this->customerData[CustomerInterface::ID]);
         $expectedCustomerDetails = $this->dataObjectProcessor->buildOutputDataArray(
             $customerData,
             \Magento\Customer\Api\Data\CustomerInterface::class
         );
-        $expectedCustomerDetails['addresses'][0]['id'] =
-            (int)$expectedCustomerDetails['addresses'][0]['id'];
 
         $expectedCustomerDetails['addresses'][1]['id'] =
             (int)$expectedCustomerDetails['addresses'][1]['id'];
 
-        $serviceInfo = [
-            'rest' => [
-                'resourcePath' => self::RESOURCE_PATH . '/' . $expectedCustomerDetails['addresses'][0]['id'],
-                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_DELETE,
-                'token' => $this->token,
-            ],
-        ];
-        $this->assertTrue($this->_webApiCall($serviceInfo));
+        $updatedAddress = $expectedCustomerDetails['addresses'][1];
+        $updatedAddress['default_shipping'] = false;
+        $updatedAddress['default_billing'] = false;
 
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => self::RESOURCE_PATH . '/' . $expectedCustomerDetails['addresses'][1]['id'],
-                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_DELETE,
+                'resourcePath' => self::RESOURCE_PATH,
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_PUT,
                 'token' => $this->token,
             ],
         ];
-        $this->assertTrue($this->_webApiCall($serviceInfo));
+
+        // update
+        $addressResponse = $this->_webApiCall($serviceInfo, ['address' => $updatedAddress]);
+        $this->assertEquals($updatedAddress, $addressResponse);
+
+        //retrieve and compare
+        $customerData = $this->getCustomerData($this->customerData[CustomerInterface::ID]);
+        $currentCustomerDetails = $this->dataObjectProcessor->buildOutputDataArray(
+            $customerData,
+            \Magento\Customer\Api\Data\CustomerInterface::class
+        );
+
+        $currentCustomerDetails['addresses'][1]['id'] =
+            (int)$currentCustomerDetails['addresses'][1]['id'];
+        unset($updatedAddress['default_shipping']);
+        unset($updatedAddress['default_billing']);
+        $this->assertEquals($updatedAddress, $currentCustomerDetails['addresses'][1]);
+    }
+
+    /**
+     * Tests if addresses can be deleted by ID
+     */
+    public function testAddressDelete()
+    {
+        $customerData = $this->getCustomerData($this->customerData[CustomerInterface::ID]);
+        $expectedCustomerDetails = $this->dataObjectProcessor->buildOutputDataArray(
+            $customerData,
+            \Magento\Customer\Api\Data\CustomerInterface::class
+        );
+
+        // Remove all
+        foreach ($expectedCustomerDetails['addresses'] as $address) {
+            $address['id'] = (int)$address['id'];
+            $serviceInfo = [
+                'rest' => [
+                    'resourcePath' => self::RESOURCE_PATH . '/' . $address['id'],
+                    'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_DELETE,
+                    'token' => $this->token,
+                ],
+            ];
+            $this->assertTrue($this->_webApiCall($serviceInfo));
+        }
+
+        // check if there are none
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => self::RESOURCE_PATH,
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+                'token' => $this->token,
+            ],
+        ];
+        $addressessResponse = $this->_webApiCall($serviceInfo);
+        $this->assertSame(0, $addressessResponse['total_count']);
+        $this->assertSame(0, count($addressessResponse['items']));
     }
 
     /**
