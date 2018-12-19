@@ -29,8 +29,8 @@ class StoreConfigManagerTest extends WebapiAbstract
             'min_password_length',
             'min_password_char_class',
             'api_version',
-            'customer_access_token',
-            'admin_access_token'
+            'customer_token_lifetime',
+            'admin_token_lifetime'
         ];
         $this->assertEquals(
             $expectedExtensionKeys,
