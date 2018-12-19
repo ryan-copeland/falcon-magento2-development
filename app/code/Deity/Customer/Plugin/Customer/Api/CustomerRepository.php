@@ -1,5 +1,5 @@
 <?php
-namespace Deity\MagentoApi\Plugin\Customer\Api;
+namespace Deity\Customer\Plugin\Customer\Api;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;

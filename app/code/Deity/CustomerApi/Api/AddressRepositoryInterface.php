@@ -1,5 +1,5 @@
 <?php
-namespace Deity\MagentoApi\Api\Customer;
+namespace Deity\CustomerApi\Api;
 
 use Magento\Customer\Api\Data\AddressInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;

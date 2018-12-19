@@ -1,9 +1,9 @@
 <?php
-namespace Deity\MagentoApi\Model\Customer;
+namespace Deity\Customer\Model\Customer;
 
 
-use Deity\MagentoApi\Api\Customer\AddressRepositoryInterface;
-use Deity\MagentoApi\Model\Security\CustomerContext;
+use Deity\CustomerApi\Api\AddressRepositoryInterface;
+use Deity\Customer\Model\Security\CustomerContext;
 use Magento\Customer\Api\AddressRepositoryInterface as CustomerAddressRepositoryInterface;
 use Magento\Customer\Api\Data\AddressSearchResultsInterface;
 use Magento\Customer\Api\Data\AddressInterface;

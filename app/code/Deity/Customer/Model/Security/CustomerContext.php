@@ -1,5 +1,5 @@
 <?php
-namespace Deity\MagentoApi\Model\Security;
+namespace Deity\Customer\Model\Security;
 
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Framework\Exception\AuthorizationException;

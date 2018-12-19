@@ -1,8 +1,8 @@
 <?php
-namespace Deity\MagentoApi\Model\Customer;
+namespace Deity\Customer\Model\Customer;
 
-use Deity\MagentoApi\Api\Customer\NewsletterManagerInterface;
-use Deity\MagentoApi\Model\Security\CustomerContext;
+use Deity\CustomerApi\Api\NewsletterManagerInterface;
+use Deity\Customer\Model\Security\CustomerContext;
 use Magento\Framework\Exception\AuthorizationException;
 use Magento\Newsletter\Model\Subscriber;
 use Magento\Newsletter\Model\SubscriberFactory;

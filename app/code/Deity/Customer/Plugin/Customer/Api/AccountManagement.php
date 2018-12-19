@@ -1,6 +1,6 @@
 <?php
 
-namespace Deity\MagentoApi\Plugin\Customer\Api;
+namespace Deity\Customer\Plugin\Customer\Api;
 
 use Deity\MagentoApi\Model\Cart\MergeManagement;
 use Magento\Customer\Api\AccountManagementInterface;
