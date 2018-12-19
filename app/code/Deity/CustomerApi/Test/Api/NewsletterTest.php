@@ -114,7 +114,7 @@ class NewsletterTest extends WebapiAbstract
      */
     public function testSubscribe()
     {
-        $customerData = $this->_getCustomerData($this->customerData[CustomerInterface::ID]);
+        $customerData = $this->getCustomerData($this->customerData[CustomerInterface::ID]);
         $this->subscriber->unsubscribeCustomerById($customerData->getId());
 
         $serviceInfo = [
@@ -134,7 +134,7 @@ class NewsletterTest extends WebapiAbstract
      */
     public function testUnSubscribe()
     {
-        $customerData = $this->_getCustomerData($this->customerData[CustomerInterface::ID]);
+        $customerData = $this->getCustomerData($this->customerData[CustomerInterface::ID]);
         $this->subscriber->subscribeCustomerById($customerData->getId());
 
         $serviceInfo = [
@@ -155,13 +155,12 @@ class NewsletterTest extends WebapiAbstract
      * @param int $customerId
      * @return \Magento\Customer\Api\Data\CustomerInterface
      */
-    protected function _getCustomerData($customerId)
+    protected function getCustomerData($customerId)
     {
         $data = $this->customerRepository->getById($customerId);
         $this->customerRegistry->remove($customerId);
         return $data;
     }
-
 
     /**
      * Sets the test's access token for the customer fixture
@@ -197,5 +196,4 @@ class NewsletterTest extends WebapiAbstract
         $requestData = ['username' => $username, 'password' => $password];
         $this->token = $this->_webApiCall($serviceInfo, $requestData);
     }
-
 }

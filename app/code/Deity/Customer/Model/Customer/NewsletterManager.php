@@ -28,8 +28,7 @@ class NewsletterManager implements NewsletterManagerInterface
     public function __construct(
         CustomerContext $customerContext,
         SubscriberFactory $subscriberFactory
-    )
-    {
+    ) {
         $this->customerContext = $customerContext;
         $this->subscriberFactory = $subscriberFactory;
     }
