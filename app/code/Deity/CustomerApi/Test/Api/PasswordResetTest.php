@@ -51,9 +51,9 @@ class PasswordResetTest extends WebapiAbstract
         );
 
         if ($this->config->getConfigDataValue(
-                Config::XML_PATH_FRONTEND_AREA .
+            Config::XML_PATH_FRONTEND_AREA .
                 Config::XML_PATH_PASSWORD_RESET_PROTECTION_TYPE
-            ) != 0) {
+        ) != 0) {
             $this->configValue = $this->config
                 ->getConfigDataValue(
                     Config::XML_PATH_FRONTEND_AREA .
@@ -98,7 +98,7 @@ class PasswordResetTest extends WebapiAbstract
      */
     public function testPasswordReset()
     {
-        $customerData = $this->_createCustomer();
+        $customerData = $this->createCustomer();
 
         $resetToken = substr(md5((string)mt_rand()), 0, 25);
         $password = uniqid('psw') . 'ABCD$%&!';
@@ -123,7 +123,7 @@ class PasswordResetTest extends WebapiAbstract
     /**
      * @return array
      */
-    protected function _createCustomer()
+    protected function createCustomer()
     {
         $customerData = $this->customerHelper->createSampleCustomer();
         $this->currentCustomerId[] = $customerData['id'];
@@ -142,8 +142,7 @@ class PasswordResetTest extends WebapiAbstract
         $resetToken,
         $date,
         int $customerIdFromFixture = 1
-    )
-    {
+    ) {
         /** @var \Magento\Customer\Model\Customer $customerModel */
         $customerModel = Bootstrap::getObjectManager()->create(\Magento\Customer\Model\Customer::class);
         $customerModel->load($customerIdFromFixture);

@@ -129,7 +129,7 @@ class CustomerAddressTest extends WebapiAbstract
     public function testGetAddressById()
     {
         //Get expected details from the Service directly
-        $customerData = $this->_getCustomerData($this->customerData[CustomerInterface::ID]);
+        $customerData = $this->getCustomerData($this->customerData[CustomerInterface::ID]);
         $expectedCustomerDetails = $this->dataObjectProcessor->buildOutputDataArray(
             $customerData,
             \Magento\Customer\Api\Data\CustomerInterface::class
@@ -178,7 +178,7 @@ class CustomerAddressTest extends WebapiAbstract
     public function testAddressDelete()
     {
         //Get expected details from the Service directly
-        $customerData = $this->_getCustomerData($this->customerData[CustomerInterface::ID]);
+        $customerData = $this->getCustomerData($this->customerData[CustomerInterface::ID]);
         $expectedCustomerDetails = $this->dataObjectProcessor->buildOutputDataArray(
             $customerData,
             \Magento\Customer\Api\Data\CustomerInterface::class
@@ -206,7 +206,6 @@ class CustomerAddressTest extends WebapiAbstract
             ],
         ];
         $this->assertTrue($this->_webApiCall($serviceInfo));
-
     }
 
     /**
@@ -215,7 +214,7 @@ class CustomerAddressTest extends WebapiAbstract
      * @param int $customerId
      * @return \Magento\Customer\Api\Data\CustomerInterface
      */
-    protected function _getCustomerData($customerId)
+    protected function getCustomerData($customerId)
     {
         $data = $this->customerRepository->getById($customerId);
         $this->customerRegistry->remove($customerId);
@@ -285,7 +284,7 @@ class CustomerAddressTest extends WebapiAbstract
             'country_id' => 'US',
             'postcode' => (string)rand(50000, 60000),
             'telephone' => (string)rand(1000000, 9000000),
-            'street' => ['White str, ' . (string)rand(1,50)],
+            'street' => ['White str, ' . (string)rand(1, 50)],
             'id' => 3,
             'default_billing' => false,
             'default_shipping' => false,
@@ -328,5 +327,4 @@ class CustomerAddressTest extends WebapiAbstract
         $requestData = ['username' => $username, 'password' => $password];
         $this->token = $this->_webApiCall($serviceInfo, $requestData);
     }
-
 }

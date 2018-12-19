@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Deity\Customer\Model\Customer;
 
-
 use Deity\Customer\Model\Security\CustomerContext;
 use Deity\CustomerApi\Api\AddressRepositoryInterface;
 use Magento\Customer\Api\AddressRepositoryInterface as CustomerAddressRepositoryInterface;
@@ -49,8 +48,7 @@ class AddressRepository implements AddressRepositoryInterface
         AddressRegistry $addressRegistry,
         CustomerAddressRepositoryInterface $addressRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder
-    )
-    {
+    ) {
         $this->addressRegistry = $addressRegistry;
         $this->addressRepository = $addressRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;

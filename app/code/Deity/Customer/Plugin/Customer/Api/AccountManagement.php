@@ -25,7 +25,6 @@ class AccountManagement
     /** @var LoggerInterface */
     private $logger;
 
-
     /**
      * AccountManagement constructor.
      * @param CustomerRepositoryInterface $customerRepository
@@ -36,8 +35,7 @@ class AccountManagement
         CustomerRepositoryInterface $customerRepository,
         MergeManagement $cartMergeManagement,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->customerRepository = $customerRepository;
         $this->logger = $logger;
         $this->cartMergeManagement = $cartMergeManagement;
