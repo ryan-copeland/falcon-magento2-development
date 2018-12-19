@@ -1,5 +1,5 @@
 <?php
-namespace Deity\MagentoApi\Api\Customer;
+namespace Deity\CustomerApi\Api;
 
 interface NewsletterManagerInterface
 {

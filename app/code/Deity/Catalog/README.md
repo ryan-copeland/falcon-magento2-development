@@ -1,1 +1,1 @@
-### Deity Catalog Module
+### Deity Customer API Module
