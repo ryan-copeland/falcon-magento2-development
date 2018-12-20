@@ -4,3 +4,4 @@
 * * ../../../app/code/Deity/Store*
 * * ../../../app/code/Deity/Base*
 * * ../../../app/code/Deity/Breadcrumbs*
+* * ../../../app/code/Deity/Customer*
