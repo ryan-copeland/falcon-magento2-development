@@ -5,3 +5,4 @@
 * * ../../../app/code/Deity/Base*
 * * ../../../app/code/Deity/Breadcrumbs*
 * * ../../../app/code/Deity/Customer*
+* * ../../../app/code/Deity/Menu*
