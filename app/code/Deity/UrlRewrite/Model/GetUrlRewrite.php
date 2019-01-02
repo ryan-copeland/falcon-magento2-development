@@ -121,7 +121,7 @@ class GetUrlRewrite implements GetUrlRewriteInterface
      */
     private function getCanonicalUrl(UrlRewrite $urlModel)
     {
-        switch($urlModel->getEntityType()){
+        switch ($urlModel->getEntityType()) {
             case 'product':
                 $entity = $this->productRepository->getById($urlModel->getEntityId());
                 return $entity->getUrlModel()->getUrl($entity, ['_ignore_category' => true]);
