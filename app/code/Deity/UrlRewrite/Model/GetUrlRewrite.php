@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace Deity\UrlRewrite\Model;
 
+use Deity\UrlRewriteApi\Api\CanonicalUrlProviderInterface;
 use Deity\UrlRewriteApi\Api\ConvertEntityIdToUniqueKeyInterface;
 use Deity\UrlRewriteApi\Api\Data\UrlRewriteInterface;
 use Deity\UrlRewriteApi\Api\Data\UrlRewriteInterfaceFactory;
 use Deity\UrlRewriteApi\Api\GetUrlRewriteInterface;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\UrlInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\UrlRewrite\Model\UrlFinderInterface;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
@@ -20,15 +19,6 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
  */
 class GetUrlRewrite implements GetUrlRewriteInterface
 {
-    /**
-     * @var \Magento\Framework\UrlInterface
-     */
-    protected $urlBuilder;
-    /**
-     * @var \Magento\Catalog\Api\ProductRepositoryInterface
-     */
-    protected $productRepository;
-
     /**
      * @var UrlFinderInterface
      */
@@ -50,13 +40,16 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     private $commandsPerEntityType;
 
     /**
+     * @var array
+     */
+    private $canonicalUrlProviders;
+
+    /**
      * Url constructor.
      *
      * @param UrlFinderInterface $urlFinder
      * @param UrlRewriteInterfaceFactory $urlRewriteFactory
      * @param StoreManagerInterface $storeManager
-     * @param UrlInterface $urlBuilder
-     * @param ProductRepositoryInterface $productRepository
      * @param array $commandsPerEntityType
      * @throws LocalizedException
      */
@@ -64,9 +57,8 @@ class GetUrlRewrite implements GetUrlRewriteInterface
         UrlFinderInterface $urlFinder,
         UrlRewriteInterfaceFactory $urlRewriteFactory,
         StoreManagerInterface $storeManager,
-        UrlInterface $urlBuilder,
-        ProductRepositoryInterface $productRepository,
-        $commandsPerEntityType = []
+        $commandsPerEntityType = [],
+        $canonicalUrlProviders = []
     ) {
         $this->urlFinder = $urlFinder;
         $this->urlRewriteFactory = $urlRewriteFactory;
@@ -83,9 +75,19 @@ class GetUrlRewrite implements GetUrlRewriteInterface
             }
         }
 
+        foreach ($canonicalUrlProviders as $urlProvider) {
+            if (!$urlProvider instanceof CanonicalUrlProviderInterface) {
+                throw new LocalizedException(
+                    __(
+                        'Canonical URL provider class must implement %interface.',
+                        ['interface' => CanonicalUrlProviderInterface::class]
+                    )
+                );
+            }
+        }
+
         $this->commandsPerEntityType = $commandsPerEntityType;
-        $this->urlBuilder = $urlBuilder;
-        $this->productRepository = $productRepository;
+        $this->canonicalUrlProviders = $canonicalUrlProviders;
     }
 
     /**
@@ -105,29 +107,21 @@ class GetUrlRewrite implements GetUrlRewriteInterface
         $urlData->setEntityType($this->sanitizeType($urlModel->getEntityType()));
         $urlData->setEntityId((string)$urlModel->getEntityId());
 
-        $urlData->setCanonicalUrl($this->getCanonicalUrl($urlModel));
+        //Set canonical URL
+        if (array_key_exists($urlModel->getEntityType(), $this->canonicalUrlProviders)) {
+            $urlData->setCanonicalUrl(
+                $this->canonicalUrlProviders[$urlModel->getEntityType()]->getCanonicalUrl($urlModel)
+            );
+        } else {
+            //Use default if entity type is not specified in canonicalUrlProviders di argument.
+            $urlData->setCanonicalUrl($this->canonicalUrlProviders['base']->getCanonicalUrl($urlModel));
+        }
 
         if (isset($this->commandsPerEntityType[$urlModel->getEntityType()])) {
             $this->commandsPerEntityType[$urlModel->getEntityType()]->execute($urlData);
         }
 
         return $urlData;
-    }
-
-    /**
-     * @param \Magento\UrlRewrite\Service\V1\Data\UrlRewrite $urlModel
-     * @return string
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
-     */
-    private function getCanonicalUrl(UrlRewrite $urlModel)
-    {
-        switch ($urlModel->getEntityType()) {
-            case 'product':
-                $entity = $this->productRepository->getById($urlModel->getEntityId());
-                return $entity->getUrlModel()->getUrl($entity, ['_ignore_category' => true]);
-            default:
-                return $this->urlBuilder->getDirectUrl($urlModel->getRequestPath());
-        }
     }
 
     /**
