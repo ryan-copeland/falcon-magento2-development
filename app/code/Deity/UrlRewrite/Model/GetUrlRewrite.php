@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\UrlRewrite\Model;
 
+use Deity\UrlRewriteApi\Api\CanonicalUrlProviderInterface;
 use Deity\UrlRewriteApi\Api\ConvertEntityIdToUniqueKeyInterface;
 use Deity\UrlRewriteApi\Api\Data\UrlRewriteInterface;
 use Deity\UrlRewriteApi\Api\Data\UrlRewriteInterfaceFactory;
@@ -18,7 +19,6 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
  */
 class GetUrlRewrite implements GetUrlRewriteInterface
 {
-
     /**
      * @var UrlFinderInterface
      */
@@ -40,7 +40,7 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     private $commandsPerEntityType;
 
     /**
-     * @var CanonicalUrlProviderInterface[]
+     * @var array
      */
     private $canonicalUrlProviders;
 
@@ -57,7 +57,8 @@ class GetUrlRewrite implements GetUrlRewriteInterface
         UrlFinderInterface $urlFinder,
         UrlRewriteInterfaceFactory $urlRewriteFactory,
         StoreManagerInterface $storeManager,
-        $commandsPerEntityType = []
+        $commandsPerEntityType = [],
+        $canonicalUrlProviders = []
     ) {
         $this->urlFinder = $urlFinder;
         $this->urlRewriteFactory = $urlRewriteFactory;
@@ -74,7 +75,19 @@ class GetUrlRewrite implements GetUrlRewriteInterface
             }
         }
 
+        foreach ($canonicalUrlProviders as $urlProvider) {
+            if (!$urlProvider instanceof CanonicalUrlProviderInterface) {
+                throw new LocalizedException(
+                    __(
+                        'Canonical URL provider class must implement %interface.',
+                        ['interface' => CanonicalUrlProviderInterface::class]
+                    )
+                );
+            }
+        }
+
         $this->commandsPerEntityType = $commandsPerEntityType;
+        $this->canonicalUrlProviders = $canonicalUrlProviders;
     }
 
     /**
@@ -94,17 +107,14 @@ class GetUrlRewrite implements GetUrlRewriteInterface
         $urlData->setEntityType($this->sanitizeType($urlModel->getEntityType()));
         $urlData->setEntityId((string)$urlModel->getEntityId());
 
-
         //Set canonical URL
         if (array_key_exists($urlModel->getEntityType(), $this->canonicalUrlProviders)) {
             $urlData->setCanonicalUrl(
                 $this->canonicalUrlProviders[$urlModel->getEntityType()]->getCanonicalUrl($urlModel)
             );
         } else {
-            //Use base if entity type is not specified in canonicalUrlProviders di argument.
-            $urlData->setCanonicalUrl(
-                $this->canonicalUrlProviders[CanonicalUrlProviderInterface::BASE_KEY]->getCanonicalUrl($urlModel)
-            );
+            //Use default if entity type is not specified in canonicalUrlProviders di argument.
+            $urlData->setCanonicalUrl($this->canonicalUrlProviders['base']->getCanonicalUrl($urlModel));
         }
 
         if (isset($this->commandsPerEntityType[$urlModel->getEntityType()])) {
@@ -115,11 +125,11 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     }
 
     /**
-     * @param string $path
+     * @param $path
      * @return UrlRewrite
      * @throws NoSuchEntityException
      */
-    private function getUrlModel(string $path): UrlRewrite
+    private function getUrlModel($path)
     {
         $urlModel = $this->urlFinder->findOneByData(
             [
