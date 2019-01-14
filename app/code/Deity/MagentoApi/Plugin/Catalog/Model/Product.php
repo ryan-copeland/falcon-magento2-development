@@ -44,9 +44,6 @@ class Product
     public function afterLoad(MagentoProduct $product)
     {
         $this->productHelper->ensureOptionsForConfigurableProduct($product);
-
-        $this->productHelper->addProductImageAttribute($product);
-        $this->productHelper->addProductImageAttribute($product, 'product_list_image', 'thumbnail_url');
         $this->productHelper->addMediaGallerySizes($product);
 
         if($product->getTypeId() !== 'configurable') {
