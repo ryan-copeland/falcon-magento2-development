@@ -3,7 +3,6 @@
 namespace Deity\MagentoApi\Helper;
 
 use Deity\MagentoApi\Api\Data\GalleryMediaEntrySizeInterface;
-use Deity\MagentoApi\Helper\Media as MediaHelper;
 use Magento\Catalog\Api\Data\ProductExtension;
 use Magento\Catalog\Api\Data\ProductExtensionFactory;
 use Magento\Catalog\Api\Data\ProductInterface;
@@ -20,8 +19,6 @@ use Magento\Framework\ObjectManagerInterface;
  */
 class Product extends AbstractHelper
 {
-    /** @var MediaHelper */
-    protected $mediaHelper;
 
     /** @var ProductExtensionFactory */
     protected $productExtensionFactory;
@@ -41,8 +38,6 @@ class Product extends AbstractHelper
     /**
      * @param AppContext $context
      * @param ProductExtensionFactory $productExtensionFactory
-     * @param MediaHelper $mediaHelper
-     * @param GalleryReadHandler $galleryReadHandler
      * @param ObjectManagerInterface $objectManager
      * @param Price $priceHelper
      * @param \Magento\Eav\Model\Config $eavConfig
@@ -50,8 +45,6 @@ class Product extends AbstractHelper
     public function __construct(
         AppContext $context,
         ProductExtensionFactory $productExtensionFactory,
-        MediaHelper $mediaHelper,
-        GalleryReadHandler $galleryReadHandler,
         ObjectManagerInterface $objectManager,
         Price $priceHelper,
         Config $eavConfig
@@ -59,48 +52,8 @@ class Product extends AbstractHelper
         parent::__construct($context);
         $this->productExtensionFactory = $productExtensionFactory;
         $this->objectManager = $objectManager;
-        $this->mediaHelper = $mediaHelper;
-        $this->galleryReadHandler = $galleryReadHandler;
         $this->priceHelper = $priceHelper;
         $this->eavConfig = $eavConfig;
-    }
-
-    /**
-     * @param MagentoProduct $product
-     */
-    public function addMediaGallerySizes($product)
-    {
-        $this->galleryReadHandler->execute($product);
-
-        $sizes = [];
-        $mediaGalleryEntries = $product->getMediaGalleryEntries();
-        if(!$mediaGalleryEntries) {
-            return;
-        }
-
-        $extAttrs = $this->getProductExtensionAttributes($product);
-
-        foreach ($mediaGalleryEntries as $mediaGalleryEntry) {
-            if (!$this->isValidMediaGalleryEntry($mediaGalleryEntry)) {
-                continue;
-            }
-
-            /** @var GalleryMediaEntrySizeInterface $sizesEntry */
-            $sizesEntry = $this->objectManager->create('Deity\MagentoApi\Api\Data\GalleryMediaEntrySizeInterface');
-
-            $file = $mediaGalleryEntry->getFile();
-            $sizesEntry->setThumbnail($this->mediaHelper->getProductImageUrl($product, $file, 'product_media_gallery_item_thumbnail'));
-            $sizesEntry->setFull($this->mediaHelper->getProductImageUrl($product, $file, 'product_media_gallery_item'));
-            if ($mediaGalleryEntry->getMediaType() === 'external-video') {
-                $sizesEntry->setEmbedUrl($this->mediaHelper->getProductVideoUrl($product, $mediaGalleryEntry->getId()));
-            }
-            $sizesEntry->setType($mediaGalleryEntry->getMediaType());
-            $sizes[] = $sizesEntry;
-
-        }
-
-        $extAttrs->setMediaGallerySizes($sizes);
-        $product->setExtensionAttributes($extAttrs);
     }
 
     /**
