@@ -44,7 +44,6 @@ class Product
     public function afterLoad(MagentoProduct $product)
     {
         $this->productHelper->ensureOptionsForConfigurableProduct($product);
-        $this->productHelper->addMediaGallerySizes($product);
 
         if($product->getTypeId() !== 'configurable') {
             /** configurable product price is set to 0

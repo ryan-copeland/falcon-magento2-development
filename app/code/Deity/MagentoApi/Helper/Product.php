@@ -104,20 +104,6 @@ class Product extends AbstractHelper
     }
 
     /**
-     * Validate if media entry can be included in gallery
-     *
-     * @return bool
-     */
-    public function isValidMediaGalleryEntry($entity)
-    {
-        if ($entity->isDisabled()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Changing "priceCalculation" policy to return a base price for configurable product
      * @param MagentoProduct $product
      */
