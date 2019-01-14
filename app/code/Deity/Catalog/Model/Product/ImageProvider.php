@@ -37,7 +37,6 @@ class ImageProvider implements ProductImageProviderInterface
         $this->imageHelperFactory = $imageHelperFactory;
     }
 
-
     /**
      * @param Product $product
      * @param string $imageId

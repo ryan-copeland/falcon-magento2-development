@@ -28,12 +28,13 @@ class Product
      * @param ProductImageProviderInterface $imageProvider
      * @param MediaGalleryProviderInterface $mediaGalleryProvider
      */
-    public function __construct(ProductImageProviderInterface $imageProvider, MediaGalleryProviderInterface $mediaGalleryProvider)
-    {
+    public function __construct(
+        ProductImageProviderInterface $imageProvider,
+        MediaGalleryProviderInterface $mediaGalleryProvider
+    ) {
         $this->imageProvider = $imageProvider;
         $this->mediaGalleryProvider = $mediaGalleryProvider;
     }
-
 
     /**
      * Add resized image information to the product's extension attributes.
