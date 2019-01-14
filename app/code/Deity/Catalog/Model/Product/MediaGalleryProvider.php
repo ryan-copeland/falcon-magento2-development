@@ -6,7 +6,7 @@ namespace Deity\Catalog\Model\Product;
 use Deity\CatalogApi\Api\Data\GalleryMediaEntrySizeInterface;
 use Deity\CatalogApi\Api\Data\GalleryMediaEntrySizeInterfaceFactory;
 use Deity\CatalogApi\Api\MediaGalleryProviderInterface;
-use Deity\MagentoApi\Helper\Media;
+use Deity\CatalogApi\Api\ProductImageProviderInterface;
 use Magento\Catalog\Api\Data\ProductAttributeMediaGalleryEntryInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Product\Gallery\ReadHandler;
@@ -29,24 +29,21 @@ class MediaGalleryProvider implements MediaGalleryProviderInterface
     private $galleryMediaEntrySizeFactory;
 
     /**
-     * @var Media
+     * @var ProductImageProviderInterface
      */
-    private $mediaHelper;
+    private $imageProvider;
 
     /**
      * MediaGalleryProvider constructor.
      * @param ReadHandler $galleryReadHandler
      * @param GalleryMediaEntrySizeInterfaceFactory $galleryMediaEntrySizeFactory
-     * @param Media $mediaHelper
+     * @param ProductImageProviderInterface $imageProvider
      */
-    public function __construct(
-        ReadHandler $galleryReadHandler,
-        GalleryMediaEntrySizeInterfaceFactory $galleryMediaEntrySizeFactory,
-        Media $mediaHelper
-    ) {
+    public function __construct(ReadHandler $galleryReadHandler, GalleryMediaEntrySizeInterfaceFactory $galleryMediaEntrySizeFactory, ProductImageProviderInterface $imageProvider)
+    {
         $this->galleryReadHandler = $galleryReadHandler;
         $this->galleryMediaEntrySizeFactory = $galleryMediaEntrySizeFactory;
-        $this->mediaHelper = $mediaHelper;
+        $this->imageProvider = $imageProvider;
     }
 
 
@@ -72,8 +69,9 @@ class MediaGalleryProvider implements MediaGalleryProviderInterface
             }
 
             $file = $mediaGalleryEntry->getFile();
-            $galleryItem[GalleryMediaEntrySizeInterface::THUMBNAIL] = $this->mediaHelper->getProductImageUrl($product, $file, 'product_media_gallery_item_thumbnail');
-            $galleryItem[GalleryMediaEntrySizeInterface::FULL] = $this->mediaHelper->getProductImageUrl($product, $file, 'product_media_gallery_item');
+
+            $galleryItem[GalleryMediaEntrySizeInterface::THUMBNAIL] = $this->imageProvider->getProductImageTypeUrl($product, 'product_media_gallery_item_thumbnail', $file);
+            $galleryItem[GalleryMediaEntrySizeInterface::FULL] = $this->imageProvider->getProductImageTypeUrl($product, 'product_media_gallery_item', $file);
             $galleryItem[GalleryMediaEntrySizeInterface::TYPE] = $mediaGalleryEntry->getMediaType();
             $galleryItem[GalleryMediaEntrySizeInterface::EMBED_URL] = '';
             if ($mediaGalleryEntry->getMediaType() === 'external-video') {
