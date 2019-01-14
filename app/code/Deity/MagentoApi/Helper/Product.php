@@ -67,19 +67,6 @@ class Product extends AbstractHelper
 
     /**
      * @param MagentoProduct $product
-     * @param string $size
-     * @param string $attributeName
-     */
-    public function addProductImageAttribute($product, $size = 'product_list_thumbnail', $attributeName = 'thumbnail_resized_url', $imageName = 'image')
-    {
-        $productExtension = $this->getProductExtensionAttributes($product);
-        $imageUrl = $this->mediaHelper->getProductImageUrl($product, $product->getData($imageName), $size);
-        $productExtension->setData($attributeName, $imageUrl ?: '');
-        $product->setExtensionAttributes($productExtension);
-    }
-
-    /**
-     * @param MagentoProduct $product
      */
     public function addMediaGallerySizes($product)
     {
@@ -203,7 +190,7 @@ class Product extends AbstractHelper
                             if(in_array($attributeConfigurableOption['sku'], $disabledProducts)) {
                                 $optionEnabled = false;
                                 break;
-                            }
+                            }$product->setExtensionAttributes($productExtension);
 
                             if(isset($stockInfo[$attributeConfigurableOption['sku']]) && $stockInfo[$attributeConfigurableOption['sku']] > 0) {
                                 $stockProducts[] = $attributeConfigurableOption['sku'];
