@@ -39,13 +39,15 @@ class MediaGalleryProvider implements MediaGalleryProviderInterface
      * @param GalleryMediaEntrySizeInterfaceFactory $galleryMediaEntrySizeFactory
      * @param ProductImageProviderInterface $imageProvider
      */
-    public function __construct(ReadHandler $galleryReadHandler, GalleryMediaEntrySizeInterfaceFactory $galleryMediaEntrySizeFactory, ProductImageProviderInterface $imageProvider)
-    {
+    public function __construct(
+        ReadHandler $galleryReadHandler,
+        GalleryMediaEntrySizeInterfaceFactory $galleryMediaEntrySizeFactory,
+        ProductImageProviderInterface $imageProvider
+    ) {
         $this->galleryReadHandler = $galleryReadHandler;
         $this->galleryMediaEntrySizeFactory = $galleryMediaEntrySizeFactory;
         $this->imageProvider = $imageProvider;
     }
-
 
     /**
      * @param ProductInterface $product
@@ -70,15 +72,17 @@ class MediaGalleryProvider implements MediaGalleryProviderInterface
 
             $file = $mediaGalleryEntry->getFile();
 
-            $galleryItem[GalleryMediaEntrySizeInterface::THUMBNAIL] = $this->imageProvider->getProductImageTypeUrl($product, 'product_media_gallery_item_thumbnail', $file);
-            $galleryItem[GalleryMediaEntrySizeInterface::FULL] = $this->imageProvider->getProductImageTypeUrl($product, 'product_media_gallery_item', $file);
+            $galleryItem[GalleryMediaEntrySizeInterface::THUMBNAIL] =
+                $this->imageProvider->getProductImageTypeUrl($product, 'product_media_gallery_item_thumbnail', $file);
+            $galleryItem[GalleryMediaEntrySizeInterface::FULL] =
+                $this->imageProvider->getProductImageTypeUrl($product, 'product_media_gallery_item', $file);
             $galleryItem[GalleryMediaEntrySizeInterface::TYPE] = $mediaGalleryEntry->getMediaType();
             $galleryItem[GalleryMediaEntrySizeInterface::EMBED_URL] = '';
             if ($mediaGalleryEntry->getMediaType() === 'external-video') {
-                $galleryItem[GalleryMediaEntrySizeInterface::EMBED_URL] = $this->mediaHelper->getProductVideoUrl($product, $mediaGalleryEntry->getId());
+                $galleryItem[GalleryMediaEntrySizeInterface::EMBED_URL] =
+                    $this->mediaHelper->getProductVideoUrl($product, $mediaGalleryEntry->getId());
             }
             $sizes[] = $this->galleryMediaEntrySizeFactory->create($galleryItem);
-
         }
 
         return $sizes;
