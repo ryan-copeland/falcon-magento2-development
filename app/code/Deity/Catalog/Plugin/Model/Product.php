@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace Deity\Catalog\Plugin\Model;
 
+use Deity\CatalogApi\Api\MediaGalleryProviderInterface;
 use Deity\CatalogApi\Api\ProductImageProviderInterface;
-use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Framework\App\Config\ScopeConfigInterface;
-use Deity\MagentoApi\Helper\Product as DeityProductHelper;
 use Magento\Catalog\Model\Product as MagentoProduct;
 
 /**
@@ -15,28 +13,27 @@ use Magento\Catalog\Model\Product as MagentoProduct;
  */
 class Product
 {
-
-    /**
-     * @var ScopeConfigInterface
-     */
-    private $scopeConfig;
-
     /**
      * @var ProductImageProviderInterface
      */
     private $imageProvider;
 
     /**
-     * @param ProductImageProviderInterface $imageProvider
-     * @param ScopeConfigInterface $scopeConfig
+     * @var MediaGalleryProviderInterface
      */
-    public function __construct(
-        ProductImageProviderInterface $imageProvider,
-        ScopeConfigInterface $scopeConfig
-    ) {
+    private $mediaGalleryProvider;
+
+    /**
+     * Product constructor.
+     * @param ProductImageProviderInterface $imageProvider
+     * @param MediaGalleryProviderInterface $mediaGalleryProvider
+     */
+    public function __construct(ProductImageProviderInterface $imageProvider, MediaGalleryProviderInterface $mediaGalleryProvider)
+    {
         $this->imageProvider = $imageProvider;
-        $this->scopeConfig = $scopeConfig;
+        $this->mediaGalleryProvider = $mediaGalleryProvider;
     }
+
 
     /**
      * Add resized image information to the product's extension attributes.
@@ -53,6 +50,10 @@ class Product
         $productExtension->setData('thumbnail_url', $mainImage);
         $thumbUrl = $this->imageProvider->getProductImageTypeUrl($product, 'product_list_thumbnail');
         $productExtension->setData('thumbnail_resized_url', $thumbUrl);
+
+        $mediaGalleryInfo = $this->mediaGalleryProvider->getMediaGallerySizes($product);
+
+        $productExtension->setMediaGallerySizes($mediaGalleryInfo);
 
         $product->setExtensionAttributes($productExtension);
         return $product;
