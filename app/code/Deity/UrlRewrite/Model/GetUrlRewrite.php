@@ -40,6 +40,11 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     private $commandsPerEntityType;
 
     /**
+     * @var CanonicalUrlProviderInterface[]
+     */
+    private $canonicalUrlProviders;
+
+    /**
      * Url constructor.
      *
      * @param UrlFinderInterface $urlFinder
