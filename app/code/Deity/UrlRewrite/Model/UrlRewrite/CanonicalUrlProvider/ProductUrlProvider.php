@@ -24,7 +24,7 @@ class ProductUrlProvider implements CanonicalUrlProviderInterface
      * @param $urlModel UrlRewrite
      * @return string
      */
-    public function getCanonicalUrl(UrlRewrite $urlModel)
+    public function getCanonicalUrl(UrlRewrite $urlModel): string
     {
         try {
             $product = $this->productRepository->getById($urlModel->getEntityId());
