@@ -11,5 +11,5 @@ interface CanonicalUrlProviderInterface
      * @param \Magento\UrlRewrite\Service\V1\Data\UrlRewrite $urlModel
      * @return string
      */
-    public function getCanonicalUrl(UrlRewrite $urlModel);
+    public function getCanonicalUrl(UrlRewrite $urlModel): string;
 }

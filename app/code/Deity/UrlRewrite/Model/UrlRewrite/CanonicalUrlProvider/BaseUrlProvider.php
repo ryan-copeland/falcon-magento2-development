@@ -24,7 +24,7 @@ class BaseUrlProvider implements CanonicalUrlProviderInterface
      * @param UrlRewrite $urlModel
      * @return string
      */
-    public function getCanonicalUrl(UrlRewrite $urlModel)
+    public function getCanonicalUrl(UrlRewrite $urlModel): string
     {
         return $this->urlBuilder->getDirectUrl($urlModel->getRequestPath());
     }

@@ -106,11 +106,11 @@ class GetUrlRewrite implements GetUrlRewriteInterface
     }
 
     /**
-     * @param $path
+     * @param string $path
      * @return UrlRewrite
      * @throws NoSuchEntityException
      */
-    private function getUrlModel($path)
+    private function getUrlModel(string $path): UrlRewrite
     {
         $urlModel = $this->urlFinder->findOneByData(
             [
