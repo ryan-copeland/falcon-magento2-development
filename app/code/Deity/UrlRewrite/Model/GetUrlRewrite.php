@@ -113,8 +113,10 @@ class GetUrlRewrite implements GetUrlRewriteInterface
                 $this->canonicalUrlProviders[$urlModel->getEntityType()]->getCanonicalUrl($urlModel)
             );
         } else {
-            //Use default if entity type is not specified in canonicalUrlProviders di argument.
-            $urlData->setCanonicalUrl($this->canonicalUrlProviders['base']->getCanonicalUrl($urlModel));
+            //Use base if entity type is not specified in canonicalUrlProviders di argument.
+            $urlData->setCanonicalUrl(
+                $this->canonicalUrlProviders[CanonicalUrlProviderInterface::BASE_KEY]->getCanonicalUrl($urlModel)
+            );
         }
 
         if (isset($this->commandsPerEntityType[$urlModel->getEntityType()])) {

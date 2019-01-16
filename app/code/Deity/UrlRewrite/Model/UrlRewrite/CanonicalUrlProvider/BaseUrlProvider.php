@@ -14,6 +14,10 @@ class BaseUrlProvider implements CanonicalUrlProviderInterface
      */
     private $urlBuilder;
 
+    /**
+     * BaseUrlProvider constructor.
+     * @param UrlInterface $urlBuilder
+     */
     public function __construct(
         UrlInterface $urlBuilder
     ) {
