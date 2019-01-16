@@ -39,6 +39,7 @@ class ItemRepository
      */
     public function beforeSave(CartItemRepositoryInterface $subject, CartItemInterface $cartItem)
     {
+        return [$cartItem];
         $cartItem->getSku();
         $productId = $this->productResource->getIdBySku($cartItem->getSku());
         $productWebsites = $this->productWebsiteLink->getWebsiteIdsByProductId($productId);
