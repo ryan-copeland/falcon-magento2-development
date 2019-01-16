@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Plugin\Quote\Model\Cart\Totals;
+namespace Deity\Quote\Plugin\Model\Cart\Totals;
 
 use Deity\CatalogApi\Api\ProductImageProviderInterface;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
@@ -9,7 +10,7 @@ use Magento\Quote\Api\Data\TotalsItemExtensionFactory;
 use Magento\Quote\Model\Cart\Totals\ItemConverter as MagentoItemConverter;
 use Magento\Quote\Model\Cart\Totals\Item as TotalsItem;
 use Magento\Quote\Model\Quote\Item as QuoteItem;
-use Deity\MagentoApi\Model\Cart\Item\AttributeList;
+use Deity\Quote\Model\Cart\Item\AttributeList;
 
 class ItemConverter
 {
