@@ -1,5 +1,7 @@
 <?php
-namespace Deity\MagentoApi\Plugin\Quote\Model\Cart;
+declare(strict_types=1);
+
+namespace Deity\Quote\Plugin\Model\Cart;
 
 use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
 use Magento\Catalog\Model\ResourceModel\Product\Website\Link;
