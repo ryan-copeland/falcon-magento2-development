@@ -37,6 +37,7 @@ class ItemRepository
      * @param CartItemRepositoryInterface $subject
      * @param CartItemInterface $cartItem
      * @return array
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @throws NoSuchEntityException
      */
     public function beforeSave(CartItemRepositoryInterface $subject, CartItemInterface $cartItem)
