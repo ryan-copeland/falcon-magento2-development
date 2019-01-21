@@ -69,7 +69,6 @@ class ItemConverter
 
         $product = $item->getProduct();
 
-
         $urlKey = $product->getUrlKey();
 
         if ($product->getTypeId() == Configurable::TYPE_CODE) {
@@ -88,7 +87,10 @@ class ItemConverter
         $extensionAttributes = $this->factory->create(
             [
                 'data' => [
-                    'thumbnail_url' => $this->imageProvider->getProductImageTypeUrl($product, 'deity_checkout_cart_thumbnail'),
+                    'thumbnail_url' => $this->imageProvider->getProductImageTypeUrl(
+                        $product,
+                        'deity_checkout_cart_thumbnail'
+                    ),
                     'url_key'       => $urlKey,
                     'available_qty' => $stockItem->getQty()
                 ] + $attributes
