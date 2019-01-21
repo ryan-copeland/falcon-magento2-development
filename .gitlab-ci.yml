@@ -38,5 +38,4 @@ packagist:
   - git commit -m "$CI_COMMIT_MESSAGE"
   - git push origin $BRANCH_NAME
   only:
-  - 2.0-develop
-  - 2.0-develop-m2.3
+  - master
