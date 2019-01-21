@@ -39,104 +39,12 @@ class UpgradeData implements UpgradeDataInterface
 
         /** @var EavSetup $eavSetup */
         $eavSetup = $this->eavSetupFactory->create();
-
-        if(version_compare($context->getVersion(), '0.0.1') < 0) {
-            $this->addCategoryShowOnHomeField($eavSetup);
-        }
-        if(version_compare($context->getVersion(), '0.1.20') < 0) {
-            $this->addCategoryShowOnHomePositionField($setup, $eavSetup);
-        }
+        
         if(version_compare($context->getVersion(), '0.1.22') < 0) {
             $this->addProductShowOnHomePositionField($setup, $eavSetup);
         }
 
         $setup->endSetup();
-    }
-
-    /**
-     * @param EavSetup $eavSetup
-     */
-    protected function addCategoryShowOnHomeField($eavSetup)
-    {
-        /**
-         * Add attributes to the eav/attribute
-         */
-        $eavSetup->addAttribute(
-            \Magento\Catalog\Model\Category::ENTITY,
-            'is_on_homepage',
-            [
-                'type' => 'int',
-                'label' => 'Show on homepage',
-                'input' => 'select',
-                'source' => 'Magento\Eav\Model\Entity\Attribute\Source\Boolean',
-                'default' => '1',
-                'sort_order' => 19,
-                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
-                'group' => 'General Information',
-                'required' => false,
-                'user_defined' => true,
-                'is_used_in_grid' => true,
-                'is_visible_in_grid' => false,
-                'is_filterable_in_grid' => true,
-            ]
-        );
-    }
-
-    /**
-     * @param ModuleDataSetupInterface $setup
-     * @param EavSetup $eavSetup
-     */
-    protected function addCategoryShowOnHomePositionField(ModuleDataSetupInterface $setup, EavSetup $eavSetup)
-    {
-        /**
-         * Add attributes to the eav/attribute
-         */
-        $eavSetup->addAttribute(
-            \Magento\Catalog\Model\Category::ENTITY,
-            'homepage_position',
-            [
-                'type' => 'int',
-                'label' => 'Homepage Position',
-                'input' => 'text',
-                'source' => '',
-                'default' => 1000,
-                'sort_order' => 20,
-                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
-                'group' => 'General Information',
-                'required' => false,
-                'user_defined' => true,
-                'is_used_in_grid' => true,
-                'is_visible_in_grid' => false,
-                'is_filterable_in_grid' => true,
-            ]
-        );
-
-        $attributeId = $eavSetup->getAttributeId(Category::ENTITY, 'homepage_position');
-
-        /** @var AdapterInterface $connection */
-        $connection = $setup->getConnection();
-
-        $select = $connection->select()->from(['category' => $connection->getTableName('catalog_category_entity_int')], 'category.entity_id AS category_id')
-                            ->join(['main' => $connection->getTableName('catalog_category_entity')], 'main.entity_id=category.entity_id', null)
-                            ->join(['eav' => $connection->getTableName('eav_attribute')], 'eav.attribute_id=category.attribute_id', null)
-                            ->where('eav.entity_type_id = ?', 3)
-                            ->where('eav.attribute_code = ?', 'is_on_homepage')
-                            ->where('category.value = ?', 1)
-                            ->order(['main.level ASC', 'main.position ASC']);
-
-        $data = [];
-        $position = 100;
-        foreach($connection->fetchAll($select) as $row) {
-            $position += 100;
-            $data[] = [
-                'entity_id' => $row['category_id'],
-                'attribute_id' => $attributeId,
-                'store_id' => 0,
-                'value' => $position
-            ];
-        }
-
-        $connection->insertOnDuplicate($connection->getTableName('catalog_category_entity_int'), $data, []);
     }
 
     /**
@@ -156,14 +64,14 @@ class UpgradeData implements UpgradeDataInterface
                 'required' => false,
                 'searchable' => true,
                 'default' => 0,
-                'filterable' => true,
-                'is_filterable_in_grid' => true,
+                'filterable' => false,
+                'is_filterable_in_grid' => false,
                 'is_used_in_grid' => false,
-                'is_searchable' => true,
+                'is_searchable' => false,
                 'is_visible_in_grid' => false,
                 'comparable' => false,
                 'visible_on_front' => false,
-                'used_in_product_listing' => true,
+                'used_in_product_listing' => false,
                 'user_defined' => true,
                 'global' => ScopedAttributeInterface::SCOPE_STORE,
                 'group' => 'Product Details',
@@ -181,14 +89,14 @@ class UpgradeData implements UpgradeDataInterface
                 'required' => false,
                 'searchable' => true,
                 'default' => 100,
-                'filterable' => true,
-                'is_filterable_in_grid' => true,
+                'filterable' => false,
+                'is_filterable_in_grid' => false,
                 'is_used_in_grid' => false,
-                'is_searchable' => true,
+                'is_searchable' => false,
                 'is_visible_in_grid' => false,
                 'comparable' => false,
                 'visible_on_front' => false,
-                'used_in_product_listing' => true,
+                'used_in_product_listing' => false,
                 'user_defined' => true,
                 'global' => ScopedAttributeInterface::SCOPE_STORE,
                 'group' => 'Product Details',

@@ -1,0 +1,42 @@
+image: php:7.1.11
+
+stages:
+- release
+
+packagist:
+  stage: release
+  before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+  - eval $(ssh-agent -s)
+  - echo "$GIT_SSH_PRIV_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - git config --global user.email "sergii@deity.io"
+  - git config --global user.name "Sergii Gzh"
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan github.com >> ~/.ssh/known_hosts
+  - if [ `which git 2> /dev/null` ]; then
+    OUT_REVISION=`git describe --always`;
+    if  [ "`git rev-parse tags/$CI_COMMIT_REF_NAME 2>/dev/null`" = "tags/$CI_COMMIT_REF_NAME" ]; then
+    BRANCH_NAME=$CI_COMMIT_REF_NAME;
+    else
+    BRANCH_NAME=$(git branch -a --contains $(git rev-parse tags/$CI_COMMIT_REF_NAME)|grep origin|awk -F/ '{print $3}');
+    fi;
+    else
+    OUT_REVISION=nevermind;
+    BRANCH_NAME=$CI_COMMIT_REF_NAME;
+    fi;
+  - echo -e "\n\n\033[47m\033[1;30m\n\n    ----------------------------------------------------------"
+      "\n    `date`\n    Building branch $BRANCH_NAME\n    Revision $OUT_REVISION\n"
+      "   From working dir $CI_PROJECT_DIR\n    Out Image ${IMAGE_TAG}\n    Building tag $CI_BUILD_REF_NAME\n    --------\n\n\033[0m"
+
+  script:
+  - git clone -b $BRANCH_NAME --single-branch git@github.com:deity-io/falcon-magento2-module.git
+  - rm -fr falcon-magento2-module/src/*
+  - cp -r app/code/Deity/ falcon-magento2-module/src/
+  - cd falcon-magento2-module
+  - git add src
+  - git commit -m "$CI_COMMIT_MESSAGE"
+  - git push origin $BRANCH_NAME
+  only:
+  - 2.0-develop
+  - 2.0-develop-m2.3

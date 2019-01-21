@@ -16,6 +16,8 @@ atlassian*
 /.gitattributes
 /app/config_sandbox
 /app/etc/env.php
+#Web api 
+#Test modules are getting installed into config.php
 /app/code/Magento/TestModule*
 /lib/internal/flex/uploader/.actionScriptProperties
 /lib/internal/flex/uploader/.flexProperties
@@ -69,6 +71,8 @@ atlassian*
 .DS_Store
 
 #Deity specific
+app/etc/config.*
 LICENSE.txt
 LICENSE_AFL.txt
 CHANGELOG.md
+artifacts
