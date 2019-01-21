@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\Quote\Plugin\Model\Cart\Totals;
 
+use Deity\CatalogApi\Api\ProductImageProviderInterface;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Quote\Api\Data\TotalsItemExtensionFactory;
@@ -13,26 +14,40 @@ use Deity\Quote\Model\Cart\Item\AttributeList;
 
 class ItemConverter
 {
-    /** @var TotalsItemExtensionFactory */
-    protected $factory;
+    /**
+     * @var TotalsItemExtensionFactory
+     */
+    private $factory;
 
-    /** @var StockRegistryInterface */
-    protected $stockRegistry;
+    /**
+     * @var StockRegistryInterface
+     */
+    private $stockRegistry;
 
-    /** @var AttributeList */
-    protected $attributeList;
+    /**
+     * @var AttributeList
+     */
+    private $attributeList;
+
+    /**
+     * @var ProductImageProviderInterface
+     */
+    private $imageProvider;
 
     /**
      * @param TotalsItemExtensionFactory $factory
      * @param StockRegistryInterface $stockRegistry
+     * @param ProductImageProviderInterface $imageProvider
      * @param AttributeList $attributeList
      */
     public function __construct(
         TotalsItemExtensionFactory $factory,
         StockRegistryInterface $stockRegistry,
+        ProductImageProviderInterface $imageProvider,
         AttributeList $attributeList
     ) {
         $this->factory = $factory;
+        $this->imageProvider = $imageProvider;
         $this->stockRegistry = $stockRegistry;
         $this->attributeList = $attributeList;
     }
@@ -53,9 +68,7 @@ class ItemConverter
         $thumbnail = null;
 
         $product = $item->getProduct();
-        if ($productExtensionAttributes = $product->getExtensionAttributes()) {
-            $thumbnailUrl = $productExtensionAttributes->getThumbnailUrl();
-        }
+
 
         $urlKey = $product->getUrlKey();
 
@@ -75,7 +88,7 @@ class ItemConverter
         $extensionAttributes = $this->factory->create(
             [
                 'data' => [
-                    'thumbnail_url' => $thumbnailUrl,
+                    'thumbnail_url' => $this->imageProvider->getProductImageTypeUrl($product, 'deity_checkout_cart_thumbnail'),
                     'url_key'       => $urlKey,
                     'available_qty' => $stockItem->getQty()
                 ] + $attributes
