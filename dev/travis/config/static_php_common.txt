@@ -4,6 +4,7 @@
 * * ../../../app/code/Deity/Catalog*
 * * ../../../app/code/Deity/Customer*
 * * ../../../app/code/Deity/Menu*
+* * ../../../app/code/Deity/Quote*
 * * ../../../app/code/Deity/Store*
 * * ../../../app/code/Deity/Theme*
 * * ../../../app/code/Deity/UrlRewrite*
