@@ -45,7 +45,7 @@ cache:
     - $HOME/node_modules
     - $HOME/yarn.lock
 before_install:
-  - ./dev/travis/custom_before_install.sh
+  - /bin/bash ./dev/travis/custom_before_install.sh
   - composer config --global http-basic.repo.magento.com "$MAGENTO_USERNAME" "$MAGENTO_PASSWORD"
 install: composer install --no-interaction --prefer-dist
 before_script:
