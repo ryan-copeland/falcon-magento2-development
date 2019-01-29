@@ -39,3 +39,4 @@ packagist:
   - git push origin $BRANCH_NAME
   only:
   - master
+  - develop

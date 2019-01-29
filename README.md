@@ -1,5 +1,5 @@
 # Deity MagentoApi development
-[![Build Status](https://travis-ci.org/deity-io/falcon-magento2-development.svg?branch=2.0-develop-m2.3)](https://travis-ci.org/deity-io/falcon-magento2-development)
+[![Build Status](https://travis-ci.org/deity-io/falcon-magento2-development.svg?branch=develop)](https://travis-ci.org/deity-io/falcon-magento2-development)
 <br/>
 Dedicated module repo: https://github.com/deity-io/falcon-magento2-module.
 
@@ -33,10 +33,10 @@ When the magento is setup, create one extra magento admin user for Deity Falcon 
 bin/magento  admin:user:create  --admin-user='your-admin-username' --admin-password='your-admin-password' --admin-email='admin@deity.test' --admin-firstname='node' --admin-lastname='Deity'
 ```
 
-## Documentation
-
-Check out integration documentation for the module. 
-[Integration_notes.md](docs/Integration_notes.md)
+## Branch structure.
+Stable version is [master](/deity-io/falcon-magento2-development/tree/master) branch. <br/>
+All the features which are prepared for release getting merged to [develop](/deity-io/falcon-magento2-development/tree/develop) branch. <br/> 
+Also there is a branch for testing back-compatibility with [Magento 2.2](/deity-io/falcon-magento2-development/tree/develop-m2.2)
 
 ## Versioning
 
