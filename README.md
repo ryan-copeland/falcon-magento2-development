@@ -34,9 +34,9 @@ bin/magento  admin:user:create  --admin-user='your-admin-username' --admin-passw
 ```
 
 ## Branch structure.
-Stable version is [master](/deity-io/falcon-magento2-development/tree/master) branch. <br/>
-All the features which are prepared for release getting merged to [develop](/deity-io/falcon-magento2-development/tree/develop) branch. <br/> 
-Also there is a branch for testing back-compatibility with [Magento 2.2](/deity-io/falcon-magento2-development/tree/develop-m2.2)
+Stable version is [master](../../tree/master) branch. <br/>
+All the features which are prepared for release getting merged to [develop](../../tree/develop) branch. <br/> 
+Also there is a branch for testing back-compatibility with [Magento 2.2](../../tree/develop-m2.2)
 
 ## Versioning
 
