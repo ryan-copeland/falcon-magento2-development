@@ -3,10 +3,7 @@
     <type name="Magento\Quote\Model\Cart\Totals\ItemConverter">
         <plugin name="deity_quote_item_converter" type="Deity\Quote\Plugin\Model\Cart\Totals\ItemConverter" />
     </type>
-<<<<<<< HEAD
     <type name="Magento\Quote\Api\CartItemRepositoryInterface">
         <plugin name="deity_quote_item_repository" type="Deity\Quote\Plugin\Model\Cart\ItemRepository" />
     </type>
-=======
->>>>>>> b964709a... added new namespace to static tests, refactored a plugin
 </config>
