@@ -17,7 +17,7 @@ interface PaymentInformationManagementInterface extends MagentoPaymentInformatio
      * @param \Magento\Quote\Api\Data\PaymentInterface $paymentMethod
      * @param \Magento\Quote\Api\Data\AddressInterface|null $billingAddress
      * @throws \Magento\Framework\Exception\CouldNotSaveException
-     * @return \Deity\MagentoApi\Api\Data\OrderResponseInterface | int
+     * @return \Deity\QuoteApi\Api\Data\OrderResponseInterface | int
      */
     public function savePaymentInformationAndPlaceOrder(
         $cartId,

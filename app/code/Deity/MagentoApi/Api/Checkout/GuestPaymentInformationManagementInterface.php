@@ -18,7 +18,7 @@ interface GuestPaymentInformationManagementInterface extends MagentoGuestPayment
      * @param \Magento\Quote\Api\Data\PaymentInterface $paymentMethod
      * @param \Magento\Quote\Api\Data\AddressInterface|null $billingAddress
      * @throws \Magento\Framework\Exception\CouldNotSaveException
-     * @return int | \Deity\MagentoApi\Api\Data\OrderResponseInterface
+     * @return int | \Deity\QuoteApi\Api\Data\OrderResponseInterface
      */
     public function savePaymentInformationAndPlaceOrder(
         $cartId,
