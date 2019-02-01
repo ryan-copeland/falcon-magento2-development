@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace Deity\QuoteApi\Test\Api;
 
 use Magento\Framework\App\Config;
-use Magento\TestFramework\ObjectManager;
+use \Magento\Framework\ObjectManagerInterface;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
- * Class CartManagenentTest
+ * Class CartManagementTest
+ *
  * @package Deity\QuoteApi\Test\Api
  */
 class CartManagementTest extends WebapiAbstract
@@ -19,12 +20,12 @@ class CartManagementTest extends WebapiAbstract
     const RESOURCE_PATH = '/V1/carts/mine/deity-order';
 
     /**
-     * @var ObjectManager
+     * @var ObjectManagerInterface
      */
     protected $objectManager;
 
     /**
-     *
+     *  setup before every test run. Update app config
      */
     protected function setUp()
     {
