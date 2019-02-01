@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace Deity\CatalogApi\Api\Data;
 
+/**
+ * Interface ProductSearchResultsInterface
+ * @package Deity\CatalogApi\Api\Data
+ */
 interface ProductSearchResultsInterface
 {
 

@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace Deity\CatalogApi\Api\Data;
 
+/**
+ * Interface GalleryMediaEntrySizeInterface
+ * @package Deity\CatalogApi\Api\Data
+ */
 interface GalleryMediaEntrySizeInterface
 {
 

@@ -7,6 +7,10 @@ use Deity\MenuApi\Api\Data\MenuExtensionInterface;
 use Deity\MenuApi\Api\Data\MenuInterface;
 use Magento\Framework\Model\AbstractExtensibleModel;
 
+/**
+ * Class Menu
+ * @package Deity\Menu\Model\Data
+ */
 class Menu extends AbstractExtensibleModel implements MenuInterface
 {
 

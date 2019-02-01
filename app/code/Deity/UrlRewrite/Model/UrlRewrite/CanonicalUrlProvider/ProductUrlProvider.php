@@ -12,6 +12,10 @@ use Deity\UrlRewriteApi\Api\CanonicalUrlProviderInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 
+/**
+ * Class ProductUrlProvider
+ * @package Deity\UrlRewrite\Model\UrlRewrite\CanonicalUrlProvider
+ */
 class ProductUrlProvider implements CanonicalUrlProviderInterface
 {
     /**

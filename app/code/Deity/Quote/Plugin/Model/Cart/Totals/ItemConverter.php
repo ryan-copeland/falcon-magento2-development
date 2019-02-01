@@ -12,6 +12,10 @@ use Magento\Quote\Model\Cart\Totals\Item as TotalsItem;
 use Magento\Quote\Model\Quote\Item as QuoteItem;
 use Deity\Quote\Model\Cart\Item\AttributeList;
 
+/**
+ * Class ItemConverter
+ * @package Deity\Quote\Plugin\Model\Cart\Totals
+ */
 class ItemConverter
 {
     /**

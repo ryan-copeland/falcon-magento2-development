@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace Deity\CatalogApi\Api\Data;
 
+/**
+ * Interface FilterInterface
+ * @package Deity\CatalogApi\Api\Data
+ */
 interface FilterInterface
 {
     const LABEL = 'label';

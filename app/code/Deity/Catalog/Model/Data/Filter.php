@@ -8,6 +8,10 @@ use Deity\CatalogApi\Api\Data\FilterOptionInterface;
 use Magento\Framework\Api\AbstractSimpleObject;
 use Magento\Framework\Phrase;
 
+/**
+ * Class Filter
+ * @package Deity\Catalog\Model\Data
+ */
 class Filter implements FilterInterface
 {
 

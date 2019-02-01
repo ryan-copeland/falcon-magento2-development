@@ -6,6 +6,10 @@ namespace Deity\Catalog\Model\Data;
 use Deity\CatalogApi\Api\Data\FilterOptionInterface;
 use Magento\Framework\Api\AbstractSimpleObject;
 
+/**
+ * Class FilterOption
+ * @package Deity\Catalog\Model\Data
+ */
 class FilterOption implements FilterOptionInterface
 {
 

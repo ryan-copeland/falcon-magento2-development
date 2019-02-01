@@ -5,6 +5,10 @@ namespace Deity\Catalog\Model\Data;
 
 use Deity\CatalogApi\Api\Data\GalleryMediaEntrySizeInterface;
 
+/**
+ * Class GalleryMediaEntrySize
+ * @package Deity\Catalog\Model\Data
+ */
 class GalleryMediaEntrySize implements GalleryMediaEntrySizeInterface
 {
     /**

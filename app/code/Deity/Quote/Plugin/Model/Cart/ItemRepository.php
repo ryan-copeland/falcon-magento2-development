@@ -10,6 +10,10 @@ use Magento\Quote\Api\CartItemRepositoryInterface;
 use Magento\Quote\Api\Data\CartItemInterface;
 use Magento\Store\Model\StoreManagerInterface;
 
+/**
+ * Class ItemRepository
+ * @package Deity\Quote\Plugin\Model\Cart
+ */
 class ItemRepository
 {
     /** @var StoreManagerInterface */

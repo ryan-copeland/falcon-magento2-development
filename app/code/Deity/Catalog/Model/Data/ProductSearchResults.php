@@ -6,6 +6,10 @@ namespace Deity\Catalog\Model\Data;
 use Deity\CatalogApi\Api\Data\ProductSearchResultsInterface;
 use Magento\Framework\Api\AbstractSimpleObject;
 
+/**
+ * Class ProductSearchResults
+ * @package Deity\Catalog\Model\Data
+ */
 class ProductSearchResults extends AbstractSimpleObject implements ProductSearchResultsInterface
 {
     /**

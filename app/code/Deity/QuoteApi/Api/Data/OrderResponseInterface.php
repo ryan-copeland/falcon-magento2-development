@@ -5,6 +5,10 @@ namespace Deity\QuoteApi\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
 
+/**
+ * Interface OrderResponseInterface
+ * @package Deity\QuoteApi\Api\Data
+ */
 interface OrderResponseInterface extends ExtensibleDataInterface
 {
     const ORDER_ID = 'orderId';
