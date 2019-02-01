@@ -17,6 +17,8 @@ use Magento\UrlRewrite\Service\V1\Data\UrlRewrite;
 interface CanonicalUrlProviderInterface
 {
     /**
+     * Provide canonical url for given UrlRewrite object
+     *
      * @param \Magento\UrlRewrite\Service\V1\Data\UrlRewrite $urlModel
      * @return string
      */
