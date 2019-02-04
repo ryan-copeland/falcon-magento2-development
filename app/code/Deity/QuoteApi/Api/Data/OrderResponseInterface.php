@@ -15,11 +15,15 @@ interface OrderResponseInterface extends ExtensibleDataInterface
     const ORDER_REAL_ID = 'orderRealId';
 
     /**
+     * Get Order Id
+     *
      * @return string
      */
     public function getOrderId(): string;
 
     /**
+     * Get Real Order Id
+     *
      * @return string
      */
     public function getOrderRealId(): string;

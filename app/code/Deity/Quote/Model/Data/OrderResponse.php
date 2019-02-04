@@ -9,6 +9,7 @@ use Magento\Framework\Api\ExtensionAttributesFactory;
 
 /**
  * Class OrderResponse
+ *
  * @package Deity\Quote\Model\Data
  */
 class OrderResponse implements OrderResponseInterface
@@ -50,9 +51,8 @@ class OrderResponse implements OrderResponseInterface
         $this->extensionAttributesFactory = $extensionAttributesFactory;
     }
 
-
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getOrderId(): string
     {
@@ -60,7 +60,7 @@ class OrderResponse implements OrderResponseInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getOrderRealId(): string
     {
@@ -68,7 +68,7 @@ class OrderResponse implements OrderResponseInterface
     }
 
     /**
-     * @return \Deity\QuoteApi\Api\Data\OrderResponseExtensionInterface
+     * @inheritdoc
      */
     public function getExtensionAttributes()
     {
@@ -80,8 +80,7 @@ class OrderResponse implements OrderResponseInterface
     }
 
     /**
-     * @param \Deity\QuoteApi\Api\Data\OrderResponseExtensionInterface $extensionAttributes
-     * @return \Deity\QuoteApi\Api\Data\OrderResponseInterface
+     * @inheritdoc
      */
     public function setExtensionAttributes(OrderResponseExtensionInterface $extensionAttributes)
     {

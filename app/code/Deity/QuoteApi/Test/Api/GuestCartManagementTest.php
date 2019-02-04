@@ -45,7 +45,9 @@ class GuestCartManagementTest extends WebapiAbstract
         $testQuoteId = 1;
 
         /** @var QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedIdConverter */
-        $quoteIdToMaskedIdConverter = $this->objectManager->create(\Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface::class);
+        $quoteIdToMaskedIdConverter = $this->objectManager->create(
+            \Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface::class
+        );
         $maskedId = $quoteIdToMaskedIdConverter->execute($testQuoteId);
 
         $serviceInfo = [

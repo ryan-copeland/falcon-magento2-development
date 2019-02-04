@@ -14,6 +14,7 @@ use Deity\Quote\Model\Cart\Item\AttributeList;
 
 /**
  * Class ItemConverter
+ *
  * @package Deity\Quote\Plugin\Model\Cart\Totals
  */
 class ItemConverter
@@ -57,6 +58,8 @@ class ItemConverter
     }
 
     /**
+     *  Around plugin for modelToDataObject function
+     *
      * @param MagentoItemConverter $subject
      * @param \Closure $proceed
      * @param QuoteItem $item

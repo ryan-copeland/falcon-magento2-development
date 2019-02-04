@@ -12,6 +12,7 @@ use Magento\Quote\Api\Data\PaymentInterface;
 
 /**
  * Class CartManagement
+ *
  * @package Deity\Quote\Model
  */
 class CartManagement implements CartManagementInterface

@@ -5,6 +5,7 @@ namespace Deity\Quote\Model\Cart\Item;
 
 /**
  * Class AttributeList
+ *
  * @package Deity\Quote\Model\Cart\Item
  */
 class AttributeList
@@ -23,6 +24,8 @@ class AttributeList
     }
 
     /**
+     * Get Attributes
+     *
      * @return array
      */
     public function getAttributes()

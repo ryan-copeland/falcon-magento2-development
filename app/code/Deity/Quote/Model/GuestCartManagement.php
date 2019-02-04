@@ -12,6 +12,7 @@ use Magento\Quote\Api\GuestCartManagementInterface as MagentoGuestCartManagement
 
 /**
  * Class GuestCartManagement
+ *
  * @package Deity\Quote\Model
  */
 class GuestCartManagement implements GuestCartManagementInterface

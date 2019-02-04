@@ -41,30 +41,3 @@ $quote->setStoreId(
     $product->load($product->getId()),
     2
 );
-/*
-$quote->setStoreId(
-    1
-)->setIsActive(
-    true
-)->setIsMultiShipping(
-    false
-)->assignCustomerWithAddressChange(
-    $customer
-)->setShippingAddress(
-    $quoteShippingAddress
-)->setBillingAddress(
-    $quoteShippingAddress
-)->setCheckoutMethod(
-    'customer'
-)->setPasswordHash(
-    $accountManagement->getPasswordHash('password')
-)->setReservedOrderId(
-    'test_order_1'
-)->setCustomerEmail(
-    'aaa@aaa.com'
-)->addProduct(
-    $product->load($product->getId()),
-    2
-);
-
-*/
