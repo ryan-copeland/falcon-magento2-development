@@ -31,13 +31,6 @@
             <resource ref="anonymous" />
         </resources>
     </route>
-    <route url="/V1/guest-carts/:cartId/deity-order" method="PUT">
-        <service class="\Deity\MagentoApi\Api\Checkout\GuestCartManagementInterface" method="placeOrder"/>
-        <resources>
-            <resource ref="anonymous" />
-        </resources>
-    </route>
-
     <route url="/V1/carts/mine/paypal-fetch-token" method="GET">
         <service class="Deity\MagentoApi\Api\Payment\PaypalInterface" method="getToken"/>
         <resources>

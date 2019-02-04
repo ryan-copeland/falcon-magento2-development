@@ -9,16 +9,16 @@ use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
- * Class CartManagementTest
+ * Class GuestCartManagementTest
  *
  * @package Deity\QuoteApi\Test\Api
  */
-class CartManagementTest extends WebapiAbstract
+class GuestCartManagementTest extends WebapiAbstract
 {
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/carts/mine/deity-order';
+    const RESOURCE_PATH = '/V1/guest-carts/:cartId/deity-order';
 
     /**
      * @var ObjectManagerInterface
@@ -36,24 +36,16 @@ class CartManagementTest extends WebapiAbstract
     }
 
     /**
-     * @magentoApiDataFixture Magento/Checkout/_files/quote_with_check_payment.php
+     * @magentoApiDataFixture ../../../../app/code/Deity/QuoteApi/Test/_files/guest_quote_with_check_payment.php
      */
     public function testPlaceOrderWithoutExtraPaymentInfo()
     {
         $this->_markTestAsRestOnly();
 
-        // get customer ID token
-        /** @var \Magento\Integration\Api\CustomerTokenServiceInterface $customerTokenService */
-        $customerTokenService = $this->objectManager->create(
-            \Magento\Integration\Api\CustomerTokenServiceInterface::class
-        );
-        $token = $customerTokenService->createCustomerAccessToken('customer@example.com', 'password');
-
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => self::RESOURCE_PATH,
-                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_PUT,
-                'token' => $token
+                'resourcePath' => str_replace(':cartId', 'cart-id', self::RESOURCE_PATH),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_PUT
             ],
         ];
 
