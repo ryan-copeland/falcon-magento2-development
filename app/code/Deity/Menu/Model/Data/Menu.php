@@ -9,6 +9,7 @@ use Magento\Framework\Model\AbstractExtensibleModel;
 
 /**
  * Class Menu
+ *
  * @package Deity\Menu\Model\Data
  */
 class Menu extends AbstractExtensibleModel implements MenuInterface
@@ -20,7 +21,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     private $children = [];
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getName(): string
     {
@@ -28,7 +29,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getId(): string
     {
@@ -36,8 +37,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @param mixed $value
-     * @return MenuInterface
+     * @inheritdoc
      */
     public function setId($value): MenuInterface
     {
@@ -46,8 +46,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @param string $name
-     * @return \Deity\MenuApi\Api\Data\MenuInterface
+     * @inheritdoc
      */
     public function setName(string $name): MenuInterface
     {
@@ -56,7 +55,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getUrlPath(): string
     {
@@ -64,8 +63,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @param string $urlPath
-     * @return \Deity\MenuApi\Api\Data\MenuInterface
+     * @inheritdoc
      */
     public function setUrlPath(string $urlPath): MenuInterface
     {
@@ -74,7 +72,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getCssClass(): string
     {
@@ -82,8 +80,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @param string $cssClass
-     * @return MenuInterface
+     * @inheritdoc
      */
     public function setCssClass(string $cssClass): MenuInterface
     {
@@ -92,7 +89,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @return MenuInterface[]
+     * @inheritdoc
      */
     public function getChildren(): array
     {
@@ -100,8 +97,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @param MenuInterface[] $children
-     * @return MenuInterface
+     * @inheritdoc
      */
     public function setChildren(array $children): MenuInterface
     {
@@ -110,7 +106,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @return \Deity\MenuApi\Api\Data\MenuExtensionInterface
+     * @inheritdoc
      */
     public function getExtensionAttributes()
     {
@@ -124,8 +120,7 @@ class Menu extends AbstractExtensibleModel implements MenuInterface
     }
 
     /**
-     * @param \Deity\MenuApi\Api\Data\MenuExtensionInterface $extensionAttributes
-     * @return \Deity\MenuApi\Api\Data\MenuInterface
+     * @inheritdoc
      */
     public function setExtensionAttributes(MenuExtensionInterface $extensionAttributes): MenuInterface
     {
