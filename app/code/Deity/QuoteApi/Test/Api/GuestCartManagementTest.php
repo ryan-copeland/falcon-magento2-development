@@ -3,8 +3,12 @@ declare(strict_types=1);
 
 namespace Deity\QuoteApi\Test\Api;
 
+use Magento\Framework\Api\SearchCriteria;
+use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Magento\Framework\App\Config;
 use Magento\Framework\ObjectManagerInterface;
+use Magento\Quote\Api\CartRepositoryInterface;
+use Magento\Quote\Api\Data\CartSearchResultsInterface;
 use Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
@@ -42,7 +46,23 @@ class GuestCartManagementTest extends WebapiAbstract
     public function testPlaceOrderWithoutExtraPaymentInfo()
     {
         $this->_markTestAsRestOnly();
-        $testQuoteId = 1;
+        /** @var CartRepositoryInterface $quoteRepository */
+        $quoteRepository = $this->objectManager->create(
+            CartRepositoryInterface::class
+        );
+        /** @var SearchCriteriaBuilderFactory $searchCriteriaBuilder */
+        $searchCriteriaBuilderFactory = $this->objectManager->create(
+            SearchCriteriaBuilderFactory::class
+        );
+        /** @var SearchCriteria $searchCriteria */
+        $searchCriteria = $searchCriteriaBuilderFactory->create()
+            ->addFilter('customer_email', 'aaa@aaa.com', 'eq')
+            ->create();
+        /** @var CartSearchResultsInterface $searchResponse */
+        $searchResult = $quoteRepository->getList($searchCriteria);
+        $quotes = $searchResult->getItems();
+        $quote = array_pop($quotes);
+        $testQuoteId = (int)$quote->getId();
 
         /** @var QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedIdConverter */
         $quoteIdToMaskedIdConverter = $this->objectManager->create(
