@@ -43,9 +43,8 @@ interface MenuInterface extends ExtensibleDataInterface
     /**
      * Strict typing ommited to comply to AbstractModel
      *
-     * @param $id
+     * @param string $id
      * @return \Deity\MenuApi\Api\Data\MenuInterface
-     * @SuppressWarnings(Magento.Annotation.MethodArguments)
      */
     public function setId($id): MenuInterface;
 
