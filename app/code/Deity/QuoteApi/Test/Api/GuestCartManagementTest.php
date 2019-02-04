@@ -5,6 +5,7 @@ namespace Deity\QuoteApi\Test\Api;
 
 use Magento\Framework\App\Config;
 use Magento\Framework\ObjectManagerInterface;
+use Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
@@ -41,10 +42,15 @@ class GuestCartManagementTest extends WebapiAbstract
     public function testPlaceOrderWithoutExtraPaymentInfo()
     {
         $this->_markTestAsRestOnly();
+        $testQuoteId = 1;
+
+        /** @var QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedIdConverter */
+        $quoteIdToMaskedIdConverter = $this->objectManager->create(\Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface::class);
+        $maskedId = $quoteIdToMaskedIdConverter->execute($testQuoteId);
 
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => str_replace(':cartId', 'cart-id', self::RESOURCE_PATH),
+                'resourcePath' => str_replace(':cartId', $maskedId, self::RESOURCE_PATH),
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_PUT
             ],
         ];
