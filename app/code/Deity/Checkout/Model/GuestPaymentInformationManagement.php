@@ -49,7 +49,6 @@ class GuestPaymentInformationManagement implements GuestPaymentInformationManage
         $this->checkoutSession = $checkoutSession;
     }
 
-
     /**
      * Set payment information and place order for a specified cart.
      *
@@ -65,8 +64,7 @@ class GuestPaymentInformationManagement implements GuestPaymentInformationManage
         $email,
         PaymentInterface $paymentMethod,
         AddressInterface $billingAddress = null
-    ): OrderResponseInterface
-    {
+    ): OrderResponseInterface {
         $orderId = $this->paymentInformationManagement->savePaymentInformationAndPlaceOrder(
             $cartId,
             $email,

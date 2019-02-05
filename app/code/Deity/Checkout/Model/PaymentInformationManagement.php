@@ -49,7 +49,6 @@ class PaymentInformationManagement implements PaymentInformationManagementInterf
         $this->checkoutSession = $checkoutSession;
     }
 
-
     /**
      * Set payment information and place order for a specified cart.
      *
@@ -64,7 +63,11 @@ class PaymentInformationManagement implements PaymentInformationManagementInterf
         PaymentInterface $paymentMethod,
         AddressInterface $billingAddress = null
     ): OrderResponseInterface {
-        $orderId = $this->paymentInformationManagement->savePaymentInformationAndPlaceOrder($cartId, $paymentMethod, $billingAddress);
+        $orderId = $this->paymentInformationManagement->savePaymentInformationAndPlaceOrder(
+            $cartId,
+            $paymentMethod,
+            $billingAddress
+        );
         $orderRealId = $this->checkoutSession->getLastRealOrderId();
 
         return $this->orderResponseFactory->create([
