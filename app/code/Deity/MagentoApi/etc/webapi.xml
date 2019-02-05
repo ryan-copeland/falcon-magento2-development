@@ -25,12 +25,6 @@
             <resource ref="anonymous" />
         </resources>
     </route>
-    <route url="/V1/guest-carts/:cartId/payment-information" method="POST">
-        <service class="\Deity\MagentoApi\Api\Checkout\GuestPaymentInformationManagementInterface" method="savePaymentInformationAndPlaceOrder"/>
-        <resources>
-            <resource ref="anonymous" />
-        </resources>
-    </route>
     <route url="/V1/carts/mine/paypal-fetch-token" method="GET">
         <service class="Deity\MagentoApi\Api\Payment\PaypalInterface" method="getToken"/>
         <resources>

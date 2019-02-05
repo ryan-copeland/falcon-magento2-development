@@ -18,7 +18,7 @@ class PaymentInformationManagementTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/carts/mine/payment-information';
+    const RESOURCE_PATH = '/V1/carts/mine/save-payment-information-and-order';
 
     /**
      * @var ObjectManagerInterface
@@ -38,7 +38,7 @@ class PaymentInformationManagementTest extends WebapiAbstract
     /**
      * @magentoApiDataFixture Magento/Checkout/_files/quote_with_shipping_method.php
      */
-    public function testPlaceOrderWithoutExtraPaymentInfo()
+    public function testPlaceOrderWithPaymentInfo()
     {
         $this->_markTestAsRestOnly();
 
@@ -57,7 +57,7 @@ class PaymentInformationManagementTest extends WebapiAbstract
             ],
         ];
 
-        $paymentnfo = [
+        $paymenItnfo = [
             'payment_method' => [
                 'method' => 'checkmo',
                 'po_number' => null,
@@ -65,7 +65,7 @@ class PaymentInformationManagementTest extends WebapiAbstract
             ]
         ];
 
-        $orderResponseObject = $this->_webApiCall($serviceInfo, $paymentnfo);
+        $orderResponseObject = $this->_webApiCall($serviceInfo, $paymenItnfo);
 
         $this->assertArrayHasKey('order_id', $orderResponseObject, 'response expected to have order_id field');
         $this->assertArrayHasKey(
