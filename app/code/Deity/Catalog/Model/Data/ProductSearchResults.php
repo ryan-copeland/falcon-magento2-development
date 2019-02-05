@@ -8,12 +8,13 @@ use Magento\Framework\Api\AbstractSimpleObject;
 
 /**
  * Class ProductSearchResults
+ *
  * @package Deity\Catalog\Model\Data
  */
 class ProductSearchResults extends AbstractSimpleObject implements ProductSearchResultsInterface
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getFilters(): array
     {
@@ -21,7 +22,7 @@ class ProductSearchResults extends AbstractSimpleObject implements ProductSearch
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function setFilters(array $items): ProductSearchResultsInterface
     {
@@ -30,9 +31,7 @@ class ProductSearchResults extends AbstractSimpleObject implements ProductSearch
     }
 
     /**
-     * Get items list.
-     *
-     * @return \Deity\CatalogApi\Api\Data\ProductInterface[]
+     * @inheritdoc
      */
     public function getItems(): array
     {
@@ -40,10 +39,7 @@ class ProductSearchResults extends AbstractSimpleObject implements ProductSearch
     }
 
     /**
-     * Set items list.
-     *
-     * @param \Deity\CatalogApi\Api\Data\ProductInterface[] $items
-     * @return $this
+     * @inheritdoc
      */
     public function setItems(array $items): ProductSearchResultsInterface
     {
@@ -52,9 +48,7 @@ class ProductSearchResults extends AbstractSimpleObject implements ProductSearch
     }
 
     /**
-     * Get total count.
-     *
-     * @return int
+     * @inheritdoc
      */
     public function getTotalCount(): int
     {
@@ -62,10 +56,7 @@ class ProductSearchResults extends AbstractSimpleObject implements ProductSearch
     }
 
     /**
-     * Set total count.
-     *
-     * @param int $totalCount
-     * @return $this
+     * @inheritdoc
      */
     public function setTotalCount(int $totalCount): ProductSearchResultsInterface
     {

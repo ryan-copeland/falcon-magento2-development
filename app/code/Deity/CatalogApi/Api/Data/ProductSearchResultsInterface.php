@@ -18,12 +18,14 @@ interface ProductSearchResultsInterface
 
     /**
      * Get filters
+     *
      * @return \Deity\CatalogApi\Api\Data\FilterInterface[]
      */
     public function getFilters(): array;
 
     /**
      * Set filters
+     *
      * @param \Deity\CatalogApi\Api\Data\FilterInterface[] $items
      * @return \Deity\CatalogApi\Api\Data\ProductSearchResultsInterface
      */

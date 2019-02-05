@@ -7,6 +7,7 @@ use Deity\CatalogApi\Api\Data\GalleryMediaEntrySizeInterface;
 
 /**
  * Class GalleryMediaEntrySize
+ *
  * @package Deity\Catalog\Model\Data
  */
 class GalleryMediaEntrySize implements GalleryMediaEntrySizeInterface
@@ -47,7 +48,7 @@ class GalleryMediaEntrySize implements GalleryMediaEntrySizeInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getFull(): string
     {
@@ -55,7 +56,7 @@ class GalleryMediaEntrySize implements GalleryMediaEntrySizeInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getThumbnail(): string
     {
@@ -63,7 +64,7 @@ class GalleryMediaEntrySize implements GalleryMediaEntrySizeInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getType(): string
     {
@@ -71,7 +72,7 @@ class GalleryMediaEntrySize implements GalleryMediaEntrySizeInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getEmbedUrl(): string
     {
