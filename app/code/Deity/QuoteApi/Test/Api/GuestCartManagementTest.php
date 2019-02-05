@@ -23,7 +23,7 @@ class GuestCartManagementTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/guest-carts/:cartId/deity-order';
+    const RESOURCE_PATH = '/V1/guest-carts/:cartId/place-order';
 
     /**
      * @var ObjectManagerInterface

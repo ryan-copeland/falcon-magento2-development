@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\QuoteApi\Test\Api;
+namespace Deity\CheckoutApi\Test\Api;
 
 use Magento\Framework\App\Config;
 use Magento\Framework\ObjectManagerInterface;
@@ -9,16 +9,16 @@ use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
- * Class CartManagementTest
+ * Class PaymentInformationManagementTest
  *
- * @package Deity\QuoteApi\Test\Api
+ * @package Deity\CheckoutApi\Test\Api
  */
-class CartManagementTest extends WebapiAbstract
+class PaymentInformationManagementTest extends WebapiAbstract
 {
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/carts/mine/place-order';
+    const RESOURCE_PATH = '/V1/carts/mine/payment-information';
 
     /**
      * @var ObjectManagerInterface
@@ -36,7 +36,7 @@ class CartManagementTest extends WebapiAbstract
     }
 
     /**
-     * @magentoApiDataFixture Magento/Checkout/_files/quote_with_check_payment.php
+     * @magentoApiDataFixture Magento/Checkout/_files/quote_with_shipping_method.php
      */
     public function testPlaceOrderWithoutExtraPaymentInfo()
     {
@@ -52,12 +52,20 @@ class CartManagementTest extends WebapiAbstract
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
-                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_PUT,
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_POST,
                 'token' => $token
             ],
         ];
 
-        $orderResponseObject = $this->_webApiCall($serviceInfo, []);
+        $paymentnfo = [
+            'payment_method' => [
+                'method' => 'checkmo',
+                'po_number' => null,
+                'additional_data' => null
+            ]
+        ];
+
+        $orderResponseObject = $this->_webApiCall($serviceInfo, $paymentnfo);
 
         $this->assertArrayHasKey('order_id', $orderResponseObject, 'response expected to have order_id field');
         $this->assertArrayHasKey(

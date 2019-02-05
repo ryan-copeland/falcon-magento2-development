@@ -3,7 +3,6 @@
 
     <!-- INTERFACE PREFERENCES FOR DI -->
     <preference for="Deity\MagentoApi\Api\Checkout\GuestPaymentInformationManagementInterface" type="\Magento\Checkout\Model\GuestPaymentInformationManagement" />
-    <preference for="Deity\MagentoApi\Api\Checkout\PaymentInformationManagementInterface" type="\Magento\Checkout\Model\PaymentInformationManagement" />
 
     <!-- PLUGINS -->
     <type name="Magento\Bundle\Helper\Catalog\Product\Configuration">

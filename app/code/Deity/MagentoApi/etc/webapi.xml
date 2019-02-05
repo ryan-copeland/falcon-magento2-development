@@ -40,15 +40,6 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
-    <route url="/V1/carts/mine/payment-information" method="POST">
-        <service class="\Deity\MagentoApi\Api\Checkout\PaymentInformationManagementInterface" method="savePaymentInformationAndPlaceOrder"/>
-        <resources>
-            <resource ref="self" />
-        </resources>
-        <data>
-            <parameter name="cartId" force="true">%cart_id%</parameter>
-        </data>
-    </route>
     <route url="/V1/guest-orders/:orderId/order-info" method="GET">
         <service class="\Deity\MagentoApi\Api\Sales\GuestOrderManagementInterface" method="getItem"/>
         <resources>
