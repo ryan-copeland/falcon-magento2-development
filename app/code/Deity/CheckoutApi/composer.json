@@ -6,6 +6,7 @@
     "require": {
         "magento/framework": "*",
         "magento/module-checkout" : "*",
+        "magento/module-sales" : "*",
         "deity/falcon-magento-quote-api" : "*",
         "php": "^7.0"
     },
