@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Observer\Order;
+namespace Deity\Sales\Observer\Order;
 
-use Deity\MagentoApi\Model\OrderIdMaskFactory;
+use Deity\Sales\Model\OrderIdMaskFactory;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Sales\Api\Data\OrderExtensionFactory;

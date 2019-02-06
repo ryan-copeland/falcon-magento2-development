@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
 
-namespace Deity\MagentoApi\Model;
+namespace Deity\Sales\Model;
 
+use Deity\Sales\Model\ResourceModel\Order\OrderIdMask as ResourceOrderIdMask;
 use Magento\Framework\Data\Collection\AbstractDb;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Math\Random;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\Context;
@@ -51,19 +54,20 @@ class OrderIdMask extends AbstractModel
      */
     protected function _construct()
     {
-        $this->_init('Deity\MagentoApi\Model\ResourceModel\Order\OrderIdMask');
+        $this->_init(ResourceOrderIdMask::class);
     }
 
     /**
      * Initialize quote identifier before save
      *
      * @return $this
+     * @throws LocalizedException
      */
     public function beforeSave()
     {
         parent::beforeSave();
-        if (!$this->getData('masked_id')) {
-            $this->setData('masked_id', $this->randomDataGenerator->getUniqueHash());
+        if (!$this->getData(ResourceOrderIdMask::MASKED_ID_FIELD_NAME)) {
+            $this->setData(ResourceOrderIdMask::MASKED_ID_FIELD_NAME, $this->randomDataGenerator->getUniqueHash());
         }
         return $this;
     }
