@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Sales\Model\ResourceModel\Order;
+namespace Deity\Sales\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 

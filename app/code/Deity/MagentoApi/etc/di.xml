@@ -14,9 +14,4 @@
     <preference for="Magento\Paypal\Model\Express\Checkout" type="Deity\MagentoApi\Model\Payment\Paypal\Express\Checkout" />
     <preference for="Magento\Paypal\Model\Express" type="Deity\MagentoApi\Model\Payment\Paypal\Express" />
     <preference for="Magento\Paypal\Model\Pro" type="Deity\MagentoApi\Model\Payment\Paypal\Pro" />
-
-    <!-- PLUGINS -->
-    <type name="Magento\Sales\Api\OrderManagementInterface">
-        <plugin name="deityMagentoApiOrderManagementPlugin" type="Deity\MagentoApi\Plugin\Sales\Api\OrderManagement" />
-    </type>
 </config>

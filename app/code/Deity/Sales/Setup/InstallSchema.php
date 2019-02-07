@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\Sales\Setup;
 
-use Deity\Sales\Model\ResourceModel\Order\OrderIdMask;
+use Deity\Sales\Model\ResourceModel\OrderIdMask;
 use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;

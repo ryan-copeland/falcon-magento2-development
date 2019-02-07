@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\Sales\Model;
 
-use Deity\Sales\Model\ResourceModel\Order\OrderIdMask as ResourceOrderIdMask;
+use Deity\Sales\Model\ResourceModel\OrderIdMask as ResourceOrderIdMask;
 use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Math\Random;

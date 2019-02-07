@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
+namespace Deity\Sales\Plugin\Api;
 
-namespace Deity\MagentoApi\Plugin\Sales\Api;
-
-use Deity\MagentoApi\Model\OrderIdMask;
-use Deity\MagentoApi\Model\OrderIdMaskFactory;
+use Deity\Sales\Model\OrderIdMask;
+use Deity\Sales\Model\OrderIdMaskFactory;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\OrderManagementInterface;
 use Psr\Log\LoggerInterface;
