@@ -44,7 +44,7 @@ class OrderManagement
     public function afterPlace(OrderManagementInterface $subject, OrderInterface $result)
     {
         if (!$result->getCustomerId()) {
-            $this->orderIdMaskRepository->create($result->getEntityId());
+            $this->orderIdMaskRepository->create((int)$result->getEntityId());
         }
         return $result;
     }

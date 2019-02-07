@@ -4,6 +4,6 @@
     <preference for="Deity\SalesApi\Api\OrderIdMaskRepositoryInterface" type="Deity\Sales\Model\OrderIdMaskRepository" />
 
     <type name="Magento\Sales\Api\OrderManagementInterface">
-        <plugin name="deity_magento_order_management" type="Deity\Sales\Plugin\Sales\Api\OrderManagement" />
+        <plugin name="deity_magento_order_management" type="Deity\Sales\Plugin\Api\OrderManagement" />
     </type>
 </config>
