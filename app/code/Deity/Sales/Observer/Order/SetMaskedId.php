@@ -36,8 +36,7 @@ class SetMaskedId implements ObserverInterface
     public function __construct(
         OrderIdMaskRepositoryInterface $orderIdMaskRepository,
         OrderExtensionFactory $orderExtensionFactory
-    )
-    {
+    ) {
         $this->orderIdMaskRepository = $orderIdMaskRepository;
         $this->orderExtensionFactory = $orderExtensionFactory;
     }
@@ -69,6 +68,8 @@ class SetMaskedId implements ObserverInterface
     }
 
     /**
+     * Get masked order id
+     *
      * @param int $orderId
      * @return string
      */

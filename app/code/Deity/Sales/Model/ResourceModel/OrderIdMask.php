@@ -24,7 +24,6 @@ class OrderIdMask extends AbstractDb
 
     const MASKED_ID_FIELD_NAME = 'masked_id';
 
-
     /**
      * Main table and field initialization
      *

@@ -5,17 +5,10 @@ namespace Deity\Sales\Model;
 
 use Deity\Sales\Model\ResourceModel\OrderIdMask as ResourceOrderIdMask;
 use Deity\SalesApi\Api\Data\OrderIdMaskInterface;
-use Magento\Framework\Data\Collection\AbstractDb;
-use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Math\Random;
 use Magento\Framework\Model\AbstractModel;
-use Magento\Framework\Model\Context;
-use Magento\Framework\Model\ResourceModel\AbstractResource;
-use Magento\Framework\Registry;
 
 /**
  * OrderIdMask model
- *
  */
 class OrderIdMask extends AbstractModel implements OrderIdMaskInterface
 {

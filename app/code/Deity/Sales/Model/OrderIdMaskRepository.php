@@ -12,7 +12,7 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Class OrderIdMaskRepository
- * 
+ *
  * @package Deity\Sales\Model
  */
 class OrderIdMaskRepository implements OrderIdMaskRepositoryInterface
@@ -41,14 +41,17 @@ class OrderIdMaskRepository implements OrderIdMaskRepositoryInterface
      * @param OrderIdMask $orderIdMaskResource
      * @param LoggerInterface $logger
      */
-    public function __construct(Random $randomDataGenerator, OrderIdMaskInterfaceFactory $orderIdMaskFactory, OrderIdMask $orderIdMaskResource, LoggerInterface $logger)
-    {
+    public function __construct(
+        Random $randomDataGenerator,
+        OrderIdMaskInterfaceFactory $orderIdMaskFactory,
+        OrderIdMask $orderIdMaskResource,
+        LoggerInterface $logger
+    ) {
         $this->randomDataGenerator = $randomDataGenerator;
         $this->orderIdMaskFactory = $orderIdMaskFactory;
         $this->orderIdMaskResource = $orderIdMaskResource;
         $this->logger = $logger;
     }
-
 
     /**
      * Create order mask for given order id

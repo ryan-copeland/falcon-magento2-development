@@ -5,7 +5,7 @@ namespace Deity\SalesApi\Api\Data;
 
 /**
  * Interface OrderIdMaskInterface
- * 
+ *
  * @package Deity\SalesApi\Api\Data
  */
 interface OrderIdMaskInterface
@@ -24,7 +24,6 @@ interface OrderIdMaskInterface
      * @return OrderIdMaskInterface
      */
     public function setMaskedId(string $maskedId): OrderIdMaskInterface;
-
 
     /**
      * Get order id

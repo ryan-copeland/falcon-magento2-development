@@ -37,9 +37,12 @@ class OrderManagement
     }
 
     /**
+     * After plugin for place function
+     *
      * @param OrderManagementInterface $subject
      * @param OrderInterface $result
      * @return OrderInterface
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function afterPlace(OrderManagementInterface $subject, OrderInterface $result)
     {

@@ -58,7 +58,12 @@ class InstallSchema implements InstallSchemaInterface
             $setup->getIdxName(OrderIdMask::TABLE_NAME_SOURCE_ITEM, [OrderIdMask::ORDER_ID_FIELD_NAME]),
             [OrderIdMask::ORDER_ID_FIELD_NAME]
         )->addForeignKey(
-            $setup->getFkName(OrderIdMask::TABLE_NAME_SOURCE_ITEM, OrderIdMask::ORDER_ID_FIELD_NAME, 'sales_order', 'entity_id'),
+            $setup->getFkName(
+                OrderIdMask::TABLE_NAME_SOURCE_ITEM,
+                OrderIdMask::ORDER_ID_FIELD_NAME,
+                'sales_order',
+                'entity_id'
+            ),
             OrderIdMask::ORDER_ID_FIELD_NAME,
             $setup->getTable('sales_order'),
             'entity_id',

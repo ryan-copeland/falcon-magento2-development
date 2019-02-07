@@ -7,7 +7,7 @@ use Deity\SalesApi\Api\Data\OrderIdMaskInterface;
 
 /**
  * Interface OrderIdMaskRepositoryInterface
- * 
+ *
  * @package Deity\SalesApi\Api
  */
 interface OrderIdMaskRepositoryInterface
