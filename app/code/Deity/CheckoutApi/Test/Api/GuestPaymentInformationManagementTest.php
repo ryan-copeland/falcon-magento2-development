@@ -46,33 +46,9 @@ class GuestPaymentInformationManagementTest extends WebapiAbstract
     {
         $this->_markTestAsRestOnly();
 
-        /** @var CartRepositoryInterface $quoteRepository */
-        $quoteRepository = $this->objectManager->create(
-            CartRepositoryInterface::class
-        );
-        /** @var SearchCriteriaBuilderFactory $searchCriteriaBuilder */
-        $searchCriteriaBuilderFactory = $this->objectManager->create(
-            SearchCriteriaBuilderFactory::class
-        );
-        /** @var SearchCriteria $searchCriteria */
-        $searchCriteria = $searchCriteriaBuilderFactory->create()
-            ->addFilter('customer_email', 'aaa@aaa.com', 'eq')
-            ->create();
-        /** @var CartSearchResultsInterface $searchResponse */
-        $searchResult = $quoteRepository->getList($searchCriteria);
-        $quotes = $searchResult->getItems();
-        $quote = array_pop($quotes);
-        $testQuoteId = (int)$quote->getId();
-
-        /** @var QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedIdConverter */
-        $quoteIdToMaskedIdConverter = $this->objectManager->create(
-            QuoteIdToMaskedQuoteIdInterface::class
-        );
-        $maskedId = $quoteIdToMaskedIdConverter->execute($testQuoteId);
-
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => str_replace(':cartId', $maskedId, self::RESOURCE_PATH),
+                'resourcePath' => str_replace(':cartId', $this->getMaskedIdFromQuoteFixture(), self::RESOURCE_PATH),
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_POST
             ],
         ];
@@ -103,5 +79,38 @@ class GuestPaymentInformationManagementTest extends WebapiAbstract
         $this->assertCount(1, $items, 'order should have exactly one item');
         $this->assertEquals($orderRealId, $order->getIncrementId(), 'Order increment_id should match');
         $this->assertEquals('Simple Product', $items[0]->getName(), 'product name should match');
+    }
+
+    /**
+     * Get masked_id from quote fixture
+     *
+     * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    private function getMaskedIdFromQuoteFixture(): string
+    {
+        /** @var CartRepositoryInterface $quoteRepository */
+        $quoteRepository = $this->objectManager->create(
+            CartRepositoryInterface::class
+        );
+        /** @var SearchCriteriaBuilderFactory $searchCriteriaBuilder */
+        $searchCriteriaBuilderFactory = $this->objectManager->create(
+            SearchCriteriaBuilderFactory::class
+        );
+        /** @var SearchCriteria $searchCriteria */
+        $searchCriteria = $searchCriteriaBuilderFactory->create()
+            ->addFilter('customer_email', 'aaa@aaa.com', 'eq')
+            ->create();
+        /** @var CartSearchResultsInterface $searchResponse */
+        $searchResult = $quoteRepository->getList($searchCriteria);
+        $quotes = $searchResult->getItems();
+        $quote = array_pop($quotes);
+        $testQuoteId = (int)$quote->getId();
+
+        /** @var QuoteIdToMaskedQuoteIdInterface $quoteIdToMaskedIdConverter */
+        $quoteIdToMaskedIdConverter = $this->objectManager->create(
+            QuoteIdToMaskedQuoteIdInterface::class
+        );
+        return $quoteIdToMaskedIdConverter->execute($testQuoteId);
     }
 }
