@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Deity\Sales\Model;
 
 use Deity\Sales\Model\ResourceModel\OrderIdMask as ResourceOrderIdMask;
+use Deity\SalesApi\Api\Data\OrderIdMaskInterface;
 use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Math\Random;
@@ -15,38 +16,9 @@ use Magento\Framework\Registry;
 /**
  * OrderIdMask model
  *
- * @method string getMaskedId()
- * @method OrderIdMask setMaskedId()
- * @method int getOrderId()
- * @method OrderIdMask setOrderId()
  */
-class OrderIdMask extends AbstractModel
+class OrderIdMask extends AbstractModel implements OrderIdMaskInterface
 {
-    /**
-     * @var Random
-     */
-    protected $randomDataGenerator;
-
-    /**
-     * @param Context $context
-     * @param Registry $registry
-     * @param Random $randomDataGenerator
-     * @param AbstractResource $resource
-     * @param AbstractDb $resourceCollection
-     * @param array $data
-     */
-    public function __construct(
-        Context $context,
-        Registry $registry,
-        Random $randomDataGenerator,
-        AbstractResource $resource = null,
-        AbstractDb $resourceCollection = null,
-        array $data = []
-    ) {
-        $this->randomDataGenerator = $randomDataGenerator;
-        parent::__construct($context, $registry, $resource, $resourceCollection, $data);
-    }
-
     /**
      * Initialize resource
      *
@@ -58,17 +30,46 @@ class OrderIdMask extends AbstractModel
     }
 
     /**
-     * Initialize quote identifier before save
+     * Get masked id
      *
-     * @return $this
-     * @throws LocalizedException
+     * @return string
      */
-    public function beforeSave()
+    public function getMaskedId(): string
     {
-        parent::beforeSave();
-        if (!$this->getData(ResourceOrderIdMask::MASKED_ID_FIELD_NAME)) {
-            $this->setData(ResourceOrderIdMask::MASKED_ID_FIELD_NAME, $this->randomDataGenerator->getUniqueHash());
-        }
+        return $this->getData(ResourceOrderIdMask::MASKED_ID_FIELD_NAME);
+    }
+
+    /**
+     * Set masked id
+     *
+     * @param string $maskedId
+     * @return OrderIdMaskInterface
+     */
+    public function setMaskedId(string $maskedId): OrderIdMaskInterface
+    {
+        $this->setData(ResourceOrderIdMask::MASKED_ID_FIELD_NAME, $maskedId);
+        return $this;
+    }
+
+    /**
+     * Get order id
+     *
+     * @return int
+     */
+    public function getOrderId(): int
+    {
+        return (int)$this->getData(ResourceOrderIdMask::ORDER_ID_FIELD_NAME);
+    }
+
+    /**
+     * Set order id
+     *
+     * @param int $orderId
+     * @return OrderIdMaskInterface
+     */
+    public function setOrderId(int $orderId): OrderIdMaskInterface
+    {
+        $this->setData(ResourceOrderIdMask::ORDER_ID_FIELD_NAME, $orderId);
         return $this;
     }
 }

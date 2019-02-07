@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Deity\SalesApi\Api\Data\OrderIdMaskInterface" type="Deity\Sales\Model\OrderIdMask" />
+    <preference for="Deity\SalesApi\Api\OrderIdMaskRepositoryInterface" type="Deity\Sales\Model\OrderIdMaskRepository" />
+
     <type name="Magento\Sales\Api\OrderManagementInterface">
         <plugin name="deity_magento_order_management" type="Deity\Sales\Plugin\Sales\Api\OrderManagement" />
     </type>

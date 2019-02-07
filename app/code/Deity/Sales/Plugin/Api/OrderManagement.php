@@ -1,29 +1,38 @@
 <?php
 declare(strict_types=1);
+
 namespace Deity\Sales\Plugin\Api;
 
-use Deity\Sales\Model\OrderIdMask;
-use Deity\Sales\Model\OrderIdMaskFactory;
+use Deity\SalesApi\Api\OrderIdMaskRepositoryInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\OrderManagementInterface;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class OrderManagement
+ *
+ * @package Deity\Sales\Plugin\Api
+ */
 class OrderManagement
 {
-    /** @var OrderIdMaskFactory */
-    protected $orderIdMaskFactory;
-
-    /** @var LoggerInterface */
-    protected $logger;
+    /**
+     * @var OrderIdMaskRepositoryInterface
+     */
+    private $orderIdMaskRepository;
 
     /**
-     * AfterPlaceOrder constructor.
-     * @param OrderIdMaskFactory $orderIdMaskFactory
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * OrderManagement constructor.
+     * @param OrderIdMaskRepositoryInterface $orderIdMaskRepository
      * @param LoggerInterface $logger
      */
-    public function __construct(OrderIdMaskFactory $orderIdMaskFactory, LoggerInterface $logger)
+    public function __construct(OrderIdMaskRepositoryInterface $orderIdMaskRepository, LoggerInterface $logger)
     {
-        $this->orderIdMaskFactory = $orderIdMaskFactory;
+        $this->orderIdMaskRepository = $orderIdMaskRepository;
         $this->logger = $logger;
     }
 
@@ -35,26 +44,8 @@ class OrderManagement
     public function afterPlace(OrderManagementInterface $subject, OrderInterface $result)
     {
         if (!$result->getCustomerId()) {
-            $this->createMaskedIdForOrder($result);
+            $this->orderIdMaskRepository->create($result->getEntityId());
         }
         return $result;
-    }
-
-    /**
-     * Create and save new order masked id
-     *
-     * @param OrderInterface $order
-     */
-    protected function createMaskedIdForOrder(OrderInterface $order)
-    {
-        try {
-            /** @var OrderIdMask $orderIdMask */
-            $orderIdMask = $this->orderIdMaskFactory->create();
-            $orderIdMask->setOrderId($order->getEntityId());
-            $orderIdMask->getResource()->save($orderIdMask);
-        } catch (\Exception $e) {
-            //order is already saved so do not escalate this exception to not break ordering process
-            $this->logger->critical($e->getMessage());
-        }
     }
 }

@@ -3,32 +3,42 @@ declare(strict_types=1);
 
 namespace Deity\Sales\Observer\Order;
 
-use Deity\Sales\Model\OrderIdMaskFactory;
-use Magento\Framework\Event\ObserverInterface;
+use Deity\SalesApi\Api\Data\OrderIdMaskInterface;
+use Deity\SalesApi\Api\OrderIdMaskRepositoryInterface;
 use Magento\Framework\Event\Observer;
+use Magento\Framework\Event\ObserverInterface;
 use Magento\Sales\Api\Data\OrderExtensionFactory;
 use Magento\Sales\Api\Data\OrderExtensionInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 
+/**
+ * Class SetMaskedId
+ *
+ * @package Deity\Sales\Observer\Order
+ */
 class SetMaskedId implements ObserverInterface
 {
-    /** @var OrderIdMaskFactory */
-    protected $orderIdMaskFactory;
+    /**
+     * @var OrderIdMaskRepositoryInterface
+     */
+    private $orderIdMaskRepository;
 
-    /** @var OrderExtensionFactory */
-    protected $orderExtensionFactory;
+    /**
+     * @var OrderExtensionFactory
+     */
+    private $orderExtensionFactory;
 
     /**
      * SetMaskedId constructor.
-     * @param OrderIdMaskFactory $orderIdMaskFactory
+     * @param OrderIdMaskRepositoryInterface $orderIdMaskRepository
      * @param OrderExtensionFactory $orderExtensionFactory
      */
     public function __construct(
-        OrderIdMaskFactory $orderIdMaskFactory,
+        OrderIdMaskRepositoryInterface $orderIdMaskRepository,
         OrderExtensionFactory $orderExtensionFactory
     )
     {
-        $this->orderIdMaskFactory = $orderIdMaskFactory;
+        $this->orderIdMaskRepository = $orderIdMaskRepository;
         $this->orderExtensionFactory = $orderExtensionFactory;
     }
 
@@ -53,7 +63,7 @@ class SetMaskedId implements ObserverInterface
             $extensionAttributes = $this->orderExtensionFactory->create();
         }
         if (!$extensionAttributes->getMaskedId()) {
-            $extensionAttributes->setMaskedId($this->getMaskedOrderId($order->getEntityId()));
+            $extensionAttributes->setMaskedId($this->getMaskedOrderId((int)$order->getEntityId()));
             $order->setExtensionAttributes($extensionAttributes);
         }
     }
@@ -62,10 +72,10 @@ class SetMaskedId implements ObserverInterface
      * @param int $orderId
      * @return string
      */
-    protected function getMaskedOrderId($orderId)
+    private function getMaskedOrderId(int $orderId): string
     {
-        $maskedId = $this->orderIdMaskFactory->create();
-        $maskedId ->getResource()->load($maskedId, $orderId, 'order_id');
-        return $maskedId->getMaskedId();
+        /** @var OrderIdMaskInterface $orderIdMask */
+        $orderIdMask = $this->orderIdMaskRepository->get($orderId);
+        return $orderIdMask->getMaskedId();
     }
 }
