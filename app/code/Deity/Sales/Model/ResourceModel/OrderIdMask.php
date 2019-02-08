@@ -7,8 +7,6 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
  * OrderIdMask Resource model
- *
- * @codeCoverageIgnore
  */
 class OrderIdMask extends AbstractDb
 {

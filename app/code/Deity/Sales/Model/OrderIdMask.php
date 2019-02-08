@@ -29,7 +29,7 @@ class OrderIdMask extends AbstractModel implements OrderIdMaskInterface
      */
     public function getMaskedId(): string
     {
-        return $this->getData(ResourceOrderIdMask::MASKED_ID_FIELD_NAME);
+        return (string)$this->getData(ResourceOrderIdMask::MASKED_ID_FIELD_NAME);
     }
 
     /**
