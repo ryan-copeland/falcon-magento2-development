@@ -11,11 +11,21 @@ use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Magento\Sales\Api\Data\OrderItemExtensionInterface;
 use Magento\Sales\Api\Data\OrderItemInterface;
 
+/**
+ * Class ReadHandler
+ *
+ * @package Deity\Sales\Model\Order\Item
+ */
 class ReadHandler implements ExtensionInterface
 {
     /** @var ExtensionAttributesFactory */
     private $extensionAttributesFactory;
 
+    /**
+     * ReadHandler constructor.
+     *
+     * @param ExtensionAttributesFactory $extensionAttributesFactory
+     */
     public function __construct(
         ExtensionAttributesFactory $extensionAttributesFactory
     ) {
@@ -23,6 +33,8 @@ class ReadHandler implements ExtensionInterface
     }
 
     /**
+     * Get order item extension attribute
+     *
      * @param OrderItemInterface $item
      * @return OrderItemExtensionInterface
      */
@@ -42,6 +54,7 @@ class ReadHandler implements ExtensionInterface
      * @param OrderItemInterface $entity
      * @param array $arguments
      * @return object|bool
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function execute($entity, $arguments = [])
     {

@@ -9,6 +9,11 @@ use Magento\Sales\Api\Data\OrderPaymentExtensionInterface;
 use Magento\Sales\Api\Data\OrderPaymentInterface;
 use Magento\Store\Model\ScopeInterface;
 
+/**
+ * Class ReadHandler
+ *
+ * @package Deity\Sales\Model\Order\Payment
+ */
 class ReadHandler implements ExtensionInterface
 {
     /** @var ExtensionAttributesFactory */
@@ -31,6 +36,8 @@ class ReadHandler implements ExtensionInterface
     }
 
     /**
+     * Get order payment extension attribute
+     *
      * @param OrderPaymentInterface $orderPayment
      * @return OrderPaymentExtensionInterface
      */
@@ -50,6 +57,7 @@ class ReadHandler implements ExtensionInterface
      * @param OrderPaymentInterface $entity
      * @param array $arguments
      * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function execute($entity, $arguments = [])
     {

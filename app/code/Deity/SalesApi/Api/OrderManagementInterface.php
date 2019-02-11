@@ -30,5 +30,4 @@ interface OrderManagementInterface
     public function getCustomerOrders(
         \Magento\Framework\Api\SearchCriteria $searchCriteria
     ): OrderSearchResultInterface;
-
 }

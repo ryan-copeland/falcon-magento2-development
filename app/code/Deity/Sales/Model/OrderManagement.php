@@ -26,6 +26,7 @@ use Magento\Sales\Api\OrderRepositoryInterface;
  * Class OrderManagement
  *
  * @package Deity\Sales\Model
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class OrderManagement implements OrderManagementInterface
 {
@@ -80,7 +81,9 @@ class OrderManagement implements OrderManagementInterface
     }
 
     /**
-     * @param $orderId
+     * Get item
+     *
+     * @param int $orderId
      * @return OrderInterface
      * @throws AuthorizationException
      * @throws NoSuchEntityException
@@ -89,7 +92,7 @@ class OrderManagement implements OrderManagementInterface
     {
         $this->checkCustomerContext();
         $order = $this->orderRepository->get($orderId);
-        if(!$order->getId() || $order->getCustomerId() !== $this->getCustomerId()) {
+        if (!$order->getId() || $order->getCustomerId() !== $this->getCustomerId()) {
             throw new NoSuchEntityException(__('Unable to find order %orderId', ['orderId' => $orderId]));
         }
 
@@ -214,7 +217,7 @@ class OrderManagement implements OrderManagementInterface
      */
     private function addOrderItemExtensionAttributes(OrderInterface $order)
     {
-        foreach($order->getItems() as $item) {
+        foreach ($order->getItems() as $item) {
             /** @var OrderItemInterface $item */
             $this->orderItemReadHandler->execute($item);
         }

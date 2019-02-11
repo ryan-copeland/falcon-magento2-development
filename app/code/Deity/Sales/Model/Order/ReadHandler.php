@@ -9,9 +9,9 @@ use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\Order\ShippingAssignmentBuilder;
 
-
 /**
  * Class ReadHandler
+ *
  * @package Deity\Sales\Model\Order
  */
 class ReadHandler implements ExtensionInterface
@@ -48,8 +48,9 @@ class ReadHandler implements ExtensionInterface
      * @param OrderInterface $order
      * @param array $arguments
      * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function execute($order,  $arguments = [])
+    public function execute($order, $arguments = [])
     {
         $extensionAttributes = $this->getOrderExtensionAttribute($order);
 
@@ -71,6 +72,8 @@ class ReadHandler implements ExtensionInterface
     }
 
     /**
+     * Get order extension attribute
+     *
      * @param OrderInterface $order
      * @return \Magento\Sales\Api\Data\OrderExtensionInterface|null|object
      */

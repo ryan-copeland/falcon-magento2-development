@@ -11,6 +11,7 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
  * Class OrderManagementTest
+ *
  * @package Deity\SalesApi\Test\Api
  */
 class OrderManagementTest extends WebapiAbstract
@@ -53,7 +54,11 @@ class OrderManagementTest extends WebapiAbstract
 
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => str_replace(':orderId', $this->getFixtureCustomerOrderId(), self::RESOURCE_PATH_ORDER_INFO),
+                'resourcePath' => str_replace(
+                    ':orderId',
+                    $this->getFixtureCustomerOrderId(),
+                    self::RESOURCE_PATH_ORDER_INFO
+                ),
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
                 'token' => $token
             ],
@@ -79,7 +84,7 @@ class OrderManagementTest extends WebapiAbstract
     /**
      * @return int
      */
-    private function getFixtureCustomerOrderId():int
+    private function getFixtureCustomerOrderId() :int
     {
         /** @var  Collection $collectionModel */
         $collectionModel = Bootstrap::getObjectManager()->create(
@@ -89,5 +94,4 @@ class OrderManagementTest extends WebapiAbstract
         $order = $collectionModel->getFirstItem();
         return (int)$order->getEntityId();
     }
-
 }
