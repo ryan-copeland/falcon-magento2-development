@@ -4,5 +4,18 @@
         <attribute code="masked_id" type="string" />
         <attribute code="currency" type="string" />
         <attribute code="shipping_address" type="Magento\Sales\Api\Data\OrderAddressInterface" />
+        <attribute code="shipping_assignments" type="Magento\Sales\Api\Data\OrderAddressInterface" />
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderItemInterface">
+        <attribute code="thumbnail_url" type="string" />
+        <attribute code="url_key" type="string" />
+        <attribute code="link" type="string" />
+        <attribute code="currency" type="string" />
+        <attribute code="display_price" type="string" />
+        <attribute code="row_total_incl_tax" type="string" />
+        <attribute code="options" type="string" />
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderPaymentInterface">
+        <attribute code="method_name" type="string" />
     </extension_attributes>
 </config>

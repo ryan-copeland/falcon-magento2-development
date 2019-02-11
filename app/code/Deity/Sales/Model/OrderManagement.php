@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Deity\Sales\Model;
 
+use Deity\Sales\Model\Order\Item\ReadHandler as ItemReadHandler;
+use Deity\Sales\Model\Order\Payment\ReadHandler as PaymentReadHandler;
+use Deity\Sales\Model\Order\ReadHandler;
 use Deity\SalesApi\Api\OrderManagementInterface;
-use Deity\MagentoApi\Model\Sales\Order\Extension as OrderExtension;
-use Deity\MagentoApi\Model\Sales\Order\Item\Extension as OrderItemExtension;
-use Deity\MagentoApi\Model\Sales\Order\Payment\Extension as OrderPaymentExtension;
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\SearchCriteria;
@@ -21,8 +21,6 @@ use Magento\Sales\Api\Data\OrderPaymentInterface;
 use Magento\Sales\Api\Data\OrderSearchResultInterface;
 use Magento\Sales\Api\Data\OrderSearchResultInterfaceFactory as SearchResultFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;
-use Magento\Sales\Model\ResourceModel\Order\Payment\Collection as OrderPaymentCollection;
-use Magento\Sales\Model\ResourceModel\Order\Payment\CollectionFactory as OrderPaymentCollectionFactory;
 
 /**
  * Class OrderManagement
@@ -42,49 +40,43 @@ class OrderManagement implements OrderManagementInterface
     private $searchResultFactory;
 
     /** @var OrderExtension */
-    private $orderExtension;
+    private $orderReadHandler;
 
-    /** @var OrderItemExtension */
-    private $orderItemExtension;
+    /** @var ItemReadHandler */
+    private $orderItemReadHandler;
 
-    /** @var OrderPaymentExtension */
-    private $orderPaymentExtension;
+    /** @var PaymentReadHandler */
+    private $orderPaymentReadHandler;
 
     /** @var Manager */
     private $eventManager;
-
-    /** @var OrderPaymentCollectionFactory */
-    private $orderPaymentCollectionFactory;
 
     /**
      * OrderManagement constructor.
      * @param OrderRepositoryInterface $orderRepository
      * @param UserContextInterface $userContext
      * @param SearchResultFactory $searchResultFactory
-     * @param OrderExtension $orderExtension
-     * @param OrderItemExtension $orderItemExtension
-     * @param OrderPaymentExtension $orderPaymentExtension
+     * @param ReadHandler $orderExtension
+     * @param ItemReadHandler $orderItemExtension
+     * @param PaymentReadHandler $orderPaymentExtension
      * @param Manager $eventManager
-     * @param OrderPaymentCollectionFactory $orderPaymentCollectionFactory
      */
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         UserContextInterface $userContext,
         SearchResultFactory $searchResultFactory,
-        OrderExtension $orderExtension,
-        OrderItemExtension $orderItemExtension,
-        OrderPaymentExtension $orderPaymentExtension,
-        Manager $eventManager,
-        OrderPaymentCollectionFactory $orderPaymentCollectionFactory
+        ReadHandler $orderExtension,
+        ItemReadHandler $orderItemExtension,
+        PaymentReadHandler $orderPaymentExtension,
+        Manager $eventManager
     ) {
         $this->orderRepository = $orderRepository;
         $this->userContext = $userContext;
         $this->searchResultFactory = $searchResultFactory;
-        $this->orderItemExtension = $orderItemExtension;
-        $this->orderExtension = $orderExtension;
-        $this->orderPaymentExtension = $orderPaymentExtension;
+        $this->orderItemReadHandler = $orderItemExtension;
+        $this->orderReadHandler = $orderExtension;
+        $this->orderPaymentReadHandler = $orderPaymentExtension;
         $this->eventManager = $eventManager;
-        $this->orderPaymentCollectionFactory = $orderPaymentCollectionFactory;
     }
 
     /**
@@ -97,12 +89,13 @@ class OrderManagement implements OrderManagementInterface
     {
         $this->checkCustomerContext();
         $order = $this->orderRepository->get($orderId);
-        $this->addOrderExtensionAttributes($order);
-        $this->addOrderPaymentExtensionAttributes($order->getPayment());
-        $this->addOrderItemExtensionAttributes($order);
         if(!$order->getId() || $order->getCustomerId() !== $this->getCustomerId()) {
             throw new NoSuchEntityException(__('Unable to find order %orderId', ['orderId' => $orderId]));
         }
+
+        $this->addOrderExtensionAttributes($order);
+        $this->addOrderPaymentExtensionAttributes($order->getPayment());
+        $this->addOrderItemExtensionAttributes($order);
 
         return $order;
     }
@@ -149,27 +142,6 @@ class OrderManagement implements OrderManagementInterface
             $this->addOrderExtensionAttributes($order);
         }
         return $searchResult;
-    }
-
-    /**
-     * Get order id from hash generated when asking for paypal express checkout token
-     *
-     * @param string $paypalHash
-     * @return int
-     */
-    public function getOrderIdFromHash(string $paypalHash): int
-    {
-        /** @var OrderPaymentCollection $collection */
-        $collection = $this->orderPaymentCollectionFactory->create();
-
-        $collection->addFieldToFilter(
-            'additional_information',
-            ['like' => "%\"paypalExpressHash\":\"{$paypalHash}\"%"]
-        );
-        /** @var OrderPaymentInterface $orderPayment */
-        $orderPayment = $collection->getFirstItem();
-
-        return (int)$orderPayment->getParentId();
     }
 
     /**
@@ -222,7 +194,7 @@ class OrderManagement implements OrderManagementInterface
      */
     private function addOrderExtensionAttributes(OrderInterface $order)
     {
-        $this->orderExtension->addAttributes($order);
+        $this->orderReadHandler->execute($order);
     }
 
     /**
@@ -232,7 +204,7 @@ class OrderManagement implements OrderManagementInterface
      */
     private function addOrderPaymentExtensionAttributes(OrderPaymentInterface $payment)
     {
-        $this->orderPaymentExtension->addAttributes($payment);
+        $this->orderPaymentReadHandler->execute($payment);
     }
 
     /**
@@ -242,8 +214,9 @@ class OrderManagement implements OrderManagementInterface
      */
     private function addOrderItemExtensionAttributes(OrderInterface $order)
     {
-        foreach($order->getItems() as $item) { /** @var OrderItemInterface $item */
-            $this->orderItemExtension->addAttributes($item);
+        foreach($order->getItems() as $item) {
+            /** @var OrderItemInterface $item */
+            $this->orderItemReadHandler->execute($item);
         }
     }
 

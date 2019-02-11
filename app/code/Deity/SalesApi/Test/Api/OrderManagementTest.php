@@ -61,7 +61,19 @@ class OrderManagementTest extends WebapiAbstract
 
         $orderInfo = $this->_webApiCall($serviceInfo, []);
         $this->assertArrayHasKey('items', $orderInfo, 'Response should contain items key');
-        $this->assertEquals(1, count($orderInfo['items']), 'Exaclty one order item should be returned');
+        $this->assertEquals(1, count($orderInfo['items']), 'Exactly one product item should be returned');
+
+        $this->assertEquals('customer@null.com', $orderInfo['customer_email'], 'Customer should match');
+
+        $this->assertArrayHasKey('extension_attributes', $orderInfo);
+
+        $extensionAttributes = $orderInfo['extension_attributes'];
+
+        $requiredExtensionItems = ['masked_id', 'shipping_address', 'currency', 'shipping_assignments'];
+
+        foreach ($requiredExtensionItems as $key) {
+            $this->assertArrayHasKey($key, $extensionAttributes, "$key should be set");
+        }
     }
 
     /**

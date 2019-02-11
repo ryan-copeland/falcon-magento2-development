@@ -27,13 +27,8 @@ interface OrderManagementInterface
      * @param \Magento\Framework\Api\SearchCriteria $searchCriteria
      * @return \Magento\Sales\Api\Data\OrderSearchResultInterface
      */
-    public function getCustomerOrders(\Magento\Framework\Api\SearchCriteria $searchCriteria): OrderSearchResultInterface;
+    public function getCustomerOrders(
+        \Magento\Framework\Api\SearchCriteria $searchCriteria
+    ): OrderSearchResultInterface;
 
-    /**
-     * Get order_id from paypal hash
-     *
-     * @param string $paypalHash
-     * @return int
-     */
-    public function getOrderIdFromHash(string $paypalHash): int;
 }

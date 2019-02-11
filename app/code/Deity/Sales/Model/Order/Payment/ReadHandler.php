@@ -1,14 +1,15 @@
 <?php
-namespace Deity\MagentoApi\Model\Sales\Order\Payment;
+declare(strict_types=1);
+namespace Deity\Sales\Model\Order\Payment;
 
 use Magento\Framework\Api\ExtensionAttributesFactory;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Magento\Sales\Api\Data\OrderPaymentExtensionInterface;
 use Magento\Sales\Api\Data\OrderPaymentInterface;
-use Magento\Sales\Model\Order\Payment;
 use Magento\Store\Model\ScopeInterface;
 
-class Extension
+class ReadHandler implements ExtensionInterface
 {
     /** @var ExtensionAttributesFactory */
     private $extensionAttributesFactory;
@@ -30,23 +31,6 @@ class Extension
     }
 
     /**
-     * Add extension attributes to order item extension
-     *
-     * @param Payment|OrderPaymentInterface $orderPayment
-     */
-    public function addAttributes(OrderPaymentInterface $orderPayment)
-    {
-        $extensionAttributes = $this->getOrderPaymentExtensionAttribute($orderPayment);
-        $extensionAttributes->setMethodName(
-            $this->scopeConfig->getValue("payment/{$orderPayment->getMethod()}/title"),
-            ScopeInterface::SCOPE_STORES,
-            $orderPayment->getOrder() ? $orderPayment->getOrder()->getStoreId() : null
-        );
-
-        $orderPayment->setExtensionAttributes($extensionAttributes);
-    }
-
-    /**
      * @param OrderPaymentInterface $orderPayment
      * @return OrderPaymentExtensionInterface
      */
@@ -58,5 +42,24 @@ class Extension
         }
 
         return $extensionAttributes;
+    }
+
+    /**
+     * Perform action on relation/extension attribute
+     *
+     * @param OrderPaymentInterface $entity
+     * @param array $arguments
+     * @return void
+     */
+    public function execute($entity, $arguments = [])
+    {
+        $extensionAttributes = $this->getOrderPaymentExtensionAttribute($entity);
+        $extensionAttributes->setMethodName(
+            $this->scopeConfig->getValue("payment/{$entity->getMethod()}/title"),
+            ScopeInterface::SCOPE_STORES,
+            $entity->getOrder() ? $entity->getOrder()->getStoreId() : null
+        );
+
+        $entity->setExtensionAttributes($extensionAttributes);
     }
 }

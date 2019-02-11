@@ -1,22 +1,30 @@
 <?php
-namespace Deity\MagentoApi\Model\Sales\Order;
+declare(strict_types=1);
 
+namespace Deity\Sales\Model\Order;
+
+use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Magento\Framework\Api\ExtensionAttributesFactory;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Sales\Api\Data\OrderInterface;
-use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\ShippingAssignmentBuilder;
 
-class Extension
+
+/**
+ * Class ReadHandler
+ * @package Deity\Sales\Model\Order
+ */
+class ReadHandler implements ExtensionInterface
 {
+
     /** @var ExtensionAttributesFactory */
-    protected $extensionAttributesFactory;
+    private $extensionAttributesFactory;
 
     /** @var ShippingAssignmentBuilder */
-    protected $shippingAssignmentBuilder;
+    private $shippingAssignmentBuilder;
 
     /** @var PriceCurrencyInterface */
-    protected $priceCurrency;
+    private $priceCurrency;
 
     /**
      * Extension constructor.
@@ -35,11 +43,13 @@ class Extension
     }
 
     /**
-     * Add extension attributes to order entity
+     * Perform action on relation/extension attribute
      *
-     * @param Order|OrderInterface $order
+     * @param OrderInterface $order
+     * @param array $arguments
+     * @return void
      */
-    public function addAttributes(OrderInterface $order)
+    public function execute($order,  $arguments = [])
     {
         $extensionAttributes = $this->getOrderExtensionAttribute($order);
 
@@ -64,7 +74,7 @@ class Extension
      * @param OrderInterface $order
      * @return \Magento\Sales\Api\Data\OrderExtensionInterface|null|object
      */
-    protected function getOrderExtensionAttribute(OrderInterface $order)
+    private function getOrderExtensionAttribute(OrderInterface $order)
     {
         $extensionAttributes = $order->getExtensionAttributes();
         if (!$extensionAttributes) {

@@ -52,15 +52,17 @@ class SetMaskedId implements ObserverInterface
         /** @var OrderInterface $order */
         $order = $observer->getEvent()->getOrder();
 
-        if ($order->getCustomerId()) {
-            return;
-        }
-
         /** @var OrderExtensionInterface $extensionAttributes */
         $extensionAttributes = $order->getExtensionAttributes();
         if (!$extensionAttributes) {
             $extensionAttributes = $this->orderExtensionFactory->create();
         }
+
+        if ($order->getCustomerId()) {
+            $extensionAttributes->setMaskedId(0);
+            return;
+        }
+
         if (!$extensionAttributes->getMaskedId()) {
             $extensionAttributes->setMaskedId($this->getMaskedOrderId((int)$order->getEntityId()));
             $order->setExtensionAttributes($extensionAttributes);
