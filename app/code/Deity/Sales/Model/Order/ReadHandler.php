@@ -65,7 +65,6 @@ class ReadHandler implements ExtensionInterface
             /** @var ShippingAssignmentBuilder $shippingAssignment */
             $shippingAssignments = $this->shippingAssignmentBuilder;
             $shippingAssignments->setOrderId($order->getEntityId());
-
             $extensionAttributes->setShippingAssignments($shippingAssignments->create());
         }
         $order->setExtensionAttributes($extensionAttributes);

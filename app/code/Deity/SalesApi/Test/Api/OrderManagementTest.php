@@ -82,6 +82,42 @@ class OrderManagementTest extends WebapiAbstract
     }
 
     /**
+     * @magentoApiDataFixture Magento/Sales/_files/two_orders_for_two_diff_customers.php
+     */
+    public function testGetCustomerOrders()
+    {
+        $searchCriteria = [
+            'searchCriteria' => [
+                'filter_groups' => [
+                ],
+                'current_page' => 20,
+                'page_size' => 10
+            ],
+        ];
+
+        // get customer ID token
+        /** @var \Magento\Integration\Api\CustomerTokenServiceInterface $customerTokenService */
+        $customerTokenService = $this->objectManager->create(
+            \Magento\Integration\Api\CustomerTokenServiceInterface::class
+        );
+        $token = $customerTokenService->createCustomerAccessToken('customer@example.com', 'password');
+
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => self::RESOURCE_PATH_MY_ORDERS .
+                    '?' . http_build_query($searchCriteria),
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
+                'token' => $token
+            ],
+        ];
+
+        $orderSearchResults = $this->_webApiCall($serviceInfo);
+
+        $this->assertArrayHasKey('items', $orderSearchResults, 'Response should contain items key');
+        $this->assertEquals(1, count($orderSearchResults['items']), 'Exactly one order should be returned');
+    }
+
+    /**
      * @return int
      */
     private function getFixtureCustomerOrderId() :int

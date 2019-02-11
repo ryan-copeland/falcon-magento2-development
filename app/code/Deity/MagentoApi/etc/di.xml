@@ -3,7 +3,6 @@
 
     <!-- INTERFACE PREFERENCES FOR DI -->
     <preference for="Deity\MagentoApi\Api\Data\OrderInfoInterface" type="Deity\MagentoApi\Model\OrderInfo" />
-    <preference for="Deity\MagentoApi\Api\Sales\GuestOrderManagementInterface" type="Deity\MagentoApi\Model\Sales\GuestOrderManagement" />
     <preference for="Deity\MagentoApi\Api\Payment\Data\PaypalDataInterface" type="Deity\MagentoApi\Model\Payment\PaypalData" />
     <preference for="Deity\MagentoApi\Api\Payment\GuestPaypalInterface" type="Deity\MagentoApi\Model\Payment\GuestPaypal" />
     <preference for="Deity\MagentoApi\Api\Payment\PaypalInterface" type="Deity\MagentoApi\Model\Payment\Paypal" />
