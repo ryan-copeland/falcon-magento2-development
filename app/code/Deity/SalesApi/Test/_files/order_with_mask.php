@@ -7,4 +7,4 @@ require __DIR__ . '/../../../../../../dev/tests/integration/testsuite/Magento/Sa
 $orderIdMaskRepository = \Magento\TestFramework\Helper\Bootstrap::getObjectManager()
     ->create(\Deity\SalesApi\Api\OrderIdMaskRepositoryInterface::class);
 
-$orderIdMaskRepository->create($order->getEntityId());
+$orderIdMaskRepository->create((int)$order->getEntityId());
