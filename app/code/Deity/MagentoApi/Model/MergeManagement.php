@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Customer\Model;
+namespace Deity\MagentoApi\Model;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
@@ -16,7 +16,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Handle merging guest and customer quote when signing up and signing in
  *
- * @package Deity\Customer\Model
+ * @package Deity\MagentoApi\Model
  */
 class MergeManagement
 {
