@@ -67,7 +67,7 @@ class AddProductToWishlistTest extends WebapiAbstract
     }
 
     /**
-     * Ensure that fixture customer and his addresses are deleted.
+     * Ensure that fixture customer is deleted.
      */
     public function tearDown()
     {
