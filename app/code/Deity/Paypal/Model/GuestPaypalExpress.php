@@ -37,8 +37,11 @@ class GuestPaypalExpress implements PaypalInterface
      * @param QuoteIdMaskFactory $quoteIdMaskFactory
      * @param QuoteIdMaskResource $quoteIdMaskResource
      */
-    public function __construct(PaypalExpressProcessorInterface $paypalExpressProcessor, QuoteIdMaskFactory $quoteIdMaskFactory, QuoteIdMaskResource $quoteIdMaskResource)
-    {
+    public function __construct(
+        PaypalExpressProcessorInterface $paypalExpressProcessor,
+        QuoteIdMaskFactory $quoteIdMaskFactory,
+        QuoteIdMaskResource $quoteIdMaskResource
+    ) {
         $this->paypalExpressProcessor = $paypalExpressProcessor;
         $this->quoteIdMaskFactory = $quoteIdMaskFactory;
         $this->quoteIdMaskResource = $quoteIdMaskResource;

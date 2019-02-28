@@ -18,17 +18,12 @@ use Magento\Quote\Model\QuoteIdMaskFactory;
 
 /**
  * Class PaypalExpressProcessor
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @package Deity\Paypal\Model
  */
 class PaypalExpressProcessor implements PaypalExpressProcessorInterface
 {
-    /**
-     * Checkout mode type
-     *
-     * @var string
-     */
-    private $checkoutType = 'Magento\Paypal\Model\Express\Checkout';
-
     /**
      * @var Config
      */
@@ -57,12 +52,6 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
      * @var \Magento\Quote\Model\Quote
      */
     private $quote;
-
-    /**
-     * Paypal Checkout
-     * @var \Magento\Paypal\Model\Express\Checkout
-     */
-    private $checkout;
 
     /**
      * Internal cache of checkout models
@@ -117,38 +106,39 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
     }
 
     /**
-     * Instantiate quote and checkout
+     * Get Express checkout instance
      *
+     * @return Checkout
      * @throws LocalizedException
      */
-    private function initCheckout()
+    private function getCheckout(): Checkout
     {
-        if (!$this->quote->hasItems() || $this->quote->getHasError()) {
-            throw new LocalizedException(__('We can\'t initialize Express Checkout.'));
-        }
-        if (!isset($this->checkoutTypes[$this->checkoutType])) {
+        if (!isset($this->checkoutTypes[Checkout::class])) {
+            if (!$this->quote->hasItems() || $this->quote->getHasError()) {
+                throw new LocalizedException(__('We can\'t initialize Express Checkout.'));
+            }
+
             $parameters = [
                 'params' => [
                     'quote' => $this->quote,
                     'config' => $this->config,
                 ],
             ];
-            $this->checkoutTypes[$this->checkoutType] = $this->checkoutFactory
-                ->create($this->checkoutType, $parameters);
+            $this->checkoutTypes[Checkout::class] = $this->checkoutFactory
+                ->create(Checkout::class, $parameters);
         }
-        $this->checkout = $this->checkoutTypes[$this->checkoutType];
+        return $this->checkoutTypes[Checkout::class];
     }
     /**
      * Create paypal token
      *
-     * @param $cartId string
+     * @param string $cartId
      * @return string
      * @throws LocalizedException
      */
-     function createToken(string $cartId): string
+    private function createToken(string $cartId): string
     {
         $this->quote = $this->cartRepository->getActive($cartId);
-        $this->initCheckout();
         $hasButton = false; // @todo needs to be parametrized. Parameter: button=[1 / 0]
         /** @var Data $checkoutHelper */
         $quoteCheckoutMethod = $this->quote->getCheckoutMethod();
@@ -156,23 +146,22 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
             $this->quote->setIsMultiShipping(0);
             $this->quote->removeAllAddresses();
         }
-        if (
-            (!$quoteCheckoutMethod || $quoteCheckoutMethod !== Onepage::METHOD_REGISTER)
+        if ((!$quoteCheckoutMethod || $quoteCheckoutMethod !== Onepage::METHOD_REGISTER)
             && !$this->checkoutHelper->isAllowedGuestCheckout($this->quote, $this->quote->getStoreId())
         ) {
             throw new LocalizedException(__('To check out, please sign in with your email address.'));
         }
         // billing agreement
-        $this->checkout->setIsBillingAgreementRequested(false);
+        $this->getCheckout()->setIsBillingAgreementRequested(false);
         // Bill Me Later
-        $this->checkout->setIsBml(false); // @todo needs to be parametrized. Parameter: bml=[1 / 0]
+        $this->getCheckout()->setIsBml(false); // @todo needs to be parametrized. Parameter: bml=[1 / 0]
         // giropay
-        $this->checkout->prepareGiropayUrls(
+        $this->getCheckout()->prepareGiropayUrls(
             $this->urlBuilder->getUrl('checkout/onepage/success'),
             $this->urlBuilder->getUrl('paypal/express/cancel', ['cart_id' => $cartId]),
             $this->urlBuilder->getUrl('checkout/onepage/success')
         );
-        return $this->checkout->start(
+        return $this->getCheckout()->start(
             $this->urlBuilder->getUrl('checkoutExt/payment_paypal_express/return', ['cart_id' => $cartId]),
             $this->urlBuilder->getUrl('checkoutExt/payment_paypal_express/cancel', ['cart_id' => $cartId]),
             $hasButton
@@ -182,14 +171,14 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
     /**
      * Create paypal token data
      *
-     * @param $cartId string
+     * @param string $cartId
      * @return PaypalDataInterface
      */
     public function createPaypalData(string $cartId): PaypalDataInterface
     {
         try {
             $token = $this->createToken($cartId);
-            $url = $this->checkout->getRedirectUrl();
+            $url = $this->getCheckout()->getRedirectUrl();
 
             $paymentData = $this->paypalDataFactory->create(
                 [
@@ -197,7 +186,7 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
                     PaypalDataInterface::URL => $url,
                 ]
             );
-        } catch(LocalizedException $e) {
+        } catch (LocalizedException $e) {
             $paymentData = $this->paypalDataFactory->create(
                 [
                     PaypalDataInterface::ERROR => $e->getMessage()

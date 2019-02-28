@@ -7,6 +7,7 @@ use Deity\PaypalApi\Api\Data\PaypalDataInterface;
 
 /**
  * Class PaypalExpressProcessorInterface
+ *
  * @package Deity\Paypal\Model
  */
 interface PaypalExpressProcessorInterface
@@ -15,9 +16,8 @@ interface PaypalExpressProcessorInterface
     /**
      * Create paypal token
      *
-     * @param $cartId string
+     * @param string $cartId
      * @return PaypalDataInterface
      */
     public function createPaypalData(string $cartId): PaypalDataInterface;
-
 }
