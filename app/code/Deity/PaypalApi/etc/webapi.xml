@@ -21,4 +21,13 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
+    <route url="/V1/carts/mine/paypal-express-return" method="POST">
+        <service class="Deity\PaypalApi\Api\Express\CustomerReturnInterface" method="processReturn"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
 </routes>

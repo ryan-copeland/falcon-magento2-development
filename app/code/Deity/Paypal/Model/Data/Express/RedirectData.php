@@ -10,7 +10,7 @@ use Deity\PaypalApi\Api\Data\Express\RedirectDataInterface;
  *
  * @package Deity\Paypal\Model\Data\Express
  */
-class RedirectPaypal implements RedirectDataInterface
+class RedirectData implements RedirectDataInterface
 {
 
     /**
@@ -22,9 +22,9 @@ class RedirectPaypal implements RedirectDataInterface
      * RedirectData constructor.
      * @param string $redirectUrl
      */
-    public function __construct(string $redirectUrl)
+    public function __construct(string $redirect)
     {
-        $this->redirectUrl = $redirectUrl;
+        $this->redirectUrl = $redirect;
     }
 
     /**

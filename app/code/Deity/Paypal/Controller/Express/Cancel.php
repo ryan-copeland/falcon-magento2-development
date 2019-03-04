@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\Paypal\Controller\Express;
 
-use Deity\Paypal\Model\Redirect\RedirectToFalconProviderInterface;
+use Deity\Paypal\Model\Express\Redirect\RedirectToFalconProviderInterface;
 use Magento\Checkout\Model\Session as CheckoutSession;
 use Magento\Customer\Model\Session as CustomerSession;
 use Magento\Customer\Model\Url;

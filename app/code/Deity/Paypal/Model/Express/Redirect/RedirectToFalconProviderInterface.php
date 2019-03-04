@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Paypal\Model\Redirect;
+namespace Deity\Paypal\Model\Express\Redirect;
 
 /**
  * Interface RedirectToFalconProviderInterface
  *
- * @package Deity\Paypal\Model\Redirect
+ * @package Deity\Paypal\Model\Express\Redirect
  */
 interface RedirectToFalconProviderInterface
 {

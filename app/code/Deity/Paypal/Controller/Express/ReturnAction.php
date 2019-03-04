@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\Paypal\Controller\Express;
 
-use Deity\Paypal\Model\Redirect\RedirectToFalconProviderInterface;
+use Deity\Paypal\Model\Express\Redirect\RedirectToFalconProviderInterface;
 use Exception;
 use Deity\MagentoApi\Helper\Data;
 use Magento\Quote\Model\Quote;

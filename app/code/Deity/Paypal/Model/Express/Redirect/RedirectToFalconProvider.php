@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Paypal\Model\Redirect;
+namespace Deity\Paypal\Model\Express\Redirect;
 
 use Magento\Quote\Model\Quote;
 
 /**
  * Class RedirectToFalcon
  *
- * @package Deity\Paypal\Model\Redirect
+ * @package Deity\Paypal\Model\Express\Redirect
  */
-class RedirectToFalcon implements RedirectToFalconProviderInterface
+class RedirectToFalconProvider implements RedirectToFalconProviderInterface
 {
 
     const SUCCESS_URL_DATA_KEY = 'redirect_success';
