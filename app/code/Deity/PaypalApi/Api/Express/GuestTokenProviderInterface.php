@@ -6,7 +6,7 @@ namespace Deity\PaypalApi\Api\Express;
 use Deity\PaypalApi\Api\Data\Express\PaypalDataInterface;
 
 /**
- * Interface GuestPaypalInterface
+ * Interface GuestTokenProviderInterface
  *
  * @package Deity\PaypalApi\Api\Express
  */

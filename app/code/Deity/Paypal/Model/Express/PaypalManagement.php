@@ -106,6 +106,21 @@ class PaypalManagement implements PaypalManagementInterface
     }
 
     /**
+     * Return Express checkout
+     *
+     * @param string $cartId
+     * @return Checkout
+     * @throws LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getExpressCheckout(string $cartId): Checkout
+    {
+        $this->initQuote($cartId);
+        return $this->getCheckout();
+    }
+
+
+    /**
      * Get Express checkout instance
      *
      * @return Checkout
@@ -176,7 +191,7 @@ class PaypalManagement implements PaypalManagementInterface
      */
     public function createPaypalData(string $cartId): PaypalDataInterface
     {
-        $this->quote = $this->cartRepository->getActive($cartId);
+        $this->initQuote($cartId);
         $token = $this->createToken($cartId);
         $url = $this->getCheckout()->getRedirectUrl();
 
@@ -188,5 +203,16 @@ class PaypalManagement implements PaypalManagementInterface
         );
 
         return $paymentData;
+    }
+
+    /**
+     * Init quote from given Id
+     *
+     * @param string $cartId
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    private function initQuote(string $cartId): void
+    {
+        $this->quote = $this->cartRepository->getActive($cartId);
     }
 }
