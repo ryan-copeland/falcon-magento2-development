@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Paypal\Model;
+namespace Deity\Paypal\Model\Express;
 
-use Deity\PaypalApi\Api\Data\PaypalDataInterface;
-use Deity\PaypalApi\Api\PaypalInterface;
+use Deity\PaypalApi\Api\Data\Express\PaypalDataInterface;
+use Deity\PaypalApi\Api\Express\GuestTokenProviderInterface;
 use Magento\Quote\Model\QuoteIdMask;
 use Magento\Quote\Model\QuoteIdMaskFactory;
 use Magento\Quote\Model\ResourceModel\Quote\QuoteIdMask as QuoteIdMaskResource;
@@ -12,14 +12,14 @@ use Magento\Quote\Model\ResourceModel\Quote\QuoteIdMask as QuoteIdMaskResource;
 /**
  * Class GuestPaypalExpress
  *
- * @package Deity\Paypal\Model
+ * @package Deity\Paypal\Model\Express
  */
-class GuestPaypalExpress implements PaypalInterface
+class GuestTokenProvider implements GuestTokenProviderInterface
 {
     /**
-     * @var PaypalExpressProcessorInterface
+     * @var PaypalManagementInterface
      */
-    private $paypalExpressProcessor;
+    private $paypalManagement;
 
     /**
      * @var QuoteIdMaskFactory
@@ -33,16 +33,16 @@ class GuestPaypalExpress implements PaypalInterface
 
     /**
      * GuestPaypalExpress constructor.
-     * @param PaypalExpressProcessorInterface $paypalExpressProcessor
+     * @param PaypalManagementInterface $paypalManagement
      * @param QuoteIdMaskFactory $quoteIdMaskFactory
      * @param QuoteIdMaskResource $quoteIdMaskResource
      */
     public function __construct(
-        PaypalExpressProcessorInterface $paypalExpressProcessor,
+        PaypalManagementInterface $paypalManagement,
         QuoteIdMaskFactory $quoteIdMaskFactory,
         QuoteIdMaskResource $quoteIdMaskResource
     ) {
-        $this->paypalExpressProcessor = $paypalExpressProcessor;
+        $this->paypalManagement = $paypalManagement;
         $this->quoteIdMaskFactory = $quoteIdMaskFactory;
         $this->quoteIdMaskResource = $quoteIdMaskResource;
     }
@@ -51,7 +51,7 @@ class GuestPaypalExpress implements PaypalInterface
      * Get Token
      *
      * @param string $cartId
-     * @return \Deity\PaypalApi\Api\Data\PaypalDataInterface
+     * @return \Deity\PaypalApi\Api\Data\Express\PaypalDataInterface
      */
     public function getToken(string $cartId): PaypalDataInterface
     {
@@ -59,6 +59,6 @@ class GuestPaypalExpress implements PaypalInterface
         $quoteMask = $this->quoteIdMaskFactory->create();
         $this->quoteIdMaskResource->load($quoteMask, $cartId, 'masked_id');
 
-        return $this->paypalExpressProcessor->createPaypalData($quoteMask->getQuoteId());
+        return $this->paypalManagement->createPaypalData($quoteMask->getQuoteId());
     }
 }

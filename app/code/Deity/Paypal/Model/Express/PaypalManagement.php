@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Paypal\Model;
+namespace Deity\Paypal\Model\Express;
 
-use Deity\PaypalApi\Api\Data\PaypalDataInterface;
-use Deity\PaypalApi\Api\Data\PaypalDataInterfaceFactory;
+use Deity\PaypalApi\Api\Data\Express\PaypalDataInterface;
+use Deity\PaypalApi\Api\Data\Express\PaypalDataInterfaceFactory;
 use Magento\Checkout\Helper\Data;
 use Magento\Checkout\Model\Type\Onepage;
 use Magento\Framework\Exception\LocalizedException;
@@ -17,12 +17,12 @@ use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Model\QuoteIdMaskFactory;
 
 /**
- * Class PaypalExpressProcessor
+ * Class PaypalManagement
  *
+ * @package Deity\Paypal\Model\Express
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @package Deity\Paypal\Model
  */
-class PaypalExpressProcessor implements PaypalExpressProcessorInterface
+class PaypalManagement implements PaypalManagementInterface
 {
     /**
      * @var Config
@@ -138,7 +138,6 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
      */
     private function createToken(string $cartId): string
     {
-        $this->quote = $this->cartRepository->getActive($cartId);
         $hasButton = false; // @todo needs to be parametrized. Parameter: button=[1 / 0]
         /** @var Data $checkoutHelper */
         $quoteCheckoutMethod = $this->quote->getCheckoutMethod();
@@ -177,6 +176,7 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
      */
     public function createPaypalData(string $cartId): PaypalDataInterface
     {
+        $this->quote = $this->cartRepository->getActive($cartId);
         $token = $this->createToken($cartId);
         $url = $this->getCheckout()->getRedirectUrl();
 

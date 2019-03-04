@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\PaypalApi\Api\Data;
+namespace Deity\PaypalApi\Api\Data\Express;
 
 /**
  * Interface PaypalDataInterface
  *
- * @package Deity\PaypalApi\Api\Data
+ * @package Deity\PaypalApi\Api\Data\Express
  */
 interface PaypalDataInterface
 {

@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Paypal\Model\Data;
+namespace Deity\Paypal\Model\Data\Express;
 
-use Deity\PaypalApi\Api\Data\PaypalDataInterface;
+use Deity\PaypalApi\Api\Data\Express\PaypalDataInterface;
 
 /**
  * Class PaypalData
  *
- * @package Deity\Paypal\Model\Data
+ * @package Deity\Paypal\Model\Data\Express
  */
 class PaypalData implements PaypalDataInterface
 {
@@ -26,7 +26,6 @@ class PaypalData implements PaypalDataInterface
     /**
      * PaypalData constructor.
      * @param string $token
-     * @param string $error
      * @param string $url
      */
     public function __construct(string $token = '', string $url = '')
