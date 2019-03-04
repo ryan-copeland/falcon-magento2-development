@@ -8,9 +8,11 @@ use Deity\PaypalApi\Api\Data\Express\RedirectDataInterface;
 use Deity\PaypalApi\Api\Data\Express\RedirectDataInterfaceFactory;
 use Deity\PaypalApi\Api\Express\CustomerReturnInterface;
 use Magento\Framework\App\ActionInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Url;
 use Magento\Paypal\Model\Express\Checkout;
 use Magento\Quote\Api\CartRepositoryInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class CustomerReturn
@@ -42,6 +44,11 @@ class CustomerReturn implements CustomerReturnInterface
     private $cartRepository;
 
     /**
+     * @var LoggerInterface;
+     */
+    private $logger;
+
+    /**
      * @var Url
      */
     private $urlBuilder;
@@ -52,6 +59,7 @@ class CustomerReturn implements CustomerReturnInterface
      * @param CartRepositoryInterface $cartRepository
      * @param RedirectToFalconProviderInterface $redirectToFalconProvider
      * @param RedirectDataInterfaceFactory $redirectDataFactory
+     * @param LoggerInterface $logger
      * @param Url $urlBuilder
      */
     public function __construct(
@@ -59,8 +67,10 @@ class CustomerReturn implements CustomerReturnInterface
         CartRepositoryInterface $cartRepository,
         RedirectToFalconProviderInterface $redirectToFalconProvider,
         RedirectDataInterfaceFactory $redirectDataFactory,
+        LoggerInterface $logger,
         Url $urlBuilder
     ) {
+        $this->logger = $logger;
         $this->urlBuilder = $urlBuilder;
         $this->cartRepository = $cartRepository;
         $this->paypalManagement = $paypalManagement;
@@ -81,16 +91,35 @@ class CustomerReturn implements CustomerReturnInterface
     public function processReturn(string $cartId, string $token, string $payerId): RedirectDataInterface
     {
         $quote = $this->cartRepository->getActive($cartId);
-        /** @var Checkout $checkout */
-        $checkout = $this->paypalManagement->getExpressCheckout($cartId);
-        $checkout->returnFromPaypal($token);
-        $flag = $checkout->canSkipOrderReviewStep();
+        $orderId = '';
+        try {
+            /** @var Checkout $checkout */
+            $checkout = $this->paypalManagement->getExpressCheckout($cartId);
+            $checkout->returnFromPaypal($token);
 
-        $checkout->place($token);
+            if (!$checkout->canSkipOrderReviewStep()) {
+                throw new LocalizedException(__('Review page is not supported!'));
+            }
+            $checkout->place($token);
 
-        $successUrl = $this->redirectToFalconProvider->getSuccessUrl($quote);
-        $message = __('Your Order got a number: #%1', $checkout->getOrder()->getIncrementId());
-        $orderId = $checkout->getOrder()->getIncrementId();
+            // redirect if PayPal specified some URL (for example, to Giropay bank)
+            $url = $checkout->getRedirectUrl();
+            if ($url) {
+                throw new LocalizedException(__('Giropay pay is not supported!'));
+            }
+
+            $redirectUrl = $this->redirectToFalconProvider->getSuccessUrl($quote);
+            $message = __('Your Order got a number: #%1', $checkout->getOrder()->getIncrementId());
+            $orderId = $checkout->getOrder()->getIncrementId();
+        } catch (LocalizedException $e) {
+            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
+            $message = __('Reason: %1', $e->getMessage());
+        } catch (\Exception $e) {
+            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $message = __('Reason: %1', $e->getMessage());
+            $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
+        }
 
         $urlParams = [
             ActionInterface::PARAM_NAME_URL_ENCODED => base64_encode((string)$message),
@@ -98,13 +127,9 @@ class CustomerReturn implements CustomerReturnInterface
             'result_redirect' => 1
         ];
         $urlParams = http_build_query($urlParams);
-        if (strpos($successUrl, 'http') !== false) {
-            $sep = (strpos($successUrl, '?') === false) ? '?' : '&';
-            $successUrl = $successUrl . $sep . $urlParams;
-        } else {
-            $successUrl = $this->urlBuilder->getBaseUrl() . trim($successUrl, ' /') . '?' . $urlParams;
-        }
+        $sep = (strpos($redirectUrl, '?') === false) ? '?' : '&';
+        $redirectUrl = $redirectUrl . $sep . $urlParams;
 
-        return $this->redirectDataFactory->create([RedirectDataInterface::REDIRECT_FIELD => $successUrl]);
+        return $this->redirectDataFactory->create([RedirectDataInterface::REDIRECT_FIELD => $redirectUrl]);
     }
 }

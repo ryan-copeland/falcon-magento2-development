@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Deity\Paypal\Model\Express;
 
+use Deity\Paypal\Model\Express\Redirect\RedirectToFalconProviderInterface;
 use Deity\PaypalApi\Api\Data\Express\PaypalDataInterface;
 use Deity\PaypalApi\Api\Data\Express\PaypalDataInterfaceFactory;
 use Magento\Checkout\Helper\Data;
@@ -76,6 +77,11 @@ class PaypalManagement implements PaypalManagementInterface
     private $checkoutHelper;
 
     /**
+     * @var RedirectToFalconProviderInterface
+     */
+    private $urlProvider;
+
+    /**
      * Payment constructor.
      * @param UrlInterface $urlBuilder
      * @param Data $checkoutHelper
@@ -83,6 +89,7 @@ class PaypalManagement implements PaypalManagementInterface
      * @param CartRepositoryInterface $cartRepository
      * @param Checkout\Factory $checkoutFactory
      * @param PaypalDataInterfaceFactory $paypalDataFactory
+     * @param RedirectToFalconProviderInterface $urlProvider
      * @param ConfigFactory $configFactory
      */
     public function __construct(
@@ -92,8 +99,10 @@ class PaypalManagement implements PaypalManagementInterface
         CartRepositoryInterface $cartRepository,
         PaypalCheckoutFactory $checkoutFactory,
         PaypalDataInterfaceFactory $paypalDataFactory,
+        RedirectToFalconProviderInterface $urlProvider,
         ConfigFactory $configFactory
     ) {
+        $this->urlProvider = $urlProvider;
         $this->paypalDataFactory = $paypalDataFactory;
         $this->urlBuilder = $urlBuilder;
         $this->checkoutHelper = $checkoutHelper;
@@ -175,9 +184,12 @@ class PaypalManagement implements PaypalManagementInterface
             $this->urlBuilder->getUrl('paypal/express/cancel', ['cart_id' => $cartId]),
             $this->urlBuilder->getUrl('checkout/onepage/success')
         );
+
+        $this->quote->getCustomerIsGuest();
+
         return $this->getCheckout()->start(
-            $this->urlBuilder->getUrl('checkoutExt/paypal_express/return', ['cart_id' => $cartId]),
-            $this->urlBuilder->getUrl('checkoutExt/paypal_express/cancel', ['cart_id' => $cartId]),
+            $this->urlProvider->getPaypalReturnSuccessUrl($this->quote),
+            $this->urlProvider->getPaypalReturnCancelUrl($this->quote),
             $hasButton
         );
     }

@@ -5,7 +5,6 @@ namespace Deity\Paypal\Controller\Express;
 
 use Deity\Paypal\Model\Express\Redirect\RedirectToFalconProviderInterface;
 use Exception;
-use Deity\MagentoApi\Helper\Data;
 use Magento\Quote\Model\Quote;
 use Magento\Store\Model\StoreManager;
 use Psr\Log\LoggerInterface;
