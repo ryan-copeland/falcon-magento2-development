@@ -12,7 +12,6 @@ interface PaypalDataInterface
 {
     const TOKEN = 'token';
     const URL = 'url';
-    const ERROR = 'error';
 
     /**
      * Get Paypal token
@@ -28,10 +27,4 @@ interface PaypalDataInterface
      */
     public function getUrl(): string;
 
-    /**
-     * Get Paypal error
-     *
-     * @return string
-     */
-    public function getError(): string;
 }

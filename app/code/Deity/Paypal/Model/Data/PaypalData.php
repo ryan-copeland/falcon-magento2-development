@@ -21,11 +21,6 @@ class PaypalData implements PaypalDataInterface
     /**
      * @var string
      */
-    private $error;
-
-    /**
-     * @var string
-     */
     private $url;
 
     /**
@@ -34,10 +29,9 @@ class PaypalData implements PaypalDataInterface
      * @param string $error
      * @param string $url
      */
-    public function __construct(string $token = '', string $error = '', string $url = '')
+    public function __construct(string $token = '', string $url = '')
     {
         $this->token = $token;
-        $this->error = $error;
         $this->url = $url;
     }
 
@@ -59,15 +53,5 @@ class PaypalData implements PaypalDataInterface
     public function getUrl(): string
     {
         return $this->url;
-    }
-
-    /**
-     * Get Paypal error
-     *
-     * @return string
-     */
-    public function getError(): string
-    {
-        return $this->error;
     }
 }

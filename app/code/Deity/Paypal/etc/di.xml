@@ -6,5 +6,6 @@
     <preference for="Deity\PaypalApi\Api\PaypalInterface" type="Deity\Paypal\Model\PaypalExpress" />
     <preference for="Deity\PaypalApi\Api\GuestPaypalInterface" type="Deity\Paypal\Model\GuestPaypalExpress" />
     <preference for="Deity\Paypal\Model\PaypalExpressProcessorInterface" type="Deity\Paypal\Model\PaypalExpressProcessor" />
+    <preference for="Deity\Paypal\Model\Redirect\RedirectToFalconProviderInterface" type="Deity\Paypal\Model\Redirect\RedirectToFalconProvider" />
 
 </config>

@@ -162,8 +162,8 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
             $this->urlBuilder->getUrl('checkout/onepage/success')
         );
         return $this->getCheckout()->start(
-            $this->urlBuilder->getUrl('checkoutExt/payment_paypal_express/return', ['cart_id' => $cartId]),
-            $this->urlBuilder->getUrl('checkoutExt/payment_paypal_express/cancel', ['cart_id' => $cartId]),
+            $this->urlBuilder->getUrl('checkoutExt/paypal_express/return', ['cart_id' => $cartId]),
+            $this->urlBuilder->getUrl('checkoutExt/paypal_express/cancel', ['cart_id' => $cartId]),
             $hasButton
         );
     }
@@ -173,26 +173,20 @@ class PaypalExpressProcessor implements PaypalExpressProcessorInterface
      *
      * @param string $cartId
      * @return PaypalDataInterface
+     * @throws LocalizedException
      */
     public function createPaypalData(string $cartId): PaypalDataInterface
     {
-        try {
-            $token = $this->createToken($cartId);
-            $url = $this->getCheckout()->getRedirectUrl();
+        $token = $this->createToken($cartId);
+        $url = $this->getCheckout()->getRedirectUrl();
 
-            $paymentData = $this->paypalDataFactory->create(
-                [
-                    PaypalDataInterface::TOKEN => $token,
-                    PaypalDataInterface::URL => $url,
-                ]
-            );
-        } catch (LocalizedException $e) {
-            $paymentData = $this->paypalDataFactory->create(
-                [
-                    PaypalDataInterface::ERROR => $e->getMessage()
-                ]
-            );
-        }
+        $paymentData = $this->paypalDataFactory->create(
+            [
+                PaypalDataInterface::TOKEN => $token,
+                PaypalDataInterface::URL => $url,
+            ]
+        );
+
         return $paymentData;
     }
 }
