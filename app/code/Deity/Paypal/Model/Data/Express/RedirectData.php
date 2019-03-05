@@ -20,7 +20,7 @@ class RedirectData implements RedirectDataInterface
 
     /**
      * RedirectData constructor.
-     * @param string $redirectUrl
+     * @param string $redirect
      */
     public function __construct(string $redirect)
     {

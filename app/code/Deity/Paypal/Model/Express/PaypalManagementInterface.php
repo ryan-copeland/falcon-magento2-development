@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Deity\Paypal\Model\Express;
 
 use Deity\PaypalApi\Api\Data\Express\PaypalDataInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Paypal\Model\Express\Checkout;
 
 /**
@@ -29,4 +30,20 @@ interface PaypalManagementInterface
      * @return Checkout
      */
     public function getExpressCheckout(string $cartId): Checkout;
+
+    /**
+     * @param string $cartId
+     * @param string $token
+     * @return bool
+     * @throws LocalizedException
+     */
+    public function validateToken(string $cartId, string $token): bool;
+
+    /**
+     * Unset paypal token
+     *
+     * @param string $cartId
+     * @throws LocalizedException
+     */
+    public function unsetToken(string $cartId): void;
 }

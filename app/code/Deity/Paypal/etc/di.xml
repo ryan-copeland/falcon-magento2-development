@@ -10,5 +10,7 @@
     <preference for="Deity\PaypalApi\Api\Express\GuestReturnInterface" type="Deity\Paypal\Model\Express\Redirect\GuestReturn" />
     <preference for="Deity\PaypalApi\Api\Express\CustomerReturnInterface" type="Deity\Paypal\Model\Express\Redirect\CustomerReturn" />
     <preference for="Deity\PaypalApi\Api\Data\Express\RedirectDataInterface" type="Deity\Paypal\Model\Data\Express\RedirectData" />
+    <preference for="Deity\PaypalApi\Api\Express\CustomerCancelInterface" type="Deity\Paypal\Model\Express\Redirect\CustomerCancel" />
+    <preference for="Deity\PaypalApi\Api\Express\GuestCancelInterface" type="Deity\Paypal\Model\Express\Redirect\GuestCancel" />
 
 </config>

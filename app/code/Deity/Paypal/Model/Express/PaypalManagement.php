@@ -15,6 +15,7 @@ use Magento\Paypal\Model\ConfigFactory;
 use Magento\Paypal\Model\Express\Checkout;
 use Magento\Paypal\Model\Express\Checkout\Factory as PaypalCheckoutFactory;
 use Magento\Quote\Api\CartRepositoryInterface;
+use Magento\Quote\Api\Data\CartInterface;
 use Magento\Quote\Model\QuoteIdMaskFactory;
 
 /**
@@ -25,6 +26,7 @@ use Magento\Quote\Model\QuoteIdMaskFactory;
  */
 class PaypalManagement implements PaypalManagementInterface
 {
+    const PAYPAL_EXPRESS_TOKEN = 'paypal_express_checkout_token';
     /**
      * @var Config
      */
@@ -205,6 +207,7 @@ class PaypalManagement implements PaypalManagementInterface
     {
         $this->initQuote($cartId);
         $token = $this->createToken($cartId);
+        $this->setToken($token);
         $url = $this->getCheckout()->getRedirectUrl();
 
         $paymentData = $this->paypalDataFactory->create(
@@ -215,6 +218,70 @@ class PaypalManagement implements PaypalManagementInterface
         );
 
         return $paymentData;
+    }
+
+    /**
+     * @param string $setToken
+     * @throws LocalizedException
+     */
+    private function setToken($setToken)
+    {
+        $this->getQuote()->getPayment()->setAdditionalInformation(self::PAYPAL_EXPRESS_TOKEN, $setToken);
+        $this->getQuote()->save();
+    }
+
+    /**
+     * Unset token for given cart
+     *
+     * @param string $cartId
+     * @throws LocalizedException
+     */
+    public function unsetToken(string $cartId): void
+    {
+        $this->initQuote($cartId);
+        // security measure for avoid unsetting token twice
+        if (!$this->getQuote()->getPayment()->getAdditionalInformation(self::PAYPAL_EXPRESS_TOKEN)) {
+            throw new LocalizedException(
+                __('PayPal Express Checkout Token does not exist.')
+            );
+        }
+        $this->getQuote()->getPayment()->unsAdditionalInformation(self::PAYPAL_EXPRESS_TOKEN);
+    }
+
+    /**
+     * Validate token for given cart
+     *
+     * @param string $cartId
+     * @param string $token
+     * @return bool
+     * @throws LocalizedException
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function validateToken(string $cartId, string $token): bool
+    {
+        $this->initQuote($cartId);
+        $storedToken = $this->getQuote()->getPayment()->getAdditionalInformation(self::PAYPAL_EXPRESS_TOKEN);
+        if ($storedToken && $storedToken !== $token) {
+            throw new LocalizedException(
+                __('A wrong PayPal Express Checkout Token is specified.')
+            );
+        }
+
+        return true;
+    }
+
+    /**
+     * Get current quote object
+     *
+     * @return CartInterface
+     * @throws LocalizedException
+     */
+    private function getQuote(): CartInterface
+    {
+        if (is_null($this->quote)) {
+            throw new LocalizedException(__('Quote object is not initialized'));
+        }
+        return $this->quote;
     }
 
     /**
