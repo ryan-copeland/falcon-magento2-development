@@ -1,15 +1,22 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\Paypal\Model\Redirect;
+namespace Deity\Paypal\Model\Express\Redirect;
 
+use Deity\Paypal\Model\Express\PaypalManagementInterface;
 use Deity\PaypalApi\Api\Data\Express\RedirectDataInterface;
-use Deity\PaypalApi\Api\Data\RedirectPaypalExpressInterface;
-use Deity\PaypalApi\Api\Data\RedirectDataInterfaceFactory;
+use Deity\PaypalApi\Api\Data\Express\RedirectDataInterfaceFactory;
 use Deity\PaypalApi\Api\Express\GuestReturnInterface;
-use Deity\PaypalApi\Api\GuestPaypalReturnInterface;
 use Magento\Framework\App\ActionInterface;
-use Magento\Quote\Model\Quote;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Url;
+use Magento\Paypal\Model\Express\Checkout;
+use Magento\Quote\Api\CartRepositoryInterface;
+use Magento\Quote\Model\QuoteIdMask;
+use Magento\Quote\Model\QuoteIdMaskFactory;
+use Magento\Quote\Model\ResourceModel\Quote\QuoteIdMask as QuoteIdMaskResource;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class GuestReturn
@@ -20,94 +27,77 @@ class GuestReturn implements GuestReturnInterface
 {
 
     /**
-     * @var RedirectDataInterfaceFactory;
+     * @var PaypalManagementInterface
      */
-    private $redirectDataFactory;
-
-    /**
-     * @var QuoteIdMaskFactory
-     */
-    private $quoteMaskFactory;
-    /**
-     * @var CartRepositoryInterface
-     */
-    private $cartRepository;
-    /**
-     * @var ScopeConfigInterface
-     */
-    private $scopeConfig;
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-    /**
-     * @var \Magento\Framework\Url
-     */
-    private $urlBuilder;
-    /**
-     * @var StoreManager
-     */
-    private $storeManager;
+    private $paypalManagement;
 
     /**
      * @var RedirectToFalconProviderInterface
      */
-    private $urlProvider;
+    private $redirectToFalconProvider;
 
     /**
-     * @var Quote
+     * @var RedirectDataInterfaceFactory
      */
-    private $quote;
+    private $redirectDataFactory;
 
     /**
-     * @var
+     * Cart Repository
+     * @var CartRepositoryInterface
      */
-    private $checkout;
-
+    private $cartRepository;
 
     /**
-     * Initialize Quote based on masked Id
-     * @param $cartId
-     * @return Quote
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @var LoggerInterface;
      */
-    protected function initQuote($cartId)
-    {
-        if (!ctype_digit($cartId)) {
-            $quoteMask = $this->quoteMaskFactory->create()->load($cartId, 'masked_id');
-            $quoteId = $quoteMask->getQuoteId();
-        } else {
-            $quoteId = $cartId;
-        }
-        $this->setQuote($this->cartRepository->getActive($quoteId));
-        return $this->_quote;
+    private $logger;
+
+    /**
+     * @var Url
+     */
+    private $urlBuilder;
+
+    /**
+     * @var QuoteIdMaskFactory
+     */
+    private $quoteIdMaskFactory;
+
+    /**
+     * @var QuoteIdMaskResource
+     */
+    private $quoteIdMaskResource;
+
+    /**
+     * CustomerReturn constructor.
+     * @param PaypalManagementInterface $paypalManagement
+     * @param CartRepositoryInterface $cartRepository
+     * @param RedirectToFalconProviderInterface $redirectToFalconProvider
+     * @param RedirectDataInterfaceFactory $redirectDataFactory
+     * @param QuoteIdMaskFactory $quoteIdMaskFactory
+     * @param QuoteIdMaskResource $quoteIdMaskResource
+     * @param LoggerInterface $logger
+     * @param Url $urlBuilder
+     */
+    public function __construct(
+        PaypalManagementInterface $paypalManagement,
+        CartRepositoryInterface $cartRepository,
+        RedirectToFalconProviderInterface $redirectToFalconProvider,
+        RedirectDataInterfaceFactory $redirectDataFactory,
+        QuoteIdMaskFactory $quoteIdMaskFactory,
+        QuoteIdMaskResource $quoteIdMaskResource,
+        LoggerInterface $logger,
+        Url $urlBuilder
+    ) {
+        $this->quoteIdMaskResource = $quoteIdMaskResource;
+        $this->quoteIdMaskFactory = $quoteIdMaskFactory;
+        $this->logger = $logger;
+        $this->urlBuilder = $urlBuilder;
+        $this->cartRepository = $cartRepository;
+        $this->paypalManagement = $paypalManagement;
+        $this->redirectToFalconProvider = $redirectToFalconProvider;
+        $this->redirectDataFactory = $redirectDataFactory;
     }
 
-    /**
-     * Instantiate quote and checkout
-     *
-     * @return void
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    protected function _initCheckout()
-    {
-        $quote = $this->_getQuote();
-        if (!$quote->hasItems() || $quote->getHasError()) {
-            $this->getResponse()->setStatusHeader(403, '1.1', 'Forbidden');
-            throw new \Magento\Framework\Exception\LocalizedException(__('We can\'t initialize Express Checkout.'));
-        }
-        if (!isset($this->_checkoutTypes[$this->_checkoutType])) {
-            $parameters = [
-                'params' => [
-                    'quote' => $quote,
-                    'config' => $this->_config,
-                ],
-            ];
-            $this->_checkoutTypes[$this->_checkoutType] = $this->_checkoutFactory
-                ->create($this->_checkoutType, $parameters);
-        }
-        $this->_checkout = $this->_checkoutTypes[$this->_checkoutType];
-    }
 
     /**
      * Process return from paypal gateway
@@ -115,96 +105,71 @@ class GuestReturn implements GuestReturnInterface
      * @param string $cartId
      * @param string $token
      * @param string $payerId
-     * @return RedirectPaypalExpressInterface
+     * @return \Deity\PaypalApi\Api\Data\Express\RedirectDataInterface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function processReturn(string $cartId, string $token, string $payerId): RedirectDataInterface
     {
-        $redirectUrlFailure = '';
-        $message = __('');
+        $quote = $this->cartRepository->getActive($this->getQuoteIdFromMaskedId($cartId));
         $orderId = '';
         try {
-            $quote = $this->initQuote($cartId);
-            $this->_initCheckout();
-            $this->_checkout->returnFromPaypal($token);
-            if ($this->_checkout->canSkipOrderReviewStep()) {
-                $this->placeOrder($token, $cartId, $payerId);
-                // redirect if PayPal specified some URL (for example, to Giropay bank)
-                $url = $this->_checkout->getRedirectUrl();
-                if ($url) {
-                    $redirectUrl = $url;
-                } else {
-                    $redirectUrl = $this->urlProvider->getSuccessUrl($quote);
-                    $message = __('Your Order got a number: #%1', $this->_checkout->getOrder()->getIncrementId());
-                    $orderId = $this->_checkout->getOrder()->getIncrementId();
-                }
-            } else {
+            /** @var Checkout $checkout */
+            $checkout = $this->paypalManagement->getExpressCheckout((string)$quote->getEntityId());
+            $checkout->returnFromPaypal($token);
+
+            if (!$checkout->canSkipOrderReviewStep()) {
                 throw new LocalizedException(__('Review page is not supported!'));
             }
+            $checkout->place($token);
+
+            // redirect if PayPal specified some URL (for example, to Giropay bank)
+            $url = $checkout->getRedirectUrl();
+            if ($url) {
+                throw new LocalizedException(__('Giropay pay is not supported!'));
+            }
+
+            $redirectUrl = $this->redirectToFalconProvider->getSuccessUrl($quote);
+            $message = __('Your Order got a number: #%1', $checkout->getOrder()->getIncrementId());
+            $orderId = $checkout->getOrder()->getIncrementId();
         } catch (LocalizedException $e) {
             $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
-            $redirectUrl = $redirectUrlFailure;
+            $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
             $message = __('Reason: %1', $e->getMessage());
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
             $message = __('Reason: %1', $e->getMessage());
-            $redirectUrl = $redirectUrlFailure;
+            $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
         }
+
         $urlParams = [
             ActionInterface::PARAM_NAME_URL_ENCODED => base64_encode((string)$message),
             'order_id' => $orderId,
             'result_redirect' => 1
         ];
         $urlParams = http_build_query($urlParams);
-        if (strpos($redirectUrl, 'http') !== false) {
-            $sep = (strpos($redirectUrl, '?') === false) ? '?' : '&';
-            $redirectUrl = $redirectUrl . $sep . $urlParams;
-        } else {
-            $redirectUrl = $this->urlBuilder->getBaseUrl() . trim($redirectUrl, ' /') . '?' . $urlParams;
-        }
+        $sep = (strpos($redirectUrl, '?') === false) ? '?' : '&';
+        $redirectUrl = $redirectUrl . $sep . $urlParams;
 
-        return $this->redirectDataFactory->create([RedirectPaypalExpressInterface::REDIRECT_FIELD => $redirectUrl]);
+        return $this->redirectDataFactory->create([RedirectDataInterface::REDIRECT_FIELD => $redirectUrl]);
     }
 
     /**
-     * Place Order
-     * @param $token
-     * @param $cartId
-     * @param $payerId
-     * @throws LocalizedException
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * get quote id
+     *
+     * @param string $maskedId
+     * @return string
+     * @throws NoSuchEntityException
      */
-    protected function placeOrder($token, $cartId, $payerId)
+    private function getQuoteIdFromMaskedId(string $maskedId)
     {
-        // Fix: reinitialize quote and checkout.
-        $this->resetCheckoutTypes();
-        $this->initQuote($cartId);
-        $this->_initCheckout();
-        $this->_checkout->place($token);
-        // prepare session to success or cancellation page
-        $this->_getCheckoutSession()->clearHelperData();
-        // "last successful quote"
-        $quoteId = $this->_getQuote()->getId();
-        $this->_getCheckoutSession()->setLastQuoteId($quoteId)->setLastSuccessQuoteId($quoteId);
-        // an order may be created
-        $order = $this->_checkout->getOrder();
-        if ($order) {
-            $this->_getCheckoutSession()->setLastOrderId($order->getId())
-                ->setLastRealOrderId($order->getIncrementId())
-                ->setLastOrderStatus($order->getStatus());
+        /** @var QuoteIdMask $quoteMask */
+        $quoteMask = $this->quoteIdMaskFactory->create();
+        $this->quoteIdMaskResource->load($quoteMask, $maskedId, 'masked_id');
+
+        if ($quoteMask->getQuoteId() === null) {
+            throw new NoSuchEntityException(__('Given cart does not exist or is not active.'));
         }
-        $this->_eventManager->dispatch(
-            'paypal_express_place_order_success', [
-                'order' => $order,
-                'quote' => $this->_getQuote()
-            ]
-        );
-    }
-    /**
-     * Reset checkout types
-     */
-    protected function resetCheckoutTypes()
-    {
-        unset($this->_checkoutTypes);
-        $this->_checkoutTypes = [];
+
+        return (string)$quoteMask->getQuoteId();
     }
 }

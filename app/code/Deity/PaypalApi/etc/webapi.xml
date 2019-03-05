@@ -7,7 +7,7 @@
         </resources>
     </route>
     <route url="/V1/guest-carts/:cartId/paypal-express-return" method="GET">
-        <service class="Deity\PaypalApi\Api\Express\GuestPaypalReturnInterface" method="processReturn"/>
+        <service class="Deity\PaypalApi\Api\Express\GuestReturnInterface" method="processReturn"/>
         <resources>
             <resource ref="anonymous" />
         </resources>
@@ -21,7 +21,7 @@
             <parameter name="cartId" force="true">%cart_id%</parameter>
         </data>
     </route>
-    <route url="/V1/carts/mine/paypal-express-return" method="POST">
+    <route url="/V1/carts/mine/paypal-express-return" method="GET">
         <service class="Deity\PaypalApi\Api\Express\CustomerReturnInterface" method="processReturn"/>
         <resources>
             <resource ref="self" />
