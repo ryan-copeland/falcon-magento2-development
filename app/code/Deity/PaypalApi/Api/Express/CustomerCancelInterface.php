@@ -16,7 +16,7 @@ interface CustomerCancelInterface
      * Process customer cancel scenario
      *
      * @param string $cartId
-     * @return RedirectDataInterface
+     * @return \Deity\PaypalApi\Api\Data\Express\RedirectDataInterface
      */
     public function processCancel(string $cartId): RedirectDataInterface;
 }

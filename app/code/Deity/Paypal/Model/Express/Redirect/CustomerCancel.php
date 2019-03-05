@@ -87,6 +87,7 @@ class CustomerCancel implements CustomerCancelInterface
     {
         $quote = $this->cartRepository->getActive($cartId);
 
+        $redirectUrlFailure = '';
         try {
             $this->paypalManagement->unsetToken($cartId);
             $redirectUrlFailure = $this->redirectToFalconProvider->getFailureUrl($quote);
