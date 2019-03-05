@@ -32,6 +32,8 @@ interface PaypalManagementInterface
     public function getExpressCheckout(string $cartId): Checkout;
 
     /**
+     * Validate token for given cart
+     *
      * @param string $cartId
      * @param string $token
      * @return bool

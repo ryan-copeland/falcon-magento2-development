@@ -22,6 +22,7 @@ use Psr\Log\LoggerInterface;
  * Class GuestReturn
  *
  * @package Deity\Paypal\Model\Redirect
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class GuestReturn implements GuestReturnInterface
 {
@@ -98,7 +99,6 @@ class GuestReturn implements GuestReturnInterface
         $this->redirectDataFactory = $redirectDataFactory;
     }
 
-
     /**
      * Process return from paypal gateway
      *
@@ -107,6 +107,7 @@ class GuestReturn implements GuestReturnInterface
      * @param string $payerId
      * @return \Deity\PaypalApi\Api\Data\Express\RedirectDataInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function processReturn(string $cartId, string $token, string $payerId): RedirectDataInterface
     {
@@ -156,7 +157,7 @@ class GuestReturn implements GuestReturnInterface
     }
 
     /**
-     * get quote id
+     * Get quote id
      *
      * @param string $maskedId
      * @return string

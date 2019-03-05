@@ -26,5 +26,4 @@ interface PaypalDataInterface
      * @return string
      */
     public function getUrl(): string;
-
 }

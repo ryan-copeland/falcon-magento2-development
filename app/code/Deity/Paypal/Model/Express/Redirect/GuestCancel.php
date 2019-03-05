@@ -95,7 +95,6 @@ class GuestCancel implements GuestCancelInterface
         $this->redirectDataFactory = $redirectDataFactory;
     }
 
-
     /**
      * Process return from paypal gateway
      *

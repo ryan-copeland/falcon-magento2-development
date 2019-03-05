@@ -49,6 +49,8 @@ class RedirectToFalconProvider implements RedirectToFalconProviderInterface
     }
 
     /**
+     * Get success url
+     *
      * @param CartInterface $quote
      * @return string
      */
@@ -58,6 +60,8 @@ class RedirectToFalconProvider implements RedirectToFalconProviderInterface
     }
 
     /**
+     * Get cancel url
+     *
      * @param CartInterface $quote
      * @return string
      */
@@ -67,6 +71,8 @@ class RedirectToFalconProvider implements RedirectToFalconProviderInterface
     }
 
     /**
+     * Get failure url
+     *
      * @param CartInterface $quote
      * @return string
      */
@@ -76,6 +82,8 @@ class RedirectToFalconProvider implements RedirectToFalconProviderInterface
     }
 
     /**
+     * Get paypal return success url
+     *
      * @param CartInterface $quote
      * @return string
      */
@@ -86,6 +94,8 @@ class RedirectToFalconProvider implements RedirectToFalconProviderInterface
     }
 
     /**
+     * Get paypal return cancel url
+     *
      * @param CartInterface $quote
      * @return string
      */

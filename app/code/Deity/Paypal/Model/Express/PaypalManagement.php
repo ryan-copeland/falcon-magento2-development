@@ -130,7 +130,6 @@ class PaypalManagement implements PaypalManagementInterface
         return $this->getCheckout();
     }
 
-
     /**
      * Get Express checkout instance
      *
@@ -221,6 +220,8 @@ class PaypalManagement implements PaypalManagementInterface
     }
 
     /**
+     * Set token
+     *
      * @param string $setToken
      * @throws LocalizedException
      */
@@ -278,7 +279,7 @@ class PaypalManagement implements PaypalManagementInterface
      */
     private function getQuote(): CartInterface
     {
-        if (is_null($this->quote)) {
+        if ($this->quote === null) {
             throw new LocalizedException(__('Quote object is not initialized'));
         }
         return $this->quote;

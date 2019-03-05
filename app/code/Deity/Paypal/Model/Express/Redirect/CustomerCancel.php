@@ -75,7 +75,6 @@ class CustomerCancel implements CustomerCancelInterface
         $this->redirectDataFactory = $redirectDataFactory;
     }
 
-
     /**
      * Process return from paypal gateway
      *

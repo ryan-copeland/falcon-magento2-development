@@ -78,7 +78,6 @@ class CustomerReturn implements CustomerReturnInterface
         $this->redirectDataFactory = $redirectDataFactory;
     }
 
-
     /**
      * Process return from paypal gateway
      *
@@ -87,6 +86,7 @@ class CustomerReturn implements CustomerReturnInterface
      * @param string $payerId
      * @return \Deity\PaypalApi\Api\Data\Express\RedirectDataInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function processReturn(string $cartId, string $token, string $payerId): RedirectDataInterface
     {
