@@ -3,9 +3,12 @@ declare(strict_types=1);
 
 namespace Deity\WishlistApi\Test\Api;
 
+use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Model\CustomerRegistry;
+use Magento\Framework\Registry;
+use Magento\Framework\Webapi\Rest\Request;
 use Magento\Integration\Model\Oauth\Token as TokenModel;
 use Magento\TestFramework\Helper\Bootstrap;
 use Magento\TestFramework\Helper\Customer as CustomerHelper;
@@ -36,6 +39,14 @@ class AddProductToWishlistTest extends WebapiAbstract
      */
     private $customerHelper;
 
+    /** @var \Magento\Framework\ObjectManagerInterface */
+    protected $objectManager;
+
+    /**
+     * @var ProductRepositoryInterface
+     */
+    private $productRepository;
+
     /**
      * @var TokenModel
      */
@@ -50,12 +61,12 @@ class AddProductToWishlistTest extends WebapiAbstract
     {
         $this->_markTestAsRestOnly();
 
-        $this->customerRegistry = Bootstrap::getObjectManager()->get(
-            \Magento\Customer\Model\CustomerRegistry::class
-        );
+        $this->objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
-        $this->customerRepository = Bootstrap::getObjectManager()->get(
-            \Magento\Customer\Api\CustomerRepositoryInterface::class,
+        $this->customerRegistry = $this->objectManager->create(CustomerRegistry::class);
+
+        $this->customerRepository = $this->objectManager->create(
+            CustomerRepositoryInterface::class,
             ['customerRegistry' => $this->customerRegistry]
         );
 
@@ -64,6 +75,8 @@ class AddProductToWishlistTest extends WebapiAbstract
 
         // get token
         $this->resetTokenForCustomerSampleData();
+
+        $this->productRepository = $this->objectManager->create(ProductRepositoryInterface::class);
     }
 
     /**
@@ -72,8 +85,8 @@ class AddProductToWishlistTest extends WebapiAbstract
     public function tearDown()
     {
         if (isset($this->customerData[CustomerInterface::ID])) {
-            /** @var \Magento\Framework\Registry $registry */
-            $registry = Bootstrap::getObjectManager()->get(\Magento\Framework\Registry::class);
+            /** @var Registry $registry */
+            $registry = Bootstrap::getObjectManager()->get(Registry::class);
             $registry->unregister('isSecureArea');
             $registry->register('isSecureArea', true);
             $this->customerRepository->deleteById($this->customerData[CustomerInterface::ID]);
@@ -85,26 +98,56 @@ class AddProductToWishlistTest extends WebapiAbstract
     }
 
     /**
-     * @magentoDataFixture Magento/Catalog/_files/product_simple.php
+     * @magentoDataFixture Magento/Catalog/_files/product_with_image.php
      */
     public function testAddProductToWishlist()
     {
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
-                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_POST,
+                'httpMethod' => Request::HTTP_METHOD_POST,
                 'token' => $this->token,
             ],
         ];
 
+        /** @var \Magento\Catalog\Model\Product $product */
+        $product = $this->productRepository->get('simple');
+
         $requestData = [
             'add_to_wishlist' => [
                 'qty' => 2,
-                'product_id' => 1
+                'product_id' => $product->getEntityId()
             ]
         ];
 
         $response = $this->_webApiCall($serviceInfo, $requestData);
         $this->assertEquals(true, $response);
+    }
+
+    /**
+     * Sets the test's access token for the created customer sample data
+     */
+    protected function resetTokenForCustomerSampleData()
+    {
+        $this->resetTokenForCustomer($this->customerData[CustomerInterface::EMAIL], 'test@123');
+    }
+
+    /**
+     * Sets the test's access token for a particular username and password.
+     *
+     * @param string $username
+     * @param string $password
+     */
+    protected function resetTokenForCustomer($username, $password)
+    {
+        // get customer ID token
+        $serviceInfo = [
+            'rest' => [
+                'resourcePath' => self::RESOURCE_PATH_CUSTOMER_TOKEN,
+                'httpMethod' => Request::HTTP_METHOD_POST,
+            ],
+        ];
+        $requestData = ['username' => $username, 'password' => $password];
+        $this->token = $this->_webApiCall($serviceInfo, $requestData);
     }
 }
