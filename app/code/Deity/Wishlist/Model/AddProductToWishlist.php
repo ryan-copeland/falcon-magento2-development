@@ -8,10 +8,10 @@ use Deity\WishlistApi\Api\AddProductToWishlistInterface;
 use Deity\WishlistApi\Api\Data\WishlistProductRequestInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
+use Magento\Framework\DataObjectFactory;
 use Magento\Framework\Exception\AuthorizationException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Wishlist\Controller\WishlistProviderInterface;
 use Magento\Wishlist\Model\WishlistFactory;
 use Psr\Log\LoggerInterface;
 
@@ -21,17 +21,12 @@ class AddProductToWishlist implements AddProductToWishlistInterface
      * @var CustomerContext
      */
     protected $customerContext;
-
-    /**
-     * @var WishlistProviderInterface
-     */
-    protected $wishlistProvider;
     /**
      * @var ProductRepositoryInterface
      */
     protected $productRepository;
     /**
-     * @var \Magento\Framework\DataObjectFactory
+     * @var DataObjectFactory
      */
     protected $dataObjectFactory;
     /**
@@ -46,22 +41,19 @@ class AddProductToWishlist implements AddProductToWishlistInterface
     /**
      * AddProductToWishlist constructor.
      * @param CustomerContext $customerContext
-     * @param \Magento\Framework\DataObjectFactory $dataObjectFactory
+     * @param DataObjectFactory $dataObjectFactory
      * @param ProductRepositoryInterface $productRepository
      * @param LoggerInterface $logger
      * @param WishlistFactory $wishlistFactory
-     * @param WishlistProviderInterface $wishlistProvider
      */
     public function __construct(
         CustomerContext $customerContext,
-        \Magento\Framework\DataObjectFactory $dataObjectFactory,
+        DataObjectFactory $dataObjectFactory,
         ProductRepositoryInterface $productRepository,
         LoggerInterface $logger,
-        WishlistFactory $wishlistFactory,
-        WishlistProviderInterface $wishlistProvider
+        WishlistFactory $wishlistFactory
     ) {
         $this->customerContext = $customerContext;
-        $this->wishlistProvider = $wishlistProvider;
         $this->productRepository = $productRepository;
         $this->dataObjectFactory = $dataObjectFactory;
         $this->wishlistFactory = $wishlistFactory;
@@ -79,7 +71,7 @@ class AddProductToWishlist implements AddProductToWishlistInterface
     {
         $this->customerContext->checkCustomerContext();
         $customerId = $this->customerContext->getCurrentCustomerId();
-        $wishlist = $this->wishlistFactory->create()->loadByCustomerId($customerId);
+        $wishlist = $this->wishlistFactory->create()->loadByCustomerId($customerId, true);
 
         try {
             /** @var Product $product */
