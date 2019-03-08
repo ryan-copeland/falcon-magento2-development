@@ -10,6 +10,7 @@ use Deity\CatalogApi\Api\Data\FilterOptionInterfaceFactory;
 use Magento\Catalog\Model\Layer;
 use Magento\Catalog\Model\Layer\Filter\AbstractFilter;
 use Magento\Catalog\Model\Layer\Filter\Item;
+use Magento\Framework\Api\SearchCriteriaInterface;
 
 /**
  * Class ProductFilterProvider
@@ -53,7 +54,7 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
     /**
      * @inheritdoc
      */
-    public function getFilterList(Layer $layer): array
+    public function getFilterList(Layer $layer, ?SearchCriteriaInterface $searchCriteria): array
     {
         if (!$layer->getCurrentCategory()->getIsAnchor()) {
             //if category is not marked is_anchor, do not return filter data
