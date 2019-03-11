@@ -7,7 +7,6 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
  * Class CategoryProductListTest
- * 
  * @package Deity\CatalogApi\Test\Api
  */
 class CategoryProductListTest extends WebapiAbstract
