@@ -74,7 +74,7 @@ class FilterOption implements FilterOptionInterface
     }
 
     /**
-     * @return bool
+     * @inheritdoc
      */
     public function getIsSelected(): bool
     {

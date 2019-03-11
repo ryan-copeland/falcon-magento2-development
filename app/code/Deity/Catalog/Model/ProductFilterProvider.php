@@ -74,7 +74,7 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
         $magentoFilters = $this->filterList->getFilters($layer);
         $resultFilters = [];
         foreach ($magentoFilters as $magentoFilter) {
-            if (!$magentoFilter->getItemsCount()) {
+            if (!$magentoFilter->getItemsCount() && !$this->isFilterSelected($magentoFilter)) {
                 continue;
             }
             $filterInitData = [];
@@ -119,7 +119,7 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
      */
     private function processSelectedOptionsForFilter(AbstractFilter $magentoFilter, FilterInterface $filterObject)
     {
-        if (isset($this->filterValues[$filterObject->getCode()])) {
+        if ($this->isFilterSelected($magentoFilter)) {
             foreach ($this->filterValues[$filterObject->getCode()] as $filterValue) {
                 if ($magentoFilter->getRequestVar() == 'cat') {
                     $layer = $magentoFilter->getLayer();
@@ -146,6 +146,17 @@ class ProductFilterProvider implements \Deity\CatalogApi\Api\ProductFilterProvid
                 $filterObject->addOption($filterOption);
             }
         }
+    }
+
+    /**
+     * Check if filter values are selected
+     *
+     * @param AbstractFilter $magentoFilter
+     * @return bool
+     */
+    private function isFilterSelected(AbstractFilter $magentoFilter): bool
+    {
+        return isset($this->filterValues[$magentoFilter->getRequestVar()]);
     }
 
     /**

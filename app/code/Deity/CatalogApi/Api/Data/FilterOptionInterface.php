@@ -37,6 +37,8 @@ interface FilterOptionInterface
     public function getCount(): int;
 
     /**
+     * Get selected flag
+     *
      * @return bool
      */
     public function getIsSelected(): bool;
