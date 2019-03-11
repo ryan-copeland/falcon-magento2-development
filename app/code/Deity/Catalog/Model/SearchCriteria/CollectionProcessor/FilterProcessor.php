@@ -93,7 +93,7 @@ class FilterProcessor implements CollectionProcessorInterface
         }
     }
 
-    /**
+    /**customFilters
      * Return custom filters for field if exists
      *
      * @param string $field
