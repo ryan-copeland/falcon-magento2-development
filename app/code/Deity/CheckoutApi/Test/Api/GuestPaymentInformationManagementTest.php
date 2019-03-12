@@ -75,7 +75,9 @@ class GuestPaymentInformationManagementTest extends WebapiAbstract
         $orderRealId = $orderResponseObject['order_real_id'];
 
         /** @var OrderIdMaskRepositoryInterface $orderIdMaskRepository */
-        $orderIdMaskRepository = $this->objectManager->create(\Deity\SalesApi\Api\OrderIdMaskRepositoryInterface::class);
+        $orderIdMaskRepository = $this->objectManager->create(
+            \Deity\SalesApi\Api\OrderIdMaskRepositoryInterface::class
+        );
 
         $orderIdMask = $orderIdMaskRepository->getByMaskedOrderId($orderId);
         /** @var \Magento\Sales\Model\Order $order */
