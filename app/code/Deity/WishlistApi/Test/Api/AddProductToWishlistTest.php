@@ -98,7 +98,7 @@ class AddProductToWishlistTest extends WebapiAbstract
     }
 
     /**
-     * @magentoDataFixture Magento/Catalog/_files/product_with_image.php
+     * @magentoApiDataFixture Magento/Catalog/_files/product_with_image.php
      */
     public function testAddProductToWishlist()
     {

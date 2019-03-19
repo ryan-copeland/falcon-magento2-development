@@ -4,9 +4,8 @@ declare(strict_types=1);
 namespace Deity\Wishlist\Model\Data;
 
 use Deity\WishlistApi\Api\Data\WishlistProductRequestInterface;
-use Magento\Framework\Model\AbstractExtensibleModel;
 
-class WishlistProductRequest extends AbstractExtensibleModel implements WishlistProductRequestInterface
+class WishlistProductRequest implements WishlistProductRequestInterface
 {
     /**
      * @var int

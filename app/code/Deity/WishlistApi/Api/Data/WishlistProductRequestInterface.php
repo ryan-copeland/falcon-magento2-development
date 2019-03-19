@@ -2,8 +2,6 @@
 
 namespace Deity\WishlistApi\Api\Data;
 
-use Deity\Wishlist\Model\Data\WishlistProductRequest;
-
 interface WishlistProductRequestInterface
 {
     /**
@@ -52,7 +50,7 @@ interface WishlistProductRequestInterface
 
     /**
      * @param array $superAttribute
-     * @return WishlistProductRequest
+     * @return WishlistProductRequestInterface
      */
     public function setSuperAttribute(array $superAttribute);
 

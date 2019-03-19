@@ -10,5 +10,5 @@ interface AddProductToWishlistInterface
      * @param WishlistProductRequestInterface $addToWishlist
      * @return mixed
      */
-    public function addProductToWishlist(WishlistProductRequestInterface $addToWishlist);
+    public function execute(WishlistProductRequestInterface $addToWishlist);
 }

@@ -67,7 +67,7 @@ class AddProductToWishlist implements AddProductToWishlistInterface
      * @return bool
      * @throws AuthorizationException|NoSuchEntityException|LocalizedException
      */
-    public function addProductToWishlist(WishlistProductRequestInterface $addToWishlist)
+    public function execute(WishlistProductRequestInterface $addToWishlist)
     {
         $this->customerContext->checkCustomerContext();
         $customerId = $this->customerContext->getCurrentCustomerId();
