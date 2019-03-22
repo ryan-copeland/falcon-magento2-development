@@ -11,9 +11,6 @@ addons:
   firefox: "46.0"
   hosts:
       - magento2.travis
-services:
-  - rabbitmq
-  - elasticsearch
 language: php
 php:
   - 7.1
@@ -47,9 +44,7 @@ cache:
     - $HOME/node_modules
     - $HOME/yarn.lock
 before_install:
-  - curl -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/2.3.0/elasticsearch-2.3.0.deb && sudo dpkg -i --force-confnew elasticsearch-2.3.0.deb && sudo service elasticsearch restart
   - ./dev/travis/before_install.sh
-  - composer config --global http-basic.repo.magento.com "$MAGENTO_USERNAME" "$MAGENTO_PASSWORD"
 install: composer install --no-interaction
 before_script:
   - /bin/bash ./dev/travis/custom_before_script.sh
