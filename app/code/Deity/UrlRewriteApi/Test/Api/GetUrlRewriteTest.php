@@ -15,7 +15,7 @@ class GetUrlRewriteTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/falcon/urls/:url';
+    private const RESOURCE_PATH = '/V1/falcon/urls/:url';
 
     /**
      * @param $existingUrl

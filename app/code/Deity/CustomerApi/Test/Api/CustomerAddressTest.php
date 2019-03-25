@@ -18,9 +18,9 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class CustomerAddressTest extends WebapiAbstract
 {
-    const RESOURCE_PATH = '/V1/falcon/customers/me/address';
+    private const RESOURCE_PATH = '/V1/falcon/customers/me/address';
 
-    const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
+    private const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
 
     /**
      * @var CustomerRepositoryInterface

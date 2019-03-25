@@ -18,9 +18,9 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class NewsletterTest extends WebapiAbstract
 {
-    const RESOURCE_PATH = '/V1/falcon/customers/me/newsletter';
+    private const RESOURCE_PATH = '/V1/falcon/customers/me/newsletter';
 
-    const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
+    private const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
 
     /**
      * @var Subscriber

@@ -24,7 +24,7 @@ class GuestPaymentInformationManagementTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/falcon/guest-carts/:cartId/save-payment-information-and-order';
+    private const RESOURCE_PATH = '/V1/falcon/guest-carts/:cartId/save-payment-information-and-order';
 
     /**
      * @var ObjectManagerInterface

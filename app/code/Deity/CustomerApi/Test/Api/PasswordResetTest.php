@@ -16,11 +16,11 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class PasswordResetTest extends WebapiAbstract
 {
-    const RESOURCE_PATH = '/V1/falcon/customers';
+    private const RESOURCE_PATH = '/V1/falcon/customers';
 
-    const MAGENTO_CUSTOMER_REST_RESOURCE = '/V1/customers';
+    private const MAGENTO_CUSTOMER_REST_RESOURCE = '/V1/customers';
 
-    const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
+    private const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
 
     /**
      * @var CustomerHelper
