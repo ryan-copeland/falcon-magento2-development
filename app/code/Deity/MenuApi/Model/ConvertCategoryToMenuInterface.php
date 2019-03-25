@@ -13,5 +13,11 @@ use Magento\Catalog\Model\Category;
  */
 interface ConvertCategoryToMenuInterface
 {
+    /**
+     * Convert category object to menu interface
+     *
+     * @param Category $category
+     * @return MenuInterface
+     */
     public function execute(Category $category): MenuInterface;
 }

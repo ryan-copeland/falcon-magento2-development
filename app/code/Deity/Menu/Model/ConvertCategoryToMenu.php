@@ -30,9 +30,13 @@ class ConvertCategoryToMenu implements ConvertCategoryToMenuInterface
         $this->menuFactory = $menuFactory;
     }
 
+
     /**
-     * @inheritdoc
-     */
+    * Convert category object to menu interface
+    *
+    * @param Category $category
+    * @return MenuInterface
+    */
     public function execute(Category $category): MenuInterface
     {
         /** @var MenuInterface $menuItem */
