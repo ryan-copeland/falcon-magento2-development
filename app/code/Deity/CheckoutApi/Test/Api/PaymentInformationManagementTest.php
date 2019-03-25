@@ -18,7 +18,7 @@ class PaymentInformationManagementTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/carts/mine/save-payment-information-and-order';
+    const RESOURCE_PATH = '/V1/falcon/carts/mine/save-payment-information-and-order';
 
     /**
      * @var ObjectManagerInterface

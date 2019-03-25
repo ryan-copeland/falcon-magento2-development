@@ -14,7 +14,7 @@ class GetBreadcrumbsTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/breadcrumbs';
+    const RESOURCE_PATH = '/V1/falcon/breadcrumbs';
 
     /**
      * @param $existingUrl
