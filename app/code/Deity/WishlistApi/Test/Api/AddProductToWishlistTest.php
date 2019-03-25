@@ -11,7 +11,6 @@ use Magento\Framework\Registry;
 use Magento\Framework\Webapi\Rest\Request;
 use Magento\Integration\Model\Oauth\Token as TokenModel;
 use Magento\TestFramework\Helper\Bootstrap;
-use Magento\TestFramework\Helper\Customer as CustomerHelper;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
@@ -20,9 +19,9 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
  */
 class AddProductToWishlistTest extends WebapiAbstract
 {
-    const RESOURCE_PATH = '/V1/wishlists/mine/add-product';
+    const RESOURCE_PATH = '/V1/falcon/wishlists/mine/add-product';
 
-    const RESOURCE_PATH_CUSTOMER_TOKEN = "/V1/integration/customer/token";
+    const RESOURCE_PATH_CUSTOMER_TOKEN = '/V1/integration/customer/token';
 
     /**
      * @var CustomerRepositoryInterface
@@ -33,11 +32,6 @@ class AddProductToWishlistTest extends WebapiAbstract
      * @var CustomerRegistry
      */
     private $customerRegistry;
-
-    /**
-     * @var CustomerHelper
-     */
-    private $customerHelper;
 
     /** @var \Magento\Framework\ObjectManagerInterface */
     protected $objectManager;
@@ -70,12 +64,6 @@ class AddProductToWishlistTest extends WebapiAbstract
             ['customerRegistry' => $this->customerRegistry]
         );
 
-        $this->customerHelper = new CustomerHelper();
-        $this->customerData = $this->customerHelper->createSampleCustomer();
-
-        // get token
-        $this->resetTokenForCustomerSampleData();
-
         $this->productRepository = $this->objectManager->create(ProductRepositoryInterface::class);
     }
 
@@ -99,9 +87,12 @@ class AddProductToWishlistTest extends WebapiAbstract
 
     /**
      * @magentoApiDataFixture Magento/Catalog/_files/product_with_image.php
+     * @magentoApiDataFixture Magento/Customer/_files/customer.php
      */
     public function testAddProductToWishlist()
     {
+        $this->getCustomerAccessToken('customer@example.com', 'password');
+
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
@@ -125,20 +116,12 @@ class AddProductToWishlistTest extends WebapiAbstract
     }
 
     /**
-     * Sets the test's access token for the created customer sample data
-     */
-    protected function resetTokenForCustomerSampleData()
-    {
-        $this->resetTokenForCustomer($this->customerData[CustomerInterface::EMAIL], 'test@123');
-    }
-
-    /**
      * Sets the test's access token for a particular username and password.
      *
      * @param string $username
      * @param string $password
      */
-    protected function resetTokenForCustomer($username, $password)
+    protected function getCustomerAccessToken($username, $password)
     {
         // get customer ID token
         $serviceInfo = [
