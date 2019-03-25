@@ -23,6 +23,7 @@ class ConvertCategoryToMenu implements ConvertCategoryToMenuInterface
 
     /**
      * ConvertCategoryToMenu constructor.
+     *
      * @param MenuInterfaceFactory $menuFactory
      */
     public function __construct(MenuInterfaceFactory $menuFactory)
@@ -30,13 +31,12 @@ class ConvertCategoryToMenu implements ConvertCategoryToMenuInterface
         $this->menuFactory = $menuFactory;
     }
 
-
     /**
-    * Convert category object to menu interface
-    *
-    * @param Category $category
-    * @return MenuInterface
-    */
+     * Convert category object to menu interface
+     *
+     * @param Category $category
+     * @return MenuInterface
+     */
     public function execute(Category $category): MenuInterface
     {
         /** @var MenuInterface $menuItem */
@@ -46,5 +46,4 @@ class ConvertCategoryToMenu implements ConvertCategoryToMenuInterface
         $menuItem->setName($category->getName());
         return $menuItem;
     }
-
 }
