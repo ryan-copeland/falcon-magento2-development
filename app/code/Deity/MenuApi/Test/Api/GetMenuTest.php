@@ -79,4 +79,11 @@ class GetMenuTest extends WebapiAbstract
 
         $this->assertEquals(0, count($categoryWithoutChildren['children']), "Category should have 0 child categories");
     }
+
+
+    public function testNoCategoryDataAvailable()
+    {
+        $menu = $this->getMenu();
+        $this->assertEmpty($menu, 'No data should be returned');
+    }
 }
