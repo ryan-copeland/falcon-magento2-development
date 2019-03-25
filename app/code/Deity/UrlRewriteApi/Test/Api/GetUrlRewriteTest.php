@@ -25,7 +25,7 @@ class GetUrlRewriteTest extends WebapiAbstract
     {
         $serviceInfo = [
             'rest' => [
-                'resourcePath' => str_replace(':url', $existingUrl,  self::RESOURCE_PATH),
+                'resourcePath' => str_replace(':url', $existingUrl, self::RESOURCE_PATH),
                 'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_GET,
             ]
         ];
