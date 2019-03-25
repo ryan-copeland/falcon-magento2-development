@@ -83,12 +83,12 @@ class CustomerReturn implements CustomerReturnInterface
      *
      * @param string $cartId
      * @param string $token
-     * @param string $PayerId
+     * @param string $PayerID
      * @return \Deity\PaypalApi\Api\Data\Express\RedirectDataInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function processReturn(string $cartId, string $token, string $PayerId): RedirectDataInterface
+    public function processReturn(string $cartId, string $token, string $PayerID): RedirectDataInterface
     {
         $quote = $this->cartRepository->getActive($cartId);
         $orderId = '';
@@ -115,11 +115,11 @@ class CustomerReturn implements CustomerReturnInterface
             $orderId = $checkout->getOrder()->getId();
             $orderIncrementId = $checkout->getOrder()->getIncrementId();
         } catch (LocalizedException $e) {
-            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $this->logger->critical('PayPal customer return action: ' . $e->getMessage());
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
             $message = __('Reason: %1', $e->getMessage());
         } catch (\Exception $e) {
-            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $this->logger->critical('PayPal customer return action: ' . $e->getMessage());
             $message = __('Reason: %1', $e->getMessage());
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
         }

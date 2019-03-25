@@ -7,6 +7,7 @@ use Deity\Paypal\Model\Express\PaypalManagementInterface;
 use Deity\PaypalApi\Api\Data\Express\RedirectDataInterface;
 use Deity\PaypalApi\Api\Data\Express\RedirectDataInterfaceFactory;
 use Deity\PaypalApi\Api\Express\GuestReturnInterface;
+use Deity\SalesApi\Api\OrderIdMaskRepositoryInterface;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -69,6 +70,11 @@ class GuestReturn implements GuestReturnInterface
     private $quoteIdMaskResource;
 
     /**
+     * @var OrderIdMaskRepositoryInterface
+     */
+    private $orderIdMaskRepository;
+
+    /**
      * CustomerReturn constructor.
      * @param PaypalManagementInterface $paypalManagement
      * @param CartRepositoryInterface $cartRepository
@@ -76,6 +82,7 @@ class GuestReturn implements GuestReturnInterface
      * @param RedirectDataInterfaceFactory $redirectDataFactory
      * @param QuoteIdMaskFactory $quoteIdMaskFactory
      * @param QuoteIdMaskResource $quoteIdMaskResource
+     * @param OrderIdMaskRepositoryInterface $orderIdMaskRepository
      * @param LoggerInterface $logger
      * @param Url $urlBuilder
      */
@@ -86,9 +93,11 @@ class GuestReturn implements GuestReturnInterface
         RedirectDataInterfaceFactory $redirectDataFactory,
         QuoteIdMaskFactory $quoteIdMaskFactory,
         QuoteIdMaskResource $quoteIdMaskResource,
+        OrderIdMaskRepositoryInterface $orderIdMaskRepository,
         LoggerInterface $logger,
         Url $urlBuilder
     ) {
+        $this->orderIdMaskRepository = $orderIdMaskRepository;
         $this->quoteIdMaskResource = $quoteIdMaskResource;
         $this->quoteIdMaskFactory = $quoteIdMaskFactory;
         $this->logger = $logger;
@@ -104,12 +113,12 @@ class GuestReturn implements GuestReturnInterface
      *
      * @param string $cartId
      * @param string $token
-     * @param string $PayerId
+     * @param string $PayerID
      * @return \Deity\PaypalApi\Api\Data\Express\RedirectDataInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function processReturn(string $cartId, string $token, string $PayerId): RedirectDataInterface
+    public function processReturn(string $cartId, string $token, string $PayerID): RedirectDataInterface
     {
         $quote = $this->cartRepository->getActive($this->getQuoteIdFromMaskedId($cartId));
         $orderId = '';
@@ -134,14 +143,15 @@ class GuestReturn implements GuestReturnInterface
 
             $redirectUrl = $this->redirectToFalconProvider->getSuccessUrl($quote);
             $message = __('Your Order got a number: #%1', $checkout->getOrder()->getIncrementId());
-            $orderId = $checkout->getOrder()->getId();
+            $orderIdMasked = $this->orderIdMaskRepository->get((int)$checkout->getOrder()->getId());
+            $orderId = $orderIdMasked->getMaskedId();
             $orderIncrementId = $checkout->getOrder()->getIncrementId();
         } catch (LocalizedException $e) {
-            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $this->logger->critical('PayPal guest return action: ' . $e->getMessage());
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
             $message = __('Reason: %1', $e->getMessage());
         } catch (\Exception $e) {
-            $this->logger->critical('PayPal Return Action: ' . $e->getMessage());
+            $this->logger->critical('PayPal guest return action: ' . $e->getMessage());
             $message = __('Reason: %1', $e->getMessage());
             $redirectUrl = $this->redirectToFalconProvider->getFailureUrl($quote);
         }
