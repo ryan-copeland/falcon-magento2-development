@@ -207,4 +207,4 @@ Magento/InventoryConfigurableProductIndexer/Indexer
 Magento/InventoryGroupedProductIndexer/Indexer
 setup
 app/etc
-app/code/Deity
+app/code/Magento
