@@ -11,7 +11,7 @@ Make sure you have your access keys ready for  `repo.magento.com` and `github`.
 
 ### Prerequisites
 
-Deity Magento module is compatible with magento version 2.2. CE and EE versions. 
+Deity Magento module is compatible with magento version 2.2+ CE and EE versions. 
 Full scale support of versions 2.0.* and 2.1.* is not our priority.
 However if you encounter an issue running with magento version lower than 2.2 feel free
 to open an issue or reach out to our support channel.

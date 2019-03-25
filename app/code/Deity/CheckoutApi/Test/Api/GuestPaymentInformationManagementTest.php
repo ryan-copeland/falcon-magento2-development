@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Deity\CheckoutApi\Test\Api;
 
+use Deity\SalesApi\Api\OrderIdMaskRepositoryInterface;
 use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Api\SearchCriteriaBuilderFactory;
 use Magento\Framework\App\Config;
+use Magento\Framework\ObjectManagerInterface;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartSearchResultsInterface;
 use Magento\Quote\Model\QuoteIdToMaskedQuoteIdInterface;
@@ -22,7 +24,7 @@ class GuestPaymentInformationManagementTest extends WebapiAbstract
     /**
      * Service constants
      */
-    const RESOURCE_PATH = '/V1/guest-carts/:cartId/save-payment-information-and-order';
+    private const RESOURCE_PATH = '/V1/falcon/guest-carts/:cartId/save-payment-information-and-order';
 
     /**
      * @var ObjectManagerInterface
@@ -73,8 +75,14 @@ class GuestPaymentInformationManagementTest extends WebapiAbstract
         $orderId = $orderResponseObject['order_id'];
         $orderRealId = $orderResponseObject['order_real_id'];
 
+        /** @var OrderIdMaskRepositoryInterface $orderIdMaskRepository */
+        $orderIdMaskRepository = $this->objectManager->create(
+            \Deity\SalesApi\Api\OrderIdMaskRepositoryInterface::class
+        );
+
+        $orderIdMask = $orderIdMaskRepository->getByMaskedOrderId($orderId);
         /** @var \Magento\Sales\Model\Order $order */
-        $order = $this->objectManager->create(\Magento\Sales\Model\Order::class)->load($orderId);
+        $order = $this->objectManager->create(\Magento\Sales\Model\Order::class)->load($orderIdMask->getOrderId());
         $items = $order->getAllItems();
         $this->assertCount(1, $items, 'order should have exactly one item');
         $this->assertEquals($orderRealId, $order->getIncrementId(), 'Order increment_id should match');
