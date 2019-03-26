@@ -43,7 +43,6 @@ class ConvertCategoryToMenu implements ConvertCategoryToMenuInterface
         $menuItem = $this->menuFactory->create();
         $menuItem->setId((int)$category->getId());
         $menuItem->setUrlPath((string)$category->getRequestPath());
-        $menuItem->setUrlPath((string)'');
         $menuItem->setName((string)$category->getName());
 
         return $menuItem;
