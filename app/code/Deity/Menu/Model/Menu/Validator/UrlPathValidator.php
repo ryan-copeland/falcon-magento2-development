@@ -23,13 +23,13 @@ class UrlPathValidator implements MenuValidatorInterface
 
     /**
      * UrlPathValidator constructor.
+     *
      * @param ValidationResultFactory $validationResultFactory
      */
     public function __construct(ValidationResultFactory $validationResultFactory)
     {
         $this->validationResultFactory = $validationResultFactory;
     }
-
 
     /**
      * Validate given menu interface
@@ -41,11 +41,13 @@ class UrlPathValidator implements MenuValidatorInterface
     {
         $errors = [];
         if ('' === trim($menu->getUrlPath())) {
-            $errors[] = __('Menu item for category "%categoryId": "%field" can not be empty.',
+            $errors[] = __(
+                'Menu item for category "%categoryId": "%field" can not be empty.',
                 [
                     'categoryId' => $menu->getId(),
                     'field' => MenuInterface::URL_PATH
-                ]);
+                ]
+            );
         }
 
         return $this->validationResultFactory->create(['errors' => $errors]);

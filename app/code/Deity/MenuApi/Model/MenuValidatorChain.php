@@ -36,7 +36,7 @@ class MenuValidatorChain implements MenuValidatorInterface
     {
         $this->validationResultFactory = $validationResultFactory;
 
-        foreach ($validators  as $validator) {
+        foreach ($validators as $validator) {
             if (!$validator instanceof MenuValidatorInterface) {
                 throw new LocalizedException(
                     __('Menu Validator must implement MenuValidatorInterface.')
@@ -45,7 +45,6 @@ class MenuValidatorChain implements MenuValidatorInterface
         }
         $this->validators = $validators;
     }
-
 
     /**
      * Validate given menu interface
