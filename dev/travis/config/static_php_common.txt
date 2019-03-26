@@ -11,3 +11,4 @@ app/code/Deity/Sales*
 app/code/Deity/Store*
 app/code/Deity/Theme*
 app/code/Deity/UrlRewrite*
+app/code/Deity/Wishlist*
