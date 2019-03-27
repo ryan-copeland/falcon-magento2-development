@@ -15,7 +15,7 @@ case $TEST_SUITE in
         cd dev/tests/api-functional
 
         sed -e "s?magento.url?${MAGENTO_HOST_NAME}?g" --in-place ./phpunit.xml
-        mv config/install-config-mysql.travis.php.dist qconfig/install-config-mysql.php
+        mv config/install-config-mysql.travis.php.dist config/install-config-mysql.php
 
         echo "==> testsuite preparation complete"
 
