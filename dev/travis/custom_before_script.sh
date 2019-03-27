@@ -14,6 +14,11 @@ case $TEST_SUITE in
             SET @@global.sql_mode = NO_ENGINE_SUBSTITUTION;
             CREATE DATABASE magento_integration_tests;
         '
+        mysql -uroot -e '
+            SET @@global.sql_mode = NO_ENGINE_SUBSTITUTION;
+            SHOW DATABASES;
+        '
+
 
         sed -e "s?magento.url?${MAGENTO_HOST_NAME}?g" --in-place ./phpunit.xml
         mv config/install-config-mysql.travis.php.dist config/install-config-mysql.php
