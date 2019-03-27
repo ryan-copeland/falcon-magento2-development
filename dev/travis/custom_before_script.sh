@@ -6,7 +6,7 @@ trap '>&2 echo Error: Command \`$BASH_COMMAND\` on line $LINENO failed with exit
 case $TEST_SUITE in
     api-functional)
         echo "Installing Magento"
-        mysql -uroot -e 'CREATE DATABASE magento2;'
+        mysql -uroot -e 'CREATE DATABASE magento_functional_tests;'
         php bin/magento setup:install -q \
             --language="en_US" \
             --timezone="UTC" \
@@ -31,7 +31,7 @@ case $TEST_SUITE in
         mv config/install-config-mysql.travis.php.dist config/install-config-mysql.php
 
         echo "==> testsuite preparation complete"
-        
+
         cd ../../..
         ;;
 esac
