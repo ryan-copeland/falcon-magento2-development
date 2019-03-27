@@ -21,15 +21,17 @@ case $TEST_SUITE in
             --admin-use-security-key=0 \
             --admin-password="123123q"
 
+        echo "Enabling production mode"
+        php bin/magento deploy:mode:set production
+
         echo "Prepare api-functional tests for running"
         cd dev/tests/api-functional
 
         sed -e "s?magento.url?${MAGENTO_HOST_NAME}?g" --in-place ./phpunit.xml
         mv config/install-config-mysql.travis.php.dist config/install-config-mysql.php
 
-        echo "Enabling production mode"
-        php bin/magento deploy:mode:set production
-
         echo "==> testsuite preparation complete"
+        
+        cd ../../..
         ;;
 esac
