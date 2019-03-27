@@ -16,7 +16,7 @@ services:
   - elasticsearch
 language: php
 php:
-  #- 7.1
+  - 7.1
   - 7.2
 env:
   global:
@@ -25,9 +25,9 @@ env:
     - NODE_JS_VERSION=8
     - MAGENTO_HOST_NAME="magento2.travis"
   matrix:
-   # - TEST_SUITE=unit
-   # - TEST_SUITE=static
-   # - TEST_SUITE=integration
+    - TEST_SUITE=unit
+    - TEST_SUITE=static
+    - TEST_SUITE=integration
     - TEST_SUITE=api-functional
 matrix:
   exclude:
