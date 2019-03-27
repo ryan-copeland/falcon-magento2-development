@@ -271,10 +271,11 @@ class CategoryProductListTest extends WebapiAbstract
         $response = $this->_webApiCall($serviceInfo);
 
         $this->assertEquals(1, count($response['filters']), 'At least one facet expected');
+        
         foreach ($response['filters'] as $filter) {
             if ($filter['code'] == 'filterable_attribute') {
                 foreach ($filter['options'] as $option) {
-                    if ($option['value'] === $testOption->getValue()) {
+                    if ($option['value'] === (int)$testOption->getValue()) {
                         $this->assertEquals(true, $option['is_selected'], 'Filter option should be marked selected');
                     }
                 }
