@@ -111,7 +111,3 @@ $categoryLinkManagement->assignProductToCategories(
     $product->getSku(),
     [4]
 );
-
-/** @var \Magento\UrlRewrite\Model\StorageInterface $urlRepository */
-$urlRepository = $objectManager->create(\Magento\UrlRewrite\Model\StorageInterface::class);
-$data = $urlRepository->findAllByData([]);
