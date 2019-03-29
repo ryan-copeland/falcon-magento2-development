@@ -6,6 +6,9 @@ stages:
 packagist:
   stage: release
   before_script:
+  - echo "deb [check-valid-until=no] http://archive.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list
+  - sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list
+  - apt-get -o Acquire::Check-Valid-Until=false update
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
   - eval $(ssh-agent -s)
   - echo "$GIT_SSH_PRIV_KEY" | tr -d '\r' | ssh-add - > /dev/null
