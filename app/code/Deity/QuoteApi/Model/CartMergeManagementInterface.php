@@ -21,13 +21,4 @@ interface CartMergeManagementInterface
      * @return bool
      */
     public function mergeGuestAndCustomerQuotes(string $guestQuoteId, CartInterface $customerQuote): bool;
-
-    /**
-     * Convert guest quote to customer quote
-     *
-     * @param string $guestQuoteId
-     * @param CustomerInterface $customer
-     * @return bool
-     */
-    public function convertGuestCart(string $guestQuoteId, CustomerInterface $customer): bool;
 }

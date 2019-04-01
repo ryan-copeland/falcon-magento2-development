@@ -67,36 +67,20 @@ class CartMergeManagement implements CartMergeManagementInterface
      * @param string $guestQuoteId
      * @param CartInterface $customerQuote
      * @return bool
-     * @throws LocalizedException
-     * @throws NoSuchEntityException
      */
     public function mergeGuestAndCustomerQuotes(string $guestQuoteId, CartInterface $customerQuote): bool
     {
-        $guestCart = $this->getGuestCart($guestQuoteId);
-        $customerQuote->merge($guestCart);
-        $this->cartRepository->save($customerQuote);
+        try {
+            $guestCart = $this->getGuestCart($guestQuoteId);
+            $customerQuote->merge($guestCart);
 
-        $this->cartRepository->delete($guestCart);
 
-        return true;
-    }
-
-    /**
-     * Convert guest quote to customer quote
-     *
-     * @param string $guestQuoteId
-     * @param CustomerInterface $customer
-     * @return bool
-     * @throws NoSuchEntityException
-     */
-    public function convertGuestCart(string $guestQuoteId, CustomerInterface $customer): bool
-    {
-        /** @var CartInterface $guestQuote */
-        $guestQuote = $this->getGuestCart($guestQuoteId);
-        $guestQuote->assignCustomer($customer);
-        $guestQuote->setCheckoutMethod(null);
-
-        $this->cartRepository->save($guestQuote);
+            $this->cartRepository->delete($guestCart);
+        } catch (NoSuchEntityException $e) {
+            //if given quote hash doesn't exist do nothing
+        } finally {
+            $this->cartRepository->save($customerQuote);
+        }
 
         return true;
     }
