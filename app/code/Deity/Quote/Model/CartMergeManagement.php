@@ -73,8 +73,7 @@ class CartMergeManagement implements CartMergeManagementInterface
         try {
             $guestCart = $this->getGuestCart($guestQuoteId);
             $customerQuote->merge($guestCart);
-
-
+            
             $this->cartRepository->delete($guestCart);
         } catch (NoSuchEntityException $e) {
             //if given quote hash doesn't exist do nothing
