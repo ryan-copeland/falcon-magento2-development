@@ -68,8 +68,7 @@ class CreateCustomerCart implements CreateCustomerCartInterface
         $this->quoteFactory = $quoteFactory;
         $this->customerRepository = $customerRepository;
     }
-
-
+    
     /**
      * Get cart for customer
      *
