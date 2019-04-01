@@ -41,7 +41,7 @@ class AccountManagement
     }
 
     /**
-     * Plugin around creaateAccountWithPasswordHash function
+     * Plugin around createAccountWithPasswordHash function
      *
      * @param AccountManagementInterface $subject
      * @param callable $proceed
