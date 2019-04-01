@@ -6,4 +6,8 @@
     <type name="Magento\Quote\Api\CartItemRepositoryInterface">
         <plugin name="deity_quote_item_repository" type="Deity\Quote\Plugin\Model\Cart\ItemRepository" />
     </type>
+
+    <type name="Magento\Customer\Api\AccountManagementInterface">
+        <plugin name="mergeCartAfterRegistering" type="Deity\Quote\Plugin\Customer\Api\AccountManagement" />
+    </type>
 </config>

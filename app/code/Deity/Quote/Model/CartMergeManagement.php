@@ -1,53 +1,63 @@
 <?php
 declare(strict_types=1);
 
-namespace Deity\MagentoApi\Model;
+namespace Deity\Quote\Model;
 
+use Deity\QuoteApi\Model\CartMergeManagementInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\CartInterface;
-use Magento\Quote\Model\Quote;
+use Magento\Quote\Model\QuoteIdMask;
 use Magento\Quote\Model\QuoteIdMaskFactory;
-use Psr\Log\LoggerInterface;
+use Magento\Quote\Model\ResourceModel\Quote\QuoteIdMask as QuoteIdMaskResource;
 
 /**
  * Handle merging guest and customer quote when signing up and signing in
  *
- * @package Deity\MagentoApi\Model
+ * @package Deity\Quote\Model
  */
-class MergeManagement
+class CartMergeManagement implements CartMergeManagementInterface
 {
-    /** @var QuoteIdMaskFactory */
+    /**
+     * @var QuoteIdMaskFactory
+     */
     private $quoteIdMaskFactory;
 
-    /** @var CartRepositoryInterface */
-    private $cartRepository;
-
-    /** @var CustomerRepositoryInterface */
-    private $customerRepository;
-
-    /** @var LoggerInterface */
-    private $logger;
+    /**
+     * @var QuoteIdMaskResource
+     */
+    private $quoteIdMaskResource;
 
     /**
-     * MergeManagement constructor.
+     * @var CartRepositoryInterface
+     */
+    private $cartRepository;
+
+    /**
+     * @var CustomerRepositoryInterface
+     */
+    private $customerRepository;
+
+    /**
+     * CartMergeManagement constructor.
+     *
      * @param QuoteIdMaskFactory $quoteIdMaskFactory
      * @param CartRepositoryInterface $cartRepository
      * @param CustomerRepositoryInterface $customerRepository
-     * @param LoggerInterface $logger
+     * @param QuoteIdMaskResource $quoteIdMaskResource
      */
     public function __construct(
         QuoteIdMaskFactory $quoteIdMaskFactory,
         CartRepositoryInterface $cartRepository,
         CustomerRepositoryInterface $customerRepository,
-        LoggerInterface $logger
+        QuoteIdMaskResource $quoteIdMaskResource
     ) {
+        $this->quoteIdMaskResource = $quoteIdMaskResource;
         $this->quoteIdMaskFactory = $quoteIdMaskFactory;
         $this->cartRepository = $cartRepository;
-        $this->logger = $logger;
         $this->customerRepository = $customerRepository;
     }
 
@@ -55,23 +65,18 @@ class MergeManagement
      * Merge guest quote to customer or convert guest quote if customer does not have active one
      *
      * @param string $guestQuoteId
-     * @param string $username
+     * @param CartInterface $customerQuote
      * @return bool
      * @throws LocalizedException
      * @throws NoSuchEntityException
      */
-    public function mergeGuestAndCustomerQuotes(string $guestQuoteId, string $username): bool
+    public function mergeGuestAndCustomerQuotes(string $guestQuoteId, CartInterface $customerQuote): bool
     {
-        $customerCart = $this->getCustomerCart($username);
-        if ($customerCart) {
-            $guestCart = $this->getGuestCart($guestQuoteId);
-            $customerCart->merge($guestCart);
-            $this->cartRepository->save($customerCart);
-        } else {
-            //no active quote for logged in customer, convert guest to registered
-            $customer = $this->customerRepository->get($username);
-            $this->convertGuestCart($guestQuoteId, $customer);
-        }
+        $guestCart = $this->getGuestCart($guestQuoteId);
+        $customerQuote->merge($guestCart);
+        $this->cartRepository->save($customerQuote);
+
+        $this->cartRepository->delete($guestCart);
 
         return true;
     }
@@ -86,9 +91,11 @@ class MergeManagement
      */
     public function convertGuestCart(string $guestQuoteId, CustomerInterface $customer): bool
     {
+        /** @var CartInterface $guestQuote */
         $guestQuote = $this->getGuestCart($guestQuoteId);
         $guestQuote->assignCustomer($customer);
         $guestQuote->setCheckoutMethod(null);
+
         $this->cartRepository->save($guestQuote);
 
         return true;
@@ -98,39 +105,16 @@ class MergeManagement
      * Get provided guest quote
      *
      * @param string $guestQuoteId
-     * @return Quote|CartInterface
+     * @return CartInterface
      * @throws NoSuchEntityException
      */
-    private function getGuestCart(string $guestQuoteId)
+    private function getGuestCart(string $guestQuoteId): CartInterface
     {
         /** @var QuoteIdMask $quoteIdMask */
         $quoteIdMask = $this->quoteIdMaskFactory->create();
-        $quoteIdMask->load($guestQuoteId, 'masked_id');
+        $this->quoteIdMaskResource->load($quoteIdMask, $guestQuoteId, 'masked_id');
         $guestCart = $this->cartRepository->getActive($quoteIdMask->getQuoteId());
 
         return $guestCart;
-    }
-
-    /**
-     * Get active logged in customer quote
-     *
-     * @param string $username
-     * @return Quote|CartInterface|null
-     */
-    private function getCustomerCart(string $username)
-    {
-        try {
-            $customerCart = null;
-
-            /** @var CustomerInterface $customer */
-            $customer = $this->customerRepository->get($username);
-            $customerCart = $this->cartRepository->getActiveForCustomer($customer->getId());
-        } catch (NoSuchEntityException $e) {
-            //all ok, registered customer did not have active quote
-        } catch (\Exception $e) {
-            $this->logger->critical($e);
-        }
-
-        return $customerCart;
     }
 }
