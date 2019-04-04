@@ -1,7 +1,9 @@
 # Deity MagentoApi development
 [![Build Status](https://travis-ci.org/deity-io/falcon-magento2-development.svg?branch=develop)](https://travis-ci.org/deity-io/falcon-magento2-development)
 <br/>
-Dedicated module repo: https://github.com/deity-io/falcon-magento2-module.
+Dedicated module repo: https://github.com/deity-io/falcon-magento2-module.<br/>
+
+[Magento 2.2](https://github.com/deity-io/falcon-magento2-development/tree/develop-m2.2) [![Build Status](https://travis-ci.org/deity-io/falcon-magento2-development.svg?branch=develop-m2.2)](https://travis-ci.org/deity-io/falcon-magento2-development)
 
 This repository is for module development.
 
