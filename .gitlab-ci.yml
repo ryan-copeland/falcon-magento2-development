@@ -13,7 +13,7 @@ packagist:
   - eval $(ssh-agent -s)
   - echo "$GIT_SSH_PRIV_KEY" | tr -d '\r' | ssh-add - > /dev/null
   - git config --global user.email "sergii@deity.io"
-  - git config --global user.name "Sergii Gzh"
+  - git config --global user.name "Sergii Gozhedrianov"
   - mkdir -p ~/.ssh
   - chmod 700 ~/.ssh
   - ssh-keyscan github.com >> ~/.ssh/known_hosts
@@ -37,9 +37,19 @@ packagist:
   - rm -fr falcon-magento2-module/src/*
   - cp -r app/code/Deity/ falcon-magento2-module/src/
   - cd falcon-magento2-module
-  - git add src
-  - git commit -m "$CI_COMMIT_MESSAGE"
-  - git push origin $BRANCH_NAME
+  - if [`git status --porcelain | wc -l` != 0]; then
+    git add src
+    git commit -m "$CI_COMMIT_MESSAGE"
+    git push origin $BRANCH_NAME
+    fi;
+  - git clone -b develop-m2.2 --single-branch git@github.com:deity-io/falcon-magento2-development.git m22
+  - rm -fr m22/app/code/Deity
+  - cp -r app/code/Deity m22/app/code/
+  - cd m22
+  - if [`git status --porcelain | wc -l` != 0]; then
+    git add src
+    git commit -m "$CI_COMMIT_MESSAGE"
+    git push origin develop-m2.2
+    fi;
   only:
-  - master
-  - develop
+    - develop
