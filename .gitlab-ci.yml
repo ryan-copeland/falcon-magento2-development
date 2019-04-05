@@ -53,7 +53,7 @@ packagist:
   - cp dev/travis/config/static_php_common.txt m22/dev/travis/config/static_php_common.txt
   - cd m22
   - if [ `git status --porcelain | wc -l` -ne 0 ]; then
-    echo "sync changes to m2.2 branch"
+    echo "sync changes to m2.2 branch";
     git add src;
     git commit -m "$CI_COMMIT_MESSAGE";
     git push origin develop-m2.2;
