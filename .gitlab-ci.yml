@@ -37,7 +37,7 @@ packagist:
   - rm -fr falcon-magento2-module/src/*
   - cp -r app/code/Deity/ falcon-magento2-module/src/
   - cd falcon-magento2-module
-  - if [ `git status --porcelain | wc -l` ]; then
+  - if [ `git status --porcelain | wc -l` -ne 0 ]; then
     git add src;
     git commit -m "$CI_COMMIT_MESSAGE";
     git push origin $BRANCH_NAME;
@@ -46,7 +46,7 @@ packagist:
   - rm -fr m22/app/code/Deity
   - cp -r app/code/Deity m22/app/code/
   - cd m22
-  - if [ `git status --porcelain | wc -l` ]; then
+  - if [ `git status --porcelain | wc -l` -ne 0 ]; then
     git add src;
     git commit -m "$CI_COMMIT_MESSAGE";
     git push origin develop-m2.2;
