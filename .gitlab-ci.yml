@@ -11,7 +11,6 @@ packagist:
   - apt-get -o Acquire::Check-Valid-Until=false update
   - 'which ssh-agent || ( apt-get install openssh-client git -y )'
   - eval $(ssh-agent -s)
-  - echo "$GIT_DEV_REPO" | tr -d '\r' | ssh-add - > /dev/null
   - git config --global user.email "sergii@deity.io"
   - git config --global user.name "Sergii Gozhedrianov"
   - mkdir -p ~/.ssh
@@ -38,6 +37,7 @@ packagist:
   - cp -r app/code/Deity/ falcon-magento2-module/src/
   - cd falcon-magento2-module
   - if [ `git status --porcelain | wc -l` -ne 0 ]; then
+    echo "$GIT_SSH_PRIV_KEY" | tr -d '\r' | ssh-add - > /dev/null;
     echo "sync changes to module repo";
     git add src;
     git commit -m "$CI_COMMIT_MESSAGE";
@@ -52,7 +52,9 @@ packagist:
   - cp dev/tests/static/testsuite/Magento/Test/Php/_files/whitelist/common.txt m22/dev/tests/static/testsuite/Magento/Test/Php/_files/whitelist/common.txt
   - cp dev/travis/config/static_php_common.txt m22/dev/travis/config/static_php_common.txt
   - cd m22
+  - git config core.fileMode false
   - if [ `git status --porcelain | wc -l` -ne 0 ]; then
+    echo "$GIT_DEV_REPO" | tr -d '\r' | ssh-add - > /dev/null;
     echo "sync changes to m2.2 branch";
     git add . ;
     git commit -m "$CI_COMMIT_MESSAGE";
