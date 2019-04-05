@@ -127,7 +127,6 @@ class GuestPaymentInformationManagementTest extends WebapiAbstract
         /** @var QuoteIdMask $quoteIdMask */
         $quoteIdMask = $quoteIdMaskFactory->create();
 
-
         $quoteIdMaskResource->load($quoteIdMask, $testQuoteId, 'quote_id');
         return $quoteIdMask->getMaskedId();
     }
