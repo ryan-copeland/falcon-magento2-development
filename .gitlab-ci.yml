@@ -44,7 +44,7 @@ packagist:
     fi;
   - git clone -b develop-m2.2 --single-branch git@github.com:deity-io/falcon-magento2-development.git m22
   - rm -fr m22/app/code/Deity
-  - cp -r app/code/Deity m22/app/code/
+  - cp -r app/code/Deity/ m22/app/code/
   - cd m22
   - if [ `git status --porcelain | wc -l` -ne 0 ]; then
     git add src;
