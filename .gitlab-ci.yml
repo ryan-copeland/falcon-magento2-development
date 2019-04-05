@@ -47,6 +47,7 @@ packagist:
     fi;
   - cd ../
   - ssh-add -l
+  - ssh-add -D
   - echo "$GIT_DEV_REPO" | tr -d '\r' | ssh-add - > /dev/null
   - ssh-add -l
   - git clone -b develop-m2.2 --single-branch git@github.com:deity-io/falcon-magento2-development.git m22
