@@ -12,7 +12,7 @@ packagist:
   - 'which ssh-agent || ( apt-get install openssh-client git -y )'
   - eval $(ssh-agent -s)
   - echo "$GIT_SSH_PRIV_KEY" | tr -d '\r' | ssh-add - > /dev/null
-  - echo "GIT_DEV_REPO" | tr -d '\r' | ssh-add - > /dev/null
+  - echo "$GIT_DEV_REPO" | tr -d '\r' | ssh-add - > /dev/null
   - git config --global user.email "sergii@deity.io"
   - git config --global user.name "Sergii Gozhedrianov"
   - mkdir -p ~/.ssh
