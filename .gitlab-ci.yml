@@ -12,6 +12,7 @@ packagist:
   - 'which ssh-agent || ( apt-get install openssh-client git -y )'
   - eval $(ssh-agent -s)
   - echo "$GIT_SSH_PRIV_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - echo "GIT_DEV_REPO" | tr -d '\r' | ssh-add - > /dev/null
   - git config --global user.email "sergii@deity.io"
   - git config --global user.name "Sergii Gozhedrianov"
   - mkdir -p ~/.ssh
@@ -33,6 +34,7 @@ packagist:
       "   From working dir $CI_PROJECT_DIR\n    Out Image ${IMAGE_TAG}\n    Building tag $CI_BUILD_REF_NAME\n    --------\n\n\033[0m"
 
   script:
+  - git config core.fileMode false
   - git clone -b $BRANCH_NAME --single-branch git@github.com:deity-io/falcon-magento2-module.git
   - rm -fr falcon-magento2-module/src/*
   - cp -r app/code/Deity/ falcon-magento2-module/src/
