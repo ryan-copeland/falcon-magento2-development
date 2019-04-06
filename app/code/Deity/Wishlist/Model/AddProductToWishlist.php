@@ -63,32 +63,26 @@ class AddProductToWishlist implements AddProductToWishlistInterface
     /**
      * Add product to customer wishlist.
      *
+     * @param int $customerId
      * @param WishlistProductRequestInterface $addToWishlist
      * @return bool
      * @throws AuthorizationException|NoSuchEntityException|LocalizedException
      */
-    public function execute(WishlistProductRequestInterface $addToWishlist)
+    public function execute(int $customerId, WishlistProductRequestInterface $addToWishlist): bool
     {
-        $this->customerContext->checkCustomerContext();
-        $customerId = $this->customerContext->getCurrentCustomerId();
         $wishlist = $this->wishlistFactory->create()->loadByCustomerId($customerId, true);
 
-        try {
-            /** @var Product $product */
-            $product = $this->productRepository->getById($addToWishlist->getProductId());
-            $buyRequest = $this->dataObjectFactory->create();
-            $buyRequest->setData('product', $addToWishlist->getProductId())
-                ->setData('qty', $addToWishlist->getQty());
+        /** @var Product $product */
+        $product = $this->productRepository->getById($addToWishlist->getProductId());
+        $buyRequest = $this->dataObjectFactory->create();
+        $buyRequest->setData('product', $addToWishlist->getProductId())
+            ->setData('qty', $addToWishlist->getQty());
 
-            if (!empty($addToWishlist->getSuperAttribute())) {
-                $buyRequest->setData('super_attribute', $addToWishlist->getSuperAttribute());
-            }
-
-            $wishlist->addNewItem($product, $buyRequest);
-        } catch (NoSuchEntityException | LocalizedException $e) {
-            $this->logger->error($e);
-            return false;
+        if (!empty($addToWishlist->getSuperAttribute())) {
+            $buyRequest->setData('super_attribute', $addToWishlist->getSuperAttribute());
         }
+
+        $wishlist->addNewItem($product, $buyRequest);
 
         return true;
     }

@@ -42,9 +42,9 @@ class WishlistProductRequest implements WishlistProductRequestInterface
 
     /**
      * @param int $customerId
-     * @return WishlistProductRequest
+     * @return WishlistProductRequestInterface
      */
-    public function setCustomerId($customerId)
+    public function setCustomerId(int $customerId)
     {
         $this->customerId = $customerId;
         return $this;
@@ -60,9 +60,9 @@ class WishlistProductRequest implements WishlistProductRequestInterface
 
     /**
      * @param int $productId
-     * @return WishlistProductRequest
+     * @return WishlistProductRequestInterface
      */
-    public function setProductId($productId)
+    public function setProductId(int $productId)
     {
         $this->productId = $productId;
         return $this;
@@ -78,9 +78,9 @@ class WishlistProductRequest implements WishlistProductRequestInterface
 
     /**
      * @param int $wishlistId
-     * @return WishlistProductRequest
+     * @return WishlistProductRequestInterface
      */
-    public function setWishlistId($wishlistId)
+    public function setWishlistId(int $wishlistId)
     {
         $this->wishlistId = $wishlistId;
         return $this;
@@ -96,7 +96,7 @@ class WishlistProductRequest implements WishlistProductRequestInterface
 
     /**
      * @param int $qty
-     * @return WishlistProductRequest
+     * @return WishlistProductRequestInterface
      */
     public function setQty(int $qty)
     {
@@ -105,7 +105,7 @@ class WishlistProductRequest implements WishlistProductRequestInterface
     }
 
     /**
-     * @return mixed|null
+     * @return mixed
      */
     public function getSuperAttribute()
     {
@@ -113,10 +113,10 @@ class WishlistProductRequest implements WishlistProductRequestInterface
     }
 
     /**
-     * @param array $superAttributes
-     * @return WishlistProductRequest
+     * @param mixed $superAttributes
+     * @return WishlistProductRequestInterface
      */
-    public function setSuperAttribute(array $superAttribute)
+    public function setSuperAttribute($superAttribute)
     {
         $this->superAttribute = $superAttribute;
         return $this;

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Deity\WishlistApi\Api;
 
@@ -7,8 +8,9 @@ use Deity\WishlistApi\Api\Data\WishlistProductRequestInterface;
 interface AddProductToWishlistInterface
 {
     /**
+     * @param int $customerId
      * @param WishlistProductRequestInterface $addToWishlist
-     * @return mixed
+     * @return bool
      */
-    public function execute(WishlistProductRequestInterface $addToWishlist);
+    public function execute(int $customerId, WishlistProductRequestInterface $addToWishlist): bool;
 }

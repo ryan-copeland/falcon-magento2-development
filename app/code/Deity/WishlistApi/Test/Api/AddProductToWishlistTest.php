@@ -11,6 +11,7 @@ use Magento\Framework\Registry;
 use Magento\Framework\Webapi\Rest\Request;
 use Magento\Integration\Model\Oauth\Token as TokenModel;
 use Magento\TestFramework\Helper\Bootstrap;
+use Magento\TestFramework\Helper\Customer as CustomerHelper;
 use Magento\TestFramework\TestCase\WebapiAbstract;
 
 /**
@@ -50,6 +51,10 @@ class AddProductToWishlistTest extends WebapiAbstract
      * @var CustomerInterface
      */
     private $customerData;
+    /**
+     * @var CustomerHelper
+     */
+    private $customerHelper;
 
     public function setUp()
     {
@@ -57,7 +62,13 @@ class AddProductToWishlistTest extends WebapiAbstract
 
         $this->objectManager = \Magento\TestFramework\Helper\Bootstrap::getObjectManager();
 
+        $this->customerHelper = new CustomerHelper();
+        $this->customerData = $this->customerHelper->createSampleCustomer();
+
         $this->customerRegistry = $this->objectManager->create(CustomerRegistry::class);
+
+        // get token
+        $this->resetTokenForCustomerSampleData();
 
         $this->customerRepository = $this->objectManager->create(
             CustomerRepositoryInterface::class,
@@ -87,12 +98,9 @@ class AddProductToWishlistTest extends WebapiAbstract
 
     /**
      * @magentoApiDataFixture Magento/Catalog/_files/product_with_image.php
-     * @magentoApiDataFixture Magento/Customer/_files/customer.php
      */
     public function testAddProductToWishlist()
     {
-        $this->getCustomerAccessToken('customer@example.com', 'password');
-
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH,
@@ -116,18 +124,26 @@ class AddProductToWishlistTest extends WebapiAbstract
     }
 
     /**
+     * Sets the test's access token for the created customer sample data
+     */
+    protected function resetTokenForCustomerSampleData()
+    {
+        $this->resetTokenForCustomer($this->customerData[CustomerInterface::EMAIL], 'test@123');
+    }
+
+    /**
      * Sets the test's access token for a particular username and password.
      *
      * @param string $username
      * @param string $password
      */
-    protected function getCustomerAccessToken($username, $password)
+    protected function resetTokenForCustomer($username, $password)
     {
         // get customer ID token
         $serviceInfo = [
             'rest' => [
                 'resourcePath' => self::RESOURCE_PATH_CUSTOMER_TOKEN,
-                'httpMethod' => Request::HTTP_METHOD_POST,
+                'httpMethod' => \Magento\Framework\Webapi\Rest\Request::HTTP_METHOD_POST,
             ],
         ];
         $requestData = ['username' => $username, 'password' => $password];
