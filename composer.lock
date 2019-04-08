@@ -2015,9 +2015,9 @@
             "version": "1.1.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/inventory-composer-installer/magento-inventory-composer-installer-1.1.0.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/inventory-composer-installer/magento-inventory-composer-installer-1.1.0.zip",
                 "reference": null,
-                "shasum": "c52566b82926bb37487a2b3cb2c8ae091be9be9e"
+                "shasum": null
             },
             "require": {
                 "composer-plugin-api": "^1.1",
@@ -2035,6 +2035,7 @@
                     "Magento\\InventoryComposerInstaller\\": "src"
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -5735,9 +5736,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory/magento-module-inventory-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory/magento-module-inventory-1.0.4.zip",
                 "reference": null,
-                "shasum": "ce21405c9662b13edd131a3d52c562160f4d9f52"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -5753,6 +5754,7 @@
                     "Magento\\Inventory\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -5764,9 +5766,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-admin-ui/magento-module-inventory-admin-ui-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-admin-ui/magento-module-inventory-admin-ui-1.0.4.zip",
                 "reference": null,
-                "shasum": "ccdcdf958be78bf2b73b6d8fa558c42d07b87bbf"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -5785,6 +5787,7 @@
                     "Magento\\InventoryAdminUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -5796,9 +5799,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-api/magento-module-inventory-api-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-api/magento-module-inventory-api-1.0.4.zip",
                 "reference": null,
-                "shasum": "f6da7918669ed256fab8bcf90537a1c853abd612"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -5813,6 +5816,7 @@
                     "Magento\\InventoryApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -5824,9 +5828,9 @@
             "version": "1.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-bundle-product/magento-module-inventory-bundle-product-1.0.3.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-bundle-product/magento-module-inventory-bundle-product-1.0.3.zip",
                 "reference": null,
-                "shasum": "395b08dcd35f14465f338a9da1cf1953a68ca327"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -5845,6 +5849,7 @@
                     "Magento\\InventoryBundleProduct\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -5856,9 +5861,9 @@
             "version": "1.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-bundle-product-admin-ui/magento-module-inventory-bundle-product-admin-ui-1.0.3.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-bundle-product-admin-ui/magento-module-inventory-bundle-product-admin-ui-1.0.3.zip",
                 "reference": null,
-                "shasum": "295705218a4f38202a3ee913092503dc5ccb9074"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -5876,6 +5881,7 @@
                     "Magento\\InventoryBundleProductAdminUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -5887,9 +5893,9 @@
             "version": "1.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-cache/magento-module-inventory-cache-1.0.3.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-cache/magento-module-inventory-cache-1.0.3.zip",
                 "reference": null,
-                "shasum": "024f1d29d27adab967ae77e8b90ee208a06872e7"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -5909,6 +5915,7 @@
                     "Magento\\InventoryCache\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -5920,9 +5927,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-catalog/magento-module-inventory-catalog-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-catalog/magento-module-inventory-catalog-1.0.4.zip",
                 "reference": null,
-                "shasum": "cf9fc73a20f4d4929c67ffddc5046bcf92437c69"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -5950,6 +5957,7 @@
                     "Magento\\InventoryCatalog\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -5961,9 +5969,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-catalog-admin-ui/magento-module-inventory-catalog-admin-ui-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-catalog-admin-ui/magento-module-inventory-catalog-admin-ui-1.0.4.zip",
                 "reference": null,
-                "shasum": "828a6c4961021129eda07527d2d25eedac0e1bfa"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -5990,6 +5998,7 @@
                     "Magento\\InventoryCatalogAdminUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6001,9 +6010,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-catalog-api/magento-module-inventory-catalog-api-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-catalog-api/magento-module-inventory-catalog-api-1.0.4.zip",
                 "reference": null,
-                "shasum": "edc148f4419e249b37a316afefeef4b97c73bad1"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6018,6 +6027,7 @@
                     "Magento\\InventoryCatalogApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6029,9 +6039,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-catalog-search/magento-module-inventory-catalog-search-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-catalog-search/magento-module-inventory-catalog-search-1.0.4.zip",
                 "reference": null,
-                "shasum": "cbe649fee67d9740d1cf2f3d9ce874d1a6413f76"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6053,6 +6063,7 @@
                     "Magento\\InventoryCatalogSearch\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6064,9 +6075,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-configurable-product/magento-module-inventory-configurable-product-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-configurable-product/magento-module-inventory-configurable-product-1.0.4.zip",
                 "reference": null,
-                "shasum": "8d4c12fcdaa863c47893664e38fa1ad60e90ffb8"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6090,6 +6101,7 @@
                     "Magento\\InventoryConfigurableProduct\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6101,9 +6113,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-configurable-product-admin-ui/magento-module-inventory-configurable-product-admin-ui-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-configurable-product-admin-ui/magento-module-inventory-configurable-product-admin-ui-1.0.4.zip",
                 "reference": null,
-                "shasum": "18dfb9d8cb702ba1d2f465cbe0a5b8b57db07207"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6124,6 +6136,7 @@
                     "Magento\\InventoryConfigurableProductAdminUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6135,9 +6148,9 @@
             "version": "1.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-configurable-product-indexer/magento-module-inventory-configurable-product-indexer-1.0.3.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-configurable-product-indexer/magento-module-inventory-configurable-product-indexer-1.0.3.zip",
                 "reference": null,
-                "shasum": "540f1a1687b90b81168dca0f463fe12dae5e4e84"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6160,6 +6173,7 @@
                     "Magento\\InventoryConfigurableProductIndexer\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6171,9 +6185,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-configuration/magento-module-inventory-configuration-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-configuration/magento-module-inventory-configuration-1.0.4.zip",
                 "reference": null,
-                "shasum": "a9869aeddeede17ba0e442a989b809f86f0a86fe"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6193,6 +6207,7 @@
                     "Magento\\InventoryConfiguration\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6204,9 +6219,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-configuration-api/magento-module-inventory-configuration-api-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-configuration-api/magento-module-inventory-configuration-api-1.0.4.zip",
                 "reference": null,
-                "shasum": "d091e7523a1d18099360d9e49f86a3e04dba71b4"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6221,6 +6236,7 @@
                     "Magento\\InventoryConfigurationApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6232,9 +6248,9 @@
             "version": "1.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-distance-based-source-selection/magento-module-inventory-distance-based-source-selection-1.0.0.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-distance-based-source-selection/magento-module-inventory-distance-based-source-selection-1.0.0.zip",
                 "reference": null,
-                "shasum": "c9b93cdfd600a3b493753313ac617dfc0ce8f19c"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6253,6 +6269,7 @@
                     "Magento\\InventoryDistanceBasedSourceSelection\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6264,9 +6281,9 @@
             "version": "1.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-distance-based-source-selection-admin-ui/magento-module-inventory-distance-based-source-selection-admin-ui-1.0.0.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-distance-based-source-selection-admin-ui/magento-module-inventory-distance-based-source-selection-admin-ui-1.0.0.zip",
                 "reference": null,
-                "shasum": "b75ca632a07386dc60c5572e353fe4ba47e22d01"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6281,6 +6298,7 @@
                     "Magento\\InventoryDistanceBasedSourceSelectionAdminUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6292,9 +6310,9 @@
             "version": "1.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-distance-based-source-selection-api/magento-module-inventory-distance-based-source-selection-api-1.0.0.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-distance-based-source-selection-api/magento-module-inventory-distance-based-source-selection-api-1.0.0.zip",
                 "reference": null,
-                "shasum": "79d9c3f965d14612e95a4723000b1200d5a55b6c"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6310,6 +6328,7 @@
                     "Magento\\InventoryDistanceBasedSourceSelectionApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6321,9 +6340,9 @@
             "version": "1.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-elasticsearch/magento-module-inventory-elasticsearch-1.0.0.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-elasticsearch/magento-module-inventory-elasticsearch-1.0.0.zip",
                 "reference": null,
-                "shasum": "b46ff3807763c9967e60f67b155b47658387457b"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6345,6 +6364,7 @@
                     "Magento\\InventoryElasticsearch\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6356,9 +6376,9 @@
             "version": "1.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-grouped-product/magento-module-inventory-grouped-product-1.0.3.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-grouped-product/magento-module-inventory-grouped-product-1.0.3.zip",
                 "reference": null,
-                "shasum": "19c3284175d75dafd8ad97cc35e1e47a527c82da"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6377,6 +6397,7 @@
                     "Magento\\InventoryGroupedProduct\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6388,9 +6409,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-grouped-product-admin-ui/magento-module-inventory-grouped-product-admin-ui-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-grouped-product-admin-ui/magento-module-inventory-grouped-product-admin-ui-1.0.4.zip",
                 "reference": null,
-                "shasum": "d15af53f7bbdd213fdb0af1a16f0e50d968c7240"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6414,6 +6435,7 @@
                     "Magento\\InventoryGroupedProductAdminUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6425,9 +6447,9 @@
             "version": "1.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-grouped-product-indexer/magento-module-inventory-grouped-product-indexer-1.0.3.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-grouped-product-indexer/magento-module-inventory-grouped-product-indexer-1.0.3.zip",
                 "reference": null,
-                "shasum": "f8aeffd329e1b556ebf1dfcb3ce23103ae724980"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6451,6 +6473,7 @@
                     "Magento\\InventoryGroupedProductIndexer\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6462,9 +6485,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-import-export/magento-module-inventory-import-export-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-import-export/magento-module-inventory-import-export-1.0.4.zip",
                 "reference": null,
-                "shasum": "deefee73fd3c2bb9132e102cc272e4e2dce71088"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6488,6 +6511,7 @@
                     "Magento\\InventoryImportExport\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6499,9 +6523,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-indexer/magento-module-inventory-indexer-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-indexer/magento-module-inventory-indexer-1.0.4.zip",
                 "reference": null,
-                "shasum": "61bc4572359a82e85b10d2a60a2ec15b9e917a9d"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6525,6 +6549,7 @@
                     "Magento\\InventoryIndexer\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6536,9 +6561,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-low-quantity-notification/magento-module-inventory-low-quantity-notification-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-low-quantity-notification/magento-module-inventory-low-quantity-notification-1.0.4.zip",
                 "reference": null,
-                "shasum": "d6779810c096678fa838aff0dc1d5d4c04cb3af6"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6562,6 +6587,7 @@
                     "Magento\\InventoryLowQuantityNotification\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6573,9 +6599,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-low-quantity-notification-admin-ui/magento-module-inventory-low-quantity-notification-admin-ui-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-low-quantity-notification-admin-ui/magento-module-inventory-low-quantity-notification-admin-ui-1.0.4.zip",
                 "reference": null,
-                "shasum": "c61e759363d9cd39f6deae99ffcc2b8248831477"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6599,6 +6625,7 @@
                     "Magento\\InventoryLowQuantityNotificationAdminUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6610,9 +6637,9 @@
             "version": "1.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-low-quantity-notification-api/magento-module-inventory-low-quantity-notification-api-1.0.3.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-low-quantity-notification-api/magento-module-inventory-low-quantity-notification-api-1.0.3.zip",
                 "reference": null,
-                "shasum": "08c2657ee45ff0db1ca949437d7dd2da0da956a1"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6627,6 +6654,7 @@
                     "Magento\\InventoryLowQuantityNotificationApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6638,9 +6666,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-multi-dimensional-indexer-api/magento-module-inventory-multi-dimensional-indexer-api-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-multi-dimensional-indexer-api/magento-module-inventory-multi-dimensional-indexer-api-1.0.4.zip",
                 "reference": null,
-                "shasum": "630ab27e5d236a5f0d061a76f80656a248c36000"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6655,6 +6683,7 @@
                     "Magento\\InventoryMultiDimensionalIndexerApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6666,9 +6695,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-product-alert/magento-module-inventory-product-alert-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-product-alert/magento-module-inventory-product-alert-1.0.4.zip",
                 "reference": null,
-                "shasum": "e21d973d4e58ffa137824b1856cb4ea028fb5135"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6692,6 +6721,7 @@
                     "Magento\\InventoryProductAlert\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6703,9 +6733,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-reservations/magento-module-inventory-reservations-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-reservations/magento-module-inventory-reservations-1.0.4.zip",
                 "reference": null,
-                "shasum": "e527a03b2f48c13cea4081da2c7261bd69c4c92d"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6721,6 +6751,7 @@
                     "Magento\\InventoryReservations\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6732,9 +6763,9 @@
             "version": "1.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-reservations-api/magento-module-inventory-reservations-api-1.0.3.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-reservations-api/magento-module-inventory-reservations-api-1.0.3.zip",
                 "reference": null,
-                "shasum": "3955de482006ccbf8d823ec28e042a69862059da"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6749,6 +6780,7 @@
                     "Magento\\InventoryReservationsApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6760,9 +6792,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-sales/magento-module-inventory-sales-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-sales/magento-module-inventory-sales-1.0.4.zip",
                 "reference": null,
-                "shasum": "d0a9a3d09d41dc3c1e7cce3a07335935ae2b7fc6"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6794,6 +6826,7 @@
                     "Magento\\InventorySales\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6805,9 +6838,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-sales-admin-ui/magento-module-inventory-sales-admin-ui-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-sales-admin-ui/magento-module-inventory-sales-admin-ui-1.0.4.zip",
                 "reference": null,
-                "shasum": "13daf51ba16c09101f2574eb3dabf2221e81cb0a"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6832,6 +6865,7 @@
                     "Magento\\InventorySalesAdminUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6843,9 +6877,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-sales-api/magento-module-inventory-sales-api-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-sales-api/magento-module-inventory-sales-api-1.0.4.zip",
                 "reference": null,
-                "shasum": "6b8847fc22bd04015a9fc5717dfa94f6154d14b4"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6862,6 +6896,7 @@
                     "Magento\\InventorySalesApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6873,9 +6908,9 @@
             "version": "1.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-sales-frontend-ui/magento-module-inventory-sales-frontend-ui-1.0.3.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-sales-frontend-ui/magento-module-inventory-sales-frontend-ui-1.0.3.zip",
                 "reference": null,
-                "shasum": "ef1f4e1d67c0add33fa1a5b6da08bed1fd6a7b97"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6893,6 +6928,7 @@
                     "Magento\\InventorySalesFrontendUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6904,9 +6940,9 @@
             "version": "1.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-setup-fixture-generator/magento-module-inventory-setup-fixture-generator-1.0.0.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-setup-fixture-generator/magento-module-inventory-setup-fixture-generator-1.0.0.zip",
                 "reference": null,
-                "shasum": "207fe21748b53ad44330a5abc5dc79f1f2a24bed"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6921,6 +6957,7 @@
                     "Magento\\InventorySetupFixtureGenerator\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6932,9 +6969,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-shipping/magento-module-inventory-shipping-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-shipping/magento-module-inventory-shipping-1.0.4.zip",
                 "reference": null,
-                "shasum": "338a6df150d1ad1107cedba355c896b50275c431"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6957,6 +6994,7 @@
                     "Magento\\InventoryShipping\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -6968,9 +7006,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-shipping-admin-ui/magento-module-inventory-shipping-admin-ui-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-shipping-admin-ui/magento-module-inventory-shipping-admin-ui-1.0.4.zip",
                 "reference": null,
-                "shasum": "faa48dd7930974c8fd4c792d70f9ab71fd971b78"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -6993,6 +7031,7 @@
                     "Magento\\InventoryShippingAdminUi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -7004,9 +7043,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-source-deduction-api/magento-module-inventory-source-deduction-api-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-source-deduction-api/magento-module-inventory-source-deduction-api-1.0.4.zip",
                 "reference": null,
-                "shasum": "4f3167eb248232b18483dae7cde986cb4170239e"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -7024,6 +7063,7 @@
                     "Magento\\InventorySourceDeductionApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -7035,9 +7075,9 @@
             "version": "1.0.4",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-source-selection/magento-module-inventory-source-selection-1.0.4.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-source-selection/magento-module-inventory-source-selection-1.0.4.zip",
                 "reference": null,
-                "shasum": "3b8465fcb2f094c82eb86226581a74f8f6a23424"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -7054,6 +7094,7 @@
                     "Magento\\InventorySourceSelection\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -7065,9 +7106,9 @@
             "version": "1.1.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-inventory-source-selection-api/magento-module-inventory-source-selection-api-1.1.0.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-inventory-source-selection-api/magento-module-inventory-source-selection-api-1.1.0.zip",
                 "reference": null,
-                "shasum": "b7cf97c809075fe6fc2d95535a61c44f11440b77"
+                "shasum": null
             },
             "require": {
                 "magento/framework": "*",
@@ -7086,6 +7127,7 @@
                     "Magento\\InventorySourceSelectionApi\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -10330,9 +10372,9 @@
             "version": "2.0.2",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/msp/recaptcha/msp-recaptcha-2.0.2.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/msp/recaptcha/msp-recaptcha-2.0.2.zip",
                 "reference": null,
-                "shasum": "f037ce5e2b4202117adc4ec0ab93212ef31bff7e"
+                "shasum": null
             },
             "require": {
                 "google/recaptcha": "^1.1",
@@ -10351,6 +10393,7 @@
                     "MSP\\ReCaptcha\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0"
             ],
@@ -10367,9 +10410,9 @@
             "version": "3.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/msp/twofactorauth/msp-twofactorauth-3.0.0.0.zip",
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/msp/twofactorauth/msp-twofactorauth-3.0.0.zip",
                 "reference": null,
-                "shasum": "ba56d984ae834a8e87a76aed81bcaf6fd6d811b1"
+                "shasum": null
             },
             "require": {
                 "christian-riesen/base32": "^1.3",
@@ -10392,6 +10435,7 @@
                     "MSP\\TwoFactorAuth\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0"
             ],
@@ -11529,7 +11573,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -11645,7 +11689,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
@@ -11695,7 +11739,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -11744,7 +11788,7 @@
         },
         {
             "name": "symfony/inflector",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -11802,7 +11846,7 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
@@ -12130,16 +12174,16 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "d5e10532c51db0b657b1e25b2bd70acbcd13bbf9"
+                "reference": "5440dd2b5373073beee051bd978b58a0f543b192"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-access/zipball/d5e10532c51db0b657b1e25b2bd70acbcd13bbf9",
-                "reference": "d5e10532c51db0b657b1e25b2bd70acbcd13bbf9",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/5440dd2b5373073beee051bd978b58a0f543b192",
+                "reference": "5440dd2b5373073beee051bd978b58a0f543b192",
                 "shasum": ""
             },
             "require": {
@@ -12193,7 +12237,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2019-02-23T15:17:42+00:00"
+            "time": "2019-03-04T09:16:25+00:00"
         },
         {
             "name": "tedivm/jshrink",
@@ -18687,7 +18731,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -18744,16 +18788,16 @@
         },
         {
             "name": "symfony/config",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "7f70d79c7a24a94f8e98abb988049403a53d7b31"
+                "reference": "0e745ead307d5dcd4e163e94a47ec04b1428943f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/7f70d79c7a24a94f8e98abb988049403a53d7b31",
-                "reference": "7f70d79c7a24a94f8e98abb988049403a53d7b31",
+                "url": "https://api.github.com/repos/symfony/config/zipball/0e745ead307d5dcd4e163e94a47ec04b1428943f",
+                "reference": "0e745ead307d5dcd4e163e94a47ec04b1428943f",
                 "shasum": ""
             },
             "require": {
@@ -18803,7 +18847,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-23T15:17:42+00:00"
+            "time": "2019-04-01T14:03:25+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -18875,16 +18919,16 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "cdadb3765df7c89ac93628743913b92bb91f1704"
+                "reference": "1806e43ff6bff57398d33b326cd753a12d9f434f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/cdadb3765df7c89ac93628743913b92bb91f1704",
-                "reference": "cdadb3765df7c89ac93628743913b92bb91f1704",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/1806e43ff6bff57398d33b326cd753a12d9f434f",
+                "reference": "1806e43ff6bff57398d33b326cd753a12d9f434f",
                 "shasum": ""
             },
             "require": {
@@ -18944,11 +18988,11 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-23T15:17:42+00:00"
+            "time": "2019-03-30T15:58:42+00:00"
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -19005,16 +19049,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "850a667d6254ccf6c61d853407b16f21c4579c77"
+                "reference": "5b7ab6beaa5b053b8d3c9b13367ada9b292e12e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/850a667d6254ccf6c61d853407b16f21c4579c77",
-                "reference": "850a667d6254ccf6c61d853407b16f21c4579c77",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/5b7ab6beaa5b053b8d3c9b13367ada9b292e12e1",
+                "reference": "5b7ab6beaa5b053b8d3c9b13367ada9b292e12e1",
                 "shasum": ""
             },
             "require": {
@@ -19055,7 +19099,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-26T08:03:39+00:00"
+            "time": "2019-03-30T15:58:42+00:00"
         },
         {
             "name": "symfony/polyfill-php70",
@@ -19173,7 +19217,7 @@
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v4.2.4",
+            "version": "v4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
@@ -19223,16 +19267,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.23",
+            "version": "v3.4.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "57f1ce82c997f5a8701b89ef970e36bb657fd09c"
+                "reference": "212a27b731e5bfb735679d1ffaac82bd6a1dc996"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/57f1ce82c997f5a8701b89ef970e36bb657fd09c",
-                "reference": "57f1ce82c997f5a8701b89ef970e36bb657fd09c",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/212a27b731e5bfb735679d1ffaac82bd6a1dc996",
+                "reference": "212a27b731e5bfb735679d1ffaac82bd6a1dc996",
                 "shasum": ""
             },
             "require": {
@@ -19278,7 +19322,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-23T15:06:07+00:00"
+            "time": "2019-03-25T07:48:46+00:00"
         },
         {
             "name": "theseer/fdomdocument",
@@ -19322,16 +19366,16 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.1.0",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "cb2f008f3f05af2893a87208fe6a6c4985483f8b"
+                "reference": "1c42705be2b6c1de5904f8afacef5895cab44bf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/cb2f008f3f05af2893a87208fe6a6c4985483f8b",
-                "reference": "cb2f008f3f05af2893a87208fe6a6c4985483f8b",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/1c42705be2b6c1de5904f8afacef5895cab44bf8",
+                "reference": "1c42705be2b6c1de5904f8afacef5895cab44bf8",
                 "shasum": ""
             },
             "require": {
@@ -19358,7 +19402,7 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
-            "time": "2017-04-07T12:08:54+00:00"
+            "time": "2019-04-04T09:56:43+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
